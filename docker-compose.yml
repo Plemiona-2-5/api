@@ -1,0 +1,23 @@
+version: '3.8'
+
+services: 
+    mssql-server:
+        image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+        environment: 
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Str@ngPassword2020!"
+            MSSQL_PID: "Express"
+        ports: 
+            - "11433:1433"
+
+    tribal-wars-api:
+        build: 
+            context: TribalWars/src
+            dockerfile: WebApi/Dockerfile
+        ports: 
+            - "8080:80"
+        depends_on:
+            - mssql-server
+        environment: 
+            ConnectionStrings:Database: "Server= mssql-server; Database=TribalWarsDB; User=SA; Password=Str@ngPassword2021!"
+            
