@@ -14,7 +14,8 @@ namespace ApplicationCore.Entities
         public Guid UserId { get; set; }
         public string Nickname { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int TribeId { get; set; }
+        public virtual Village Village { get; set; }
+        public ICollection<TribePlayer> TribePlayer { get; set; }
 
     }
 }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Tribe
+    public class Tribe
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public virtual TribePlayer TribePlayers { get; set; }
     }
 }

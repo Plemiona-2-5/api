@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class AttackReport
+    public class AttackReport
     {
+        public int Id { get; set; }
+        public int AttackId { get; set; }
+        public DateTime AttackDate { get; set; }
+        public virtual Attack Attack { get; set; }
     }
 }

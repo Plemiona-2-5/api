@@ -11,8 +11,11 @@ namespace ApplicationCore.Entities
         public int Id { get; set; }
         public int MaterialId { get; set; }
         public int AttackId { get; set; }
-
         public int Quantity { get; set; }
+        public virtual Attack Attack { get; set; }
+        public virtual Material Material { get; set; }
+
+
 
     }
 }

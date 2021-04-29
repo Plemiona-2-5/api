@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Village
+    public class Village
     {
+        public int Id { get; set; }
+        public Guid PlayerId { get; set; }
+        public int CoordinateX { get; set; }
+        public int CoordinateY { get; set; }
+        public virtual Player Player { get; set; }
+        public virtual ICollection<Attack> Attacks { get; set; }
+        public virtual ICollection<BuildingQueue> BuildingQueues { get; set; }
+        public virtual ICollection<RecruitmentQueue> RecruitmentQueues{ get; set; }
+        public virtual ICollection<VillageBuilding> VillageBuildings { get; set; }
+        public virtual ICollection<VillageMaterial> VillageMaterials { get; set; }
+        public virtual ICollection<VillageUnit> VillageUnits { get; set; }
+
     }
 }

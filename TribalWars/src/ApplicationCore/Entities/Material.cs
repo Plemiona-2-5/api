@@ -9,6 +9,11 @@ namespace ApplicationCore.Entities
     public class Material
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<ArmyUnitRequiredMaterial> ArmyUnitRequiredMaterials { get; set; }
+        public virtual ICollection<BuildingRequiredMaterial> BuildingRequiredMaterials { get; set; }
+        public virtual ICollection<StolenMaterial> StolenMaterials { get; set; }
+        public virtual ICollection<VillageMaterial> VillageMaterials { get; set; }
 
     }
 }

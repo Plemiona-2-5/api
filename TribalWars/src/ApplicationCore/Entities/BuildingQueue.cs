@@ -13,5 +13,9 @@ namespace ApplicationCore.Entities
         public int BuildingId { get; set; }
         public DateTime StartDate { get; set; }
         public int Duration { get; set; }
+        public virtual Village Village { get; set; }
+        public virtual Building Building { get; set; }
+
+
     }
 }
