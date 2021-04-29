@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -9,5 +10,6 @@ namespace Infrastructure.Data
             : base(options)
         {
         }
+        public virtual DbSet<ArmyUnitRequiredMaterial>
     }
 }
