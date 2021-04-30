@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class AttackConfig : IEntityTypeConfiguration<Attack>
+    public class VillageStatisticConfig : IEntityTypeConfiguration<VillageStatistic>
     {
-        public void Configure(EntityTypeBuilder<Attack> builder)
+        public void Configure(EntityTypeBuilder<VillageStatistic> builder)
         {
             builder.HasKey(i => i.Id);
 
+            builder.HasOne<Village>(v => v.Village)
+                .WithOne(x => x.VillageStatistic)
+                .HasForeignKey<VillageStatistic>(v => v.VillageId);
         }
     }
 }

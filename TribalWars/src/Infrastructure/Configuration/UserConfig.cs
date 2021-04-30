@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    public class AttackConfig : IEntityTypeConfiguration<Attack>
+    public class UserConfig : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Attack> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(i => i.Id);
-
+            builder.HasOne<Player>(v => v.Player)
+                .WithOne()
+                .HasForeignKey<Player>(v => v.UserId);
         }
     }
 }
