@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -22,6 +23,12 @@ namespace Infrastructure.Configuration
             builder.HasOne<Attack>(a => a.Attack)
                 .WithMany(x => x.AttackVillages)
                 .HasForeignKey(a => a.AttackId);
+
+            builder
+                .Property(x => x.BattleSide)
+                .HasConversion
+                    (v => v.ToString(),
+                    v => (BattleSide)Enum.Parse(typeof(BattleSide), v));
         }
     }
 }
