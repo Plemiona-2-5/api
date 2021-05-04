@@ -13,15 +13,15 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<StolenMaterial> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(stolenMaterial => stolenMaterial.Id);
 
-            builder.HasOne<Attack>(a => a.Attack)
-                .WithMany(x => x.StolenMaterials)
-                .HasForeignKey(a => a.AttackId);
+            builder.HasOne<Attack>(stolenMaterial => stolenMaterial.Attack)
+                .WithMany(attack => attack.StolenMaterials)
+                .HasForeignKey(stolenMaterial => stolenMaterial.AttackId);
 
-            builder.HasOne<Material>(m => m.Material)
-               .WithMany(x => x.StolenMaterials)
-               .HasForeignKey(m => m.MaterialId);
+            builder.HasOne<Material>(stolenMaterial => stolenMaterial.Material)
+               .WithMany(material => material.StolenMaterials)
+               .HasForeignKey(stolenMaterial => stolenMaterial.MaterialId);
         }
     }
 }

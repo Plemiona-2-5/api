@@ -14,9 +14,9 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasOne<Player>(v => v.Player)
+            builder.HasOne<Player>(user => user.Player)
                 .WithOne()
-                .HasForeignKey<Player>(v => v.UserId);
+                .HasForeignKey<Player>(player => player.UserId);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Attack> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(attack => attack.Id);
         }
     }
 }

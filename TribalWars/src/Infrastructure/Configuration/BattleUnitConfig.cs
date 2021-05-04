@@ -15,23 +15,23 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<BattleUnit> builder)
         {
             builder
-                .HasKey(i => i.Id);
+                .HasKey(battleUnit => battleUnit.Id);
 
             builder
-                .HasOne<Attack>(a => a.Attack)
-                .WithMany(x => x.BattleUnits)
-                .HasForeignKey(a => a.AttackId);
+                .HasOne<Attack>(battleUnit => battleUnit.Attack)
+                .WithMany(attack => attack.BattleUnits)
+                .HasForeignKey(battleUnit => battleUnit.AttackId);
 
             builder
-               .HasOne<ArmyUnitType>(a => a.ArmyUnitType)
-               .WithMany(x => x.BattleUnits)
-               .HasForeignKey(a => a.ArmyUnitTypeId);
+               .HasOne<ArmyUnitType>(battleUnit => battleUnit.ArmyUnitType)
+               .WithMany(armyUnitType => armyUnitType.BattleUnits)
+               .HasForeignKey(battleUnit => battleUnit.ArmyUnitTypeId);
 
             builder
-                .Property(x => x.Side)
+                .Property(battleUnit => battleUnit.Side)
                 .HasConversion
-                    (v => v.ToString(),
-                    v => (BattleSide)Enum.Parse(typeof(BattleSide), v));
+                    (battleSide => battleSide.ToString(),
+                    battleSide => (BattleSide)Enum.Parse(typeof(BattleSide), battleSide));
         }
     }
 }

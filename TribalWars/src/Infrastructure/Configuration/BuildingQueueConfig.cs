@@ -14,17 +14,17 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<BuildingQueue> builder)
         {
             builder
-                .HasKey(i => i.Id);
+                .HasKey(buildingQueue => buildingQueue.Id);
 
             builder
-                .HasOne<Building>(b => b.Building)
-                .WithMany(x => x.BuildingQueues)
-                .HasForeignKey(b => b.BuildingId);
+                .HasOne<Building>(buildingQueue => buildingQueue.Building)
+                .WithMany(building => building.BuildingQueues)
+                .HasForeignKey(buildingQueue => buildingQueue.BuildingId);
 
             builder
-               .HasOne<Village>(v => v.Village)
-               .WithMany(x => x.BuildingQueues)
-               .HasForeignKey(v => v.VillageId);
+               .HasOne<Village>(buildingQueue => buildingQueue.Village)
+               .WithMany(village => village.BuildingQueues)
+               .HasForeignKey(buildingQueue => buildingQueue.VillageId);
         }
     }
 }

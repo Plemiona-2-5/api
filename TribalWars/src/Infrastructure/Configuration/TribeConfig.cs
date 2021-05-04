@@ -13,7 +13,7 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Tribe> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(tribe => tribe.Id);
         }
     }
 }

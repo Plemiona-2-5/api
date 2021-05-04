@@ -14,7 +14,7 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Building> builder)
         {
             builder
-                .HasKey(i => i.Id);
+                .HasKey(building => building.Id);
         }
     }
 }

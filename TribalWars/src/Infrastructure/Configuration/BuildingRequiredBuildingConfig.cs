@@ -13,11 +13,11 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<BuildingRequiredBuilding> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(buildingRequiredBuilding => buildingRequiredBuilding.Id);
 
-            builder.HasOne<Building>(b => b.Building)
-                .WithMany(x => x.BuildingRequiredBuildings)
-                .HasForeignKey(b => b.BuildingId);
+            builder.HasOne<Building>(buildingRequiredBuilding => buildingRequiredBuilding.Building)
+                .WithMany(building => building.BuildingRequiredBuildings)
+                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.BuildingId);
         }
     }
 }

@@ -14,21 +14,21 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<TribePlayer> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(tribePlayer => tribePlayer.Id);
 
-            builder.HasOne<Player>(p => p.Player)
-                .WithMany(x => x.TribePlayer)
-                .HasForeignKey(p => p.PlayerId);
+            builder.HasOne<Player>(tribePlayer => tribePlayer.Player)
+                .WithMany(player => player.TribePlayer)
+                .HasForeignKey(tribePlayer => tribePlayer.PlayerId);
 
-            builder.HasOne<Tribe>(p => p.Tribe)
-                .WithOne(x => x.TribePlayers)
-                .HasForeignKey<TribePlayer>(p => p.TribeId);
+            builder.HasOne<Tribe>(tribePlayer => tribePlayer.Tribe)
+                .WithOne(tribe => tribe.TribePlayers)
+                .HasForeignKey<TribePlayer>(tribePlayer => tribePlayer.TribeId);
 
             builder
-                .Property(x => x.TribeRole)
+                .Property(tribePlayer => tribePlayer.TribeRole)
                 .HasConversion
-                    (v => v.ToString(),
-                    v => (TribeRole)Enum.Parse(typeof(TribeRole), v));
+                    (tribeRole => tribeRole.ToString(),
+                    tribeRole => (TribeRole)Enum.Parse(typeof(TribeRole), tribeRole));
         }
     }
 }

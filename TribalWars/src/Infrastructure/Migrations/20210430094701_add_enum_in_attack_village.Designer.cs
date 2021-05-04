@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210430094701_add_enum_in_attackVillage")]
-    partial class add_enum_in_attackVillage
+    [Migration("20210430094701_add_enum_in_attack_vllage")]
+    partial class add_enum_in_attack_village
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

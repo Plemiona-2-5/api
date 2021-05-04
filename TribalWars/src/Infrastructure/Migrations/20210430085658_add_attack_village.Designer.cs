@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210430085658_add_attackVillage")]
-    partial class add_attackVillage
+    [Migration("20210430085658_add_attack_village")]
+    partial class add_attack_village
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

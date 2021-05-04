@@ -14,21 +14,21 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<AttackVillage> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(attackVillage => attackVillage.Id);
 
-            builder.HasOne<Village>(v => v.Village)
-                .WithMany(x => x.AttackVillages)
-                .HasForeignKey(v => v.VillageId);
+            builder.HasOne<Village>(attackVillage => attackVillage.Village)
+                .WithMany(village => village.AttackVillages)
+                .HasForeignKey(attackVillage => attackVillage.VillageId);
 
-            builder.HasOne<Attack>(a => a.Attack)
-                .WithMany(x => x.AttackVillages)
-                .HasForeignKey(a => a.AttackId);
+            builder.HasOne<Attack>(attackVillage => attackVillage.Attack)
+                .WithMany(attack => attack.AttackVillages)
+                .HasForeignKey(attackVillage => attackVillage.AttackId);
 
             builder
-                .Property(x => x.BattleSide)
+                .Property(attackVillage => attackVillage.BattleSide)
                 .HasConversion
-                    (v => v.ToString(),
-                    v => (BattleSide)Enum.Parse(typeof(BattleSide), v));
+                    (battleSide => battleSide.ToString(),
+                    battleSide => (BattleSide)Enum.Parse(typeof(BattleSide), battleSide));
         }
     }
 }

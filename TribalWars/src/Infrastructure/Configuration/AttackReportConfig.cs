@@ -13,11 +13,11 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<AttackReport> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(attackReport => attackReport.Id);
 
-            builder.HasOne<Attack>(a => a.Attack)
-                .WithOne(x => x.AttackReport)
-                .HasForeignKey<AttackReport>(a => a.AttackId);
+            builder.HasOne<Attack>(attackReport => attackReport.Attack)
+                .WithOne(attack => attack.AttackReport)
+                .HasForeignKey<AttackReport>(attackReport => attackReport.AttackId);
         }
 
     }

@@ -13,7 +13,7 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Material> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(material => material.Id);
         }
     }
 }

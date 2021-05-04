@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Migrations
 {
-    public partial class add_enum_in_attackVillage : Migration
+    public partial class add_enum_in_attack_village : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

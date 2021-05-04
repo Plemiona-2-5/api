@@ -13,11 +13,11 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Village> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(village => village.Id);
 
-            builder.HasOne<Player>(p => p.Player)
-                .WithOne(x => x.Village)
-                .HasForeignKey<Village>(v => v.PlayerId);
+            builder.HasOne<Player>(village => village.Player)
+                .WithOne(player => player.Village)
+                .HasForeignKey<Village>(village => village.PlayerId);
         }
     }
 }

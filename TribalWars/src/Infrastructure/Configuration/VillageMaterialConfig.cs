@@ -13,15 +13,15 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<VillageMaterial> builder)
         {
-            builder.HasKey(i => i.Id);
+            builder.HasKey(villageMaterial => villageMaterial.Id);
 
-            builder.HasOne<Material>(m => m.Material)
-                .WithMany(x => x.VillageMaterials)
-                .HasForeignKey(m => m.MaterialId);
+            builder.HasOne<Material>(villageMaterial => villageMaterial.Material)
+                .WithMany(material => material.VillageMaterials)
+                .HasForeignKey(villageMaterial => villageMaterial.MaterialId);
 
-            builder.HasOne<Village>(v => v.Village)
-                .WithMany(x => x.VillageMaterials)
-                .HasForeignKey(v => v.VillageId);
+            builder.HasOne<Village>(villageMaterial => villageMaterial.Village)
+                .WithMany(vilage => vilage.VillageMaterials)
+                .HasForeignKey(villageMaterial => villageMaterial.VillageId);
         }
     }
 }
