@@ -22,7 +22,6 @@ namespace Infrastructure.Configuration
             builder.HasOne<Building>(b => b.Building)
                 .WithMany(x => x.VillageBuildings)
                 .HasForeignKey(b => b.BuildingId);
-
         }
     }
 }

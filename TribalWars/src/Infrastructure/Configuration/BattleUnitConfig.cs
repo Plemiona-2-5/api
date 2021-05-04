@@ -32,7 +32,6 @@ namespace Infrastructure.Configuration
                 .HasConversion
                     (v => v.ToString(),
                     v => (BattleSide)Enum.Parse(typeof(BattleSide), v));
-
         }
     }
 }

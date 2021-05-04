@@ -14,6 +14,5 @@ namespace ApplicationCore.Entities
         public int WallDefence { get; set; }
         public int VillageId { get; set; }
         public virtual Village Village { get; set; }
-
     }
 }

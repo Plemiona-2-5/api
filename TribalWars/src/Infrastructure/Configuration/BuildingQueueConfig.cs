@@ -25,7 +25,6 @@ namespace Infrastructure.Configuration
                .HasOne<Village>(v => v.Village)
                .WithMany(x => x.BuildingQueues)
                .HasForeignKey(v => v.VillageId);
-
         }
     }
 }

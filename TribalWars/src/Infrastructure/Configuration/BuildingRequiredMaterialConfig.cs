@@ -22,8 +22,6 @@ namespace Infrastructure.Configuration
             builder.HasOne<Material>(m => m.Material)
                .WithMany(x => x.BuildingRequiredMaterials)
                .HasForeignKey(m => m.MaterialId);
-
-
         }
     }
 }

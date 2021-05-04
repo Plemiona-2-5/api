@@ -15,7 +15,5 @@ namespace ApplicationCore.Entities
         public float PerMinute { get; set; }
         public virtual Village Village { get; set; }
         public virtual Material Material { get; set; }
-
-
     }
 }

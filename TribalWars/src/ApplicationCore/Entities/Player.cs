@@ -16,6 +16,5 @@ namespace ApplicationCore.Entities
         public DateTime CreatedAt { get; set; }
         public virtual Village Village { get; set; }
         public ICollection<TribePlayer> TribePlayer { get; set; }
-
     }
 }

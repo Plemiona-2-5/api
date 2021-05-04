@@ -8,7 +8,7 @@ namespace ApplicationCore.Enums
 {
     public enum BattleSide
     {
-        attacker,
-        defender
+        Attacker,
+        Defender
     }
 }

@@ -8,7 +8,7 @@ namespace ApplicationCore.Enums
 {
     public enum TribeRole
     {
-        owner,
-        member
+        Owner,
+        Member
     }
 }

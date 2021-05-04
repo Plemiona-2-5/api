@@ -13,6 +13,5 @@ namespace ApplicationCore.Entities
         public int RequiredBuildingId { get; set; }
         public int Level { get; set; }
         public virtual Building Building { get; set; }
-
     }
 }

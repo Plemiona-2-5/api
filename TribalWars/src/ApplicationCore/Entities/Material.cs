@@ -14,6 +14,5 @@ namespace ApplicationCore.Entities
         public virtual ICollection<BuildingRequiredMaterial> BuildingRequiredMaterials { get; set; }
         public virtual ICollection<StolenMaterial> StolenMaterials { get; set; }
         public virtual ICollection<VillageMaterial> VillageMaterials { get; set; }
-
     }
 }

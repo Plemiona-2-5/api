@@ -16,7 +16,5 @@ namespace ApplicationCore.Entities
         public int Duration { get; set; }
         public virtual Village Village { get; set; }
         public virtual ArmyUnitType ArmyUnitType { get; set; }
-
-
     }
 }

@@ -14,7 +14,5 @@ namespace ApplicationCore.Entities
         public int Quantity { get; set; }
         public virtual Building Building { get; set; }
         public virtual Material Material { get; set; }
-
-
     }
 }

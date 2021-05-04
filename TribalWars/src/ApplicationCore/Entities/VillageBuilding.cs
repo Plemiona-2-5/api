@@ -14,7 +14,5 @@ namespace ApplicationCore.Entities
         public int CurrentLevel { get; set; }
         public virtual Village Village { get; set; }
         public virtual Building Building { get; set; }
-
-
     }
 }

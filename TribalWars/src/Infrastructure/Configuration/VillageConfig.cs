@@ -18,7 +18,6 @@ namespace Infrastructure.Configuration
             builder.HasOne<Player>(p => p.Player)
                 .WithOne(x => x.Village)
                 .HasForeignKey<Village>(v => v.PlayerId);
-
         }
     }
 }

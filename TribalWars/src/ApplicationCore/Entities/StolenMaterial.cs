@@ -14,8 +14,5 @@ namespace ApplicationCore.Entities
         public int Quantity { get; set; }
         public virtual Attack Attack { get; set; }
         public virtual Material Material { get; set; }
-
-
-
     }
 }

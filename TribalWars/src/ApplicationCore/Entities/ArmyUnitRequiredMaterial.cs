@@ -14,6 +14,5 @@ namespace ApplicationCore.Entities
         public int Quantity { get; set; }
         public virtual ArmyUnitType ArmyUnitType { get; set; }
         public virtual Material Material { get; set; }
-
     }
 }

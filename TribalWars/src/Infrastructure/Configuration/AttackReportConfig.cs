@@ -18,7 +18,6 @@ namespace Infrastructure.Configuration
             builder.HasOne<Attack>(a => a.Attack)
                 .WithOne(x => x.AttackReport)
                 .HasForeignKey<AttackReport>(a => a.AttackId);
-
         }
 
     }
