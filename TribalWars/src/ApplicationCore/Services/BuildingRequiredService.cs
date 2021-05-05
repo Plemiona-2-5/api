@@ -18,11 +18,7 @@ namespace ApplicationCore.Services
 
         public bool CanBuild(int buildingId, int level, int villageId)
         {
-            if(HasMaterial(buildingId, level, villageId) && HasRequiredBuilding(buildingId, villageId))
-            {
-                return true;
-            }
-            return false;
+            return HasMaterial(buildingId, level, villageId) && HasRequiredBuilding(buildingId, villageId);
         }
 
         public bool HasMaterial(int buildingId, int level, int villageId)

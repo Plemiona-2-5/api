@@ -21,14 +21,10 @@ namespace Infrastructure.Repository
         {
             var requiredMaterial = RequiredMaterials(level, buildingId);
             var playerMaterials = _context.VillageMaterials.Where(material => material.VillageId == villageId).ToList();
-            if (playerMaterials.Count < requiredMaterial.Count())
+            foreach (var required in requiredMaterial)
             {
-                return false;
-            }
-            foreach (var material in playerMaterials)
-            {
-                var required = requiredMaterial.FirstOrDefault(m => m.MaterialId == material.MaterialId);
-                if(material.Quantity < required.Quantity)
+                var material = playerMaterials.FirstOrDefault(m => m.MaterialId == required.MaterialId);
+                if(material == null || material.Quantity < required.Quantity)
                 {
                     return false;
                 }
@@ -40,15 +36,11 @@ namespace Infrastructure.Repository
         {
             var requiredBuilding = RequiredBuilding(buildingId);
             var villageBuilding = _context.VillageBuildings.Where(building => building.VillageId == villageId).ToList();
-            foreach (var building in villageBuilding)
+            foreach (var required in requiredBuilding)
             {
-                var required = requiredBuilding.FirstOrDefault(b => b.BuildingId == building.BuildingId);
-                if (required == null)
-                {
-                    return false;
-                }
-                else if(required.Level > building.CurrentLevel)
-                {
+                var building = villageBuilding.FirstOrDefault(b => b.BuildingId == required.BuildingId);
+                if (building == null || required.Level > building.CurrentLevel) 
+                { 
                     return false;
                 }
             }
@@ -65,13 +57,10 @@ namespace Infrastructure.Repository
             var materials = _context.BuildingRequiredMaterials.Include(material => material.Material).Where(material => material.BuildingId == buildingId).ToList();
             foreach (var material in materials)
             {
-                if (material.Material.Name == MaterialType.People.ToString())
+                material.Quantity *= level;
+                if (material.Material.Name != MaterialType.People.ToString()) 
                 {
-                    material.Quantity = level * material.Quantity;
-                }
-                else
-                {
-                    material.Quantity = level * level * material.Quantity;
+                    material.Quantity *= level;
                 }
             }
             return materials;
