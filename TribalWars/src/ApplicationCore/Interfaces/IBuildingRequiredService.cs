@@ -13,6 +13,6 @@ namespace ApplicationCore.Interfaces
         IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int id);
         bool HasMaterial(int buildingId, int level, int villageId);
         bool HasRequiredBuilding(int buildingId, int villageId);
-        bool CanBuild();
+        bool CanBuild(int buildingId, int level, int villageId);
     }
 }

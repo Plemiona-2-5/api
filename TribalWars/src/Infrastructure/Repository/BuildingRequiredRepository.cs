@@ -17,7 +17,6 @@ namespace Infrastructure.Repository
         {
         }
 
-
         public bool HasMaterial(int buildingId, int level, int villageId)
         {
             var requiredMaterial = RequiredMaterials(level, buildingId);
@@ -54,7 +53,6 @@ namespace Infrastructure.Repository
                 }
             }
             return true;
-
         }
 
         public IEnumerable<BuildingRequiredBuilding> RequiredBuilding(int buildingId)
