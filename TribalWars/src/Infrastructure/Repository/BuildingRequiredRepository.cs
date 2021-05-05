@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace Infrastructure.Repository
             var materials = _context.BuildingRequiredMaterials.Include(material => material.Material).Where(material => material.BuildingId == id).ToListAsync();
             foreach (var material in await materials)
             {
-                if (material.Material.Name == "People")
+                if (material.Material.Name == MaterialType.People.ToString())
                 {
                     material.Quantity = level * material.Quantity;
                 }
