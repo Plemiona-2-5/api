@@ -10,5 +10,6 @@ namespace ApplicationCore.Interfaces
     public interface IBuildingRequiredService
     {
         Task<IEnumerable<BuildingRequiredBuilding>> RequiredBuilding(int id);
+        Task<IEnumerable<BuildingRequiredMaterial>> RequiredMaterials(int level, int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,8 @@ namespace Infrastructure.Repository
 {
     public abstract class BaseRepository
     {
-        protected readonly AppDbContext _context;
-
-        public BaseRepository(AppDbContext context)
+        protected readonly ApplicationDbContext _context;
+        public BaseRepository(ApplicationDbContext context)
         {
             _context = context;
         }

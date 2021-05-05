@@ -19,5 +19,10 @@ namespace ApplicationCore.Services
         {
             return await _buildingRequiredRepository.RequiredBuilding(id);
         }
+
+        public async Task<IEnumerable<BuildingRequiredMaterial>> RequiredMaterials(int level, int id)
+        {
+            return await _buildingRequiredRepository.RequiredMaterials(level, id);
+        }
     }
 }

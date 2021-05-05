@@ -9,6 +9,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingRequiredRepository
     {
-        BuildingRequiredBuilding RequiredBuilding(int id);
+        Task<IEnumerable<BuildingRequiredBuilding>> RequiredBuilding(int id);
+        Task<IEnumerable<BuildingRequiredMaterial>> RequiredMaterials(int level, int id);
     }
 }
