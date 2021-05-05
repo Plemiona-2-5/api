@@ -16,9 +16,13 @@ namespace ApplicationCore.Services
             _buildingRequiredRepository = buildingRequiredRepository;
         }
 
-        public bool CanBuild()
+        public bool CanBuild(int buildingId, int level, int villageId)
         {
-            throw new NotImplementedException();
+            if(HasMaterial(buildingId, level, villageId) && HasRequiredBuilding(buildingId, villageId))
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool HasMaterial(int buildingId, int level, int villageId)
@@ -26,14 +30,14 @@ namespace ApplicationCore.Services
            return _buildingRequiredRepository.HasMaterial(buildingId, level, villageId);
         }
 
-        public bool HasRequiredBuilding()
+        public bool HasRequiredBuilding(int buildingId, int villageId)
         {
-            throw new NotImplementedException();
+            return _buildingRequiredRepository.HasRequiredBuilding(buildingId, villageId);
         }
 
-        public async Task<IEnumerable<BuildingRequiredBuilding>> RequiredBuilding(int id)
+        public IEnumerable<BuildingRequiredBuilding> RequiredBuilding(int id)
         {
-            return await _buildingRequiredRepository.RequiredBuilding(id);
+            return _buildingRequiredRepository.RequiredBuilding(id);
         }
 
         public IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int id)

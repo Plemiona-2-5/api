@@ -9,10 +9,10 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingRequiredService
     {
-        Task<IEnumerable<BuildingRequiredBuilding>> RequiredBuilding(int id);
+        IEnumerable<BuildingRequiredBuilding> RequiredBuilding(int id);
         IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int id);
         bool HasMaterial(int buildingId, int level, int villageId);
-        bool HasRequiredBuilding();
+        bool HasRequiredBuilding(int buildingId, int villageId);
         bool CanBuild();
     }
 }
