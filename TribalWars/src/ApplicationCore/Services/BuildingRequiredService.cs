@@ -15,14 +15,30 @@ namespace ApplicationCore.Services
         {
             _buildingRequiredRepository = buildingRequiredRepository;
         }
+
+        public bool CanBuild()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasMaterial(int buildingId, int level, int villageId)
+        {
+           return _buildingRequiredRepository.HasMaterial(buildingId, level, villageId);
+        }
+
+        public bool HasRequiredBuilding()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<BuildingRequiredBuilding>> RequiredBuilding(int id)
         {
             return await _buildingRequiredRepository.RequiredBuilding(id);
         }
 
-        public async Task<IEnumerable<BuildingRequiredMaterial>> RequiredMaterials(int level, int id)
+        public IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int id)
         {
-            return await _buildingRequiredRepository.RequiredMaterials(level, id);
+            return _buildingRequiredRepository.RequiredMaterials(level, id);
         }
     }
 }
