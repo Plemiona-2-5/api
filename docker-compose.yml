@@ -5,7 +5,7 @@ services:
         image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
         environment: 
             ACCEPT_EULA: "Y"
-            SA_PASSWORD: "Str@ngPassword2020!"
+            SA_PASSWORD: "Str@ngPassword2021!"
             MSSQL_PID: "Express"
         ports: 
             - "11433:1433"
@@ -20,4 +20,7 @@ services:
             - mssql-server
         environment: 
             ConnectionStrings:Database: "Server= mssql-server; Database=TribalWarsDB; User=SA; Password=Str@ngPassword2021!"
+            JwtSettings:Secret: "32-character-long-signin-key"
+            JwtSettings:JwtTokenLifetimeInSeconds: "84600"
+            JwtSettings:Issuer: "tribal-wars-api"
             
