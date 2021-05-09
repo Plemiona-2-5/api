@@ -14,6 +14,7 @@ namespace Infrastructure.Repository
         public VillageBuildingRepository(ApplicationDbContext context) : base(context)
         {
         }
+
         public IEnumerable<VillageBuilding> GetVillageBuildings(int villageId)
         {
             var villageBuildings = Context.VillageBuildings

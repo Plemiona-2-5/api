@@ -14,6 +14,7 @@ namespace Infrastructure.Repository
         public VillageMaterialRepository(ApplicationDbContext context) : base(context)
         {
         }
+
         public IEnumerable<VillageMaterial> GetVillageMaterials(int villageId)
         {
             var playerMaterials = Context.VillageMaterials
