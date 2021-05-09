@@ -22,5 +22,4 @@ namespace Infrastructure.Repository
             return playerMaterials;
         }
     }
-
 }
