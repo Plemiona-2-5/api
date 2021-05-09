@@ -21,6 +21,5 @@ namespace Infrastructure.Repository
                 .ToList();
             return villageBuildings;
         }
-
     }
 }

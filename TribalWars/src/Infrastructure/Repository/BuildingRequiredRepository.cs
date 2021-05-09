@@ -24,7 +24,7 @@ namespace Infrastructure.Repository
                     .ToList();
         }
 
-        public IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int level, int buildingId)
+        public IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int buildingId)
         {
             var materials = Context.BuildingRequiredMaterials
                             .Include(material => material.Material)
