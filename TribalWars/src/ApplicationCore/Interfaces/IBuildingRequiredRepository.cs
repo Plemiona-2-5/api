@@ -9,9 +9,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingRequiredRepository
     {
-        IEnumerable<BuildingRequiredBuilding> RequiredBuilding(int id);
-        IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int id);
-        bool HasMaterial(int buildingId, int level, int villageId);
-        bool HasRequiredBuilding(int buildingId, int villageId);
+        IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId);
+        IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int buildingId);
     }
 }

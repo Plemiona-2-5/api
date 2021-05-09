@@ -9,10 +9,10 @@ namespace Infrastructure.Repository
 {
     public abstract class BaseRepository
     {
-        protected readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext Context;
         public BaseRepository(ApplicationDbContext context)
         {
-            _context = context;
+            Context = context;
         }
     }
 }

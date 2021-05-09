@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Enums
 {
-    public enum MaterialType
+    public enum ResourceType
     {
         People,
         Wood,

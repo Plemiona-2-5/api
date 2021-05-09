@@ -17,52 +17,20 @@ namespace Infrastructure.Repository
         {
         }
 
-        public bool HasMaterial(int buildingId, int level, int villageId)
+        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
         {
-            var requiredMaterial = RequiredMaterials(level, buildingId);
-            var playerMaterials = _context.VillageMaterials.Where(material => material.VillageId == villageId).ToList();
-            foreach (var required in requiredMaterial)
-            {
-                var material = playerMaterials.FirstOrDefault(m => m.MaterialId == required.MaterialId);
-                if(material == null || material.Quantity < required.Quantity)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return Context.BuildingRequiredBuildings
+                    .Where(building => building.BuildingId == buildingId)
+                    .ToList();
         }
 
-        public bool HasRequiredBuilding(int buildingId, int villageId)
+        public IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int level, int buildingId)
         {
-            var requiredBuilding = RequiredBuilding(buildingId);
-            var villageBuilding = _context.VillageBuildings.Where(building => building.VillageId == villageId).ToList();
-            foreach (var required in requiredBuilding)
-            {
-                var building = villageBuilding.FirstOrDefault(b => b.BuildingId == required.BuildingId);
-                if (building == null || required.Level > building.CurrentLevel) 
-                { 
-                    return false;
-                }
-            }
-            return true;
-        }
+            var materials = Context.BuildingRequiredMaterials
+                            .Include(material => material.Material)
+                            .Where(material => material.BuildingId == buildingId)
+                            .ToList();
 
-        public IEnumerable<BuildingRequiredBuilding> RequiredBuilding(int buildingId)
-        {
-            return _context.BuildingRequiredBuildings.Where(building => building.BuildingId == buildingId).ToList();
-        }
-
-        public IEnumerable<BuildingRequiredMaterial> RequiredMaterials(int level, int buildingId)
-        {
-            var materials = _context.BuildingRequiredMaterials.Include(material => material.Material).Where(material => material.BuildingId == buildingId).ToList();
-            foreach (var material in materials)
-            {
-                material.Quantity *= level;
-                if (material.Material.Name != MaterialType.People.ToString()) 
-                {
-                    material.Quantity *= level;
-                }
-            }
             return materials;
         }
     }

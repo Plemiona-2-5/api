@@ -26,6 +26,10 @@ namespace Infrastructure
             services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
             services.AddScoped<IBuildingRequiredService, BuildingRequiredService>();
 
+            services.AddScoped<IVillageBuildingRepository, VillageBuildingRepository>();
+
+            services.AddScoped<IVillageMaterialRepository, VillageMaterialRepository>();
+
             return services;
         }
     }
