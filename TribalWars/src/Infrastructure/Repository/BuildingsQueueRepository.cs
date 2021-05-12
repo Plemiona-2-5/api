@@ -1,5 +1,5 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Repository;
+using ApplicationCore.Interfaces;
 using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -15,22 +15,23 @@ namespace Infrastructure.Repository
         {
         }
 
-        public List<BuildingQueue> QueueBuildings(int vilageId)
+        public List<BuildingQueue> GetQueueBuildings(int vilageId)
         {
-            return Context.BuildingQueues.Where(buildingQueue => buildingQueue.VillageId == vilageId).ToList();
+            return Context.BuildingQueues
+                .Where(buildingQueue => buildingQueue.VillageId == vilageId)
+                .ToList();
         }
 
-        public void AddingBuildingsToQueue(BuildingQueue buildingQueue)
-        {
-            if (QueueBuildings(buildingQueue.VillageId).Count < 1)
-            {
-                Context.BuildingQueues.Add(buildingQueue);
-            }
+        public void AddBuildingsToQueue(BuildingQueue buildingQueue)
+        {          
+            Context.BuildingQueues
+                .Add(buildingQueue);
         }
 
-        public void DeletingBuildingsFromQueue(BuildingQueue buildingQueue)
+        public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
         {
-            Context.BuildingQueues.Remove(buildingQueue);
+            Context.BuildingQueues
+                .Remove(buildingQueue);
         }
 
     }

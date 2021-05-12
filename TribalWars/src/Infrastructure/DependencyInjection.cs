@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Identity;
-using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Repository;
+using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
 
 namespace Infrastructure
 {
@@ -22,8 +23,10 @@ namespace Infrastructure
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
             services.AddScoped<IBuildingsQueueRepository, BuildingsQueueRepository>();
+            services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
+
+            services.AddScoped<IBuildingsRepository, BuildingsRepository>();
 
             return services;
         }

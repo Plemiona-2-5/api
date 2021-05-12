@@ -1,12 +1,12 @@
 ﻿using ApplicationCore.Entities;
 using System.Collections.Generic;
 
-namespace ApplicationCore.Interfaces.Repository
+namespace ApplicationCore.Interfaces
 {
     public interface IBuildingsQueueRepository
     {
-        void AddingBuildingsToQueue(BuildingQueue buildingQueue);
-        void DeletingBuildingsFromQueue(BuildingQueue buildingQueue);
-        List<BuildingQueue> QueueBuildings(int vilageId);
+        List<BuildingQueue> GetQueueBuildings(int vilageId);
+        void AddBuildingsToQueue(BuildingQueue buildingQueue);
+        void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
     }
 }
