@@ -14,7 +14,7 @@ namespace Infrastructure.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Building, BuildingViewModel>();
-            CreateMap<BuildingRequiredBuilding, RequiredBuildingViewModel>();
+            CreateMap<BuildingRequiredBuilding, RequiredBuildingViewModel>(); 
         }
     }
 }

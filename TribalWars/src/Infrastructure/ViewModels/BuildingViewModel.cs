@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Infrastructure.ViewModels
         public int MaxLevel { get; set; }
         public string Type { get; set; }
         public int BaseValue { get; set; }
+        public virtual ICollection<RequiredBuildingViewModel> BuildingRequiredBuildings { get; set; }
     }
 }

@@ -13,6 +13,5 @@ namespace Infrastructure.ViewModels
         public int BuildingId { get; set; }
         public int RequiredBuildingId { get; set; }
         public int Level { get; set; }
-        public virtual BuildingViewModel Building { get; set; }
     }
 }

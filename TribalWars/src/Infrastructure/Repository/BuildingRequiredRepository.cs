@@ -17,12 +17,17 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
+        public IEnumerable<Building> GetRequiredBuildings(int buildingId)
         {
-            return Context.BuildingRequiredBuildings
+            return Context.Buildings
+                .Where(building => building.Id == buildingId)
+                .Include(x => x.BuildingRequiredBuildings)
+                .ToList();
+                
+                /*Context.BuildingRequiredBuildings
                     .Where(building => building.BuildingId == buildingId)
                     .Include(building => building.Building)
-                    .ToList();
+                    .ToList();*/
         }
 
         public IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int buildingId)
