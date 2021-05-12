@@ -1,7 +1,10 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using AutoMapper;
+using Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApi.Controllers
 {
@@ -9,16 +12,19 @@ namespace WebApi.Controllers
     public class RequiredBuildingsController : Controller
     {
         private readonly IBuildingRequiredService _buildingRequiredService;
-
-        public RequiredBuildingsController(IBuildingRequiredService buildingRequiredService)
+        private readonly IMapper _mapper;
+        public RequiredBuildingsController(IBuildingRequiredService buildingRequiredService, IMapper mapper)
         {
             _buildingRequiredService = buildingRequiredService;
+            _mapper = mapper;
         }
 
         [HttpGet("api/v1/getRequiredBuildings")]
-        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
+        public ActionResult<RequiredBuildingViewModel> GetRequiredBuildings(int buildingId)
         {
-            return _buildingRequiredService.GetRequiredBuildings(buildingId);
+            var requiredBuildings = _buildingRequiredService.GetRequiredBuildings(buildingId).ToList();     
+            var mappedRequiredBuildings =  _mapper.Map<List<RequiredBuildingViewModel>>(requiredBuildings);
+            return Ok(mappedRequiredBuildings);
         }
     }
 }

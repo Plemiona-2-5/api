@@ -7,6 +7,7 @@ using Infrastructure.Identity;
 using ApplicationCore.Interfaces;
 using Infrastructure.Repository;
 using ApplicationCore.Services;
+using Infrastructure.ViewModels;
 
 namespace Infrastructure
 {
