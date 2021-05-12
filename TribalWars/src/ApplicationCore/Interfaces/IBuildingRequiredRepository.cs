@@ -9,7 +9,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingRequiredRepository
     {
-        IEnumerable<Building> GetRequiredBuildings(int buildingId);
+        IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId);
         IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int buildingId);
     }
 }

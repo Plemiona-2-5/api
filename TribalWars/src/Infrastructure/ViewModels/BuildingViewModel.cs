@@ -15,6 +15,5 @@ namespace Infrastructure.ViewModels
         public int MaxLevel { get; set; }
         public string Type { get; set; }
         public int BaseValue { get; set; }
-        public virtual ICollection<RequiredBuildingViewModel> BuildingRequiredBuildings { get; set; }
     }
 }

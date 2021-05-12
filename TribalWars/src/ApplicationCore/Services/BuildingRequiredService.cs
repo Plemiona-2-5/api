@@ -24,7 +24,7 @@ namespace ApplicationCore.Services
             _villageMaterialRepository = villageMaterialRepository;
         }
 
-     /*   public bool CanBuild(int buildingId, int level, int villageId)
+        public bool CanBuild(int buildingId, int level, int villageId)
         {
             return HasMaterial(buildingId, level, villageId) && HasRequiredBuilding(buildingId, villageId);
         }
@@ -60,9 +60,9 @@ namespace ApplicationCore.Services
                 }
             }
             return true;
-        }*/
+        }
 
-        public IEnumerable<Building> GetRequiredBuildings(int buildingId)
+        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
         {
             return _buildingRequiredRepository.GetRequiredBuildings(buildingId);
         }

@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         public ActionResult<RequiredBuildingViewModel> GetRequiredBuildings(int buildingId)
         {
             var requiredBuildings = _buildingRequiredService.GetRequiredBuildings(buildingId).ToList();     
-            var mappedRequiredBuildings =  _mapper.Map<List<BuildingViewModel>>(requiredBuildings);
+            var mappedRequiredBuildings =  _mapper.Map<List<RequiredBuildingViewModel>>(requiredBuildings);
             return Ok(mappedRequiredBuildings);
         }
     }
