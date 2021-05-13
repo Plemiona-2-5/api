@@ -16,15 +16,15 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BuildingId = table.Column<int>(type: "int", nullable: false),
+                    ReqBuildingId = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RequiredBuildings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RequiredBuildings_Buildings_BuildingId",
-                        column: x => x.BuildingId,
+                        name: "FK_RequiredBuildings_Buildings_ReqBuildingId",
+                        column: x => x.ReqBuildingId,
                         principalTable: "Buildings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -36,9 +36,10 @@ namespace Infrastructure.Migrations
                 column: "RequiredBuildingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequiredBuildings_BuildingId",
+                name: "IX_RequiredBuildings_ReqBuildingId",
                 table: "RequiredBuildings",
-                column: "BuildingId");
+                column: "ReqBuildingId",
+                unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_BuildingRequiredBuildings_RequiredBuildings_RequiredBuildingId",

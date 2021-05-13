@@ -360,15 +360,16 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuildingId")
+                    b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.Property<int>("Level")
+                    b.Property<int>("ReqBuildingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuildingId");
+                    b.HasIndex("ReqBuildingId")
+                        .IsUnique();
 
                     b.ToTable("RequiredBuildings");
                 });
@@ -933,11 +934,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.RequiredBuilding", b =>
                 {
-                    b.HasOne("ApplicationCore.Entities.Building", null)
-                        .WithMany("RequiredBuildings")
-                        .HasForeignKey("BuildingId")
+                    b.HasOne("ApplicationCore.Entities.Building", "ReqBuilding")
+                        .WithOne("RequiredBuildings")
+                        .HasForeignKey("ApplicationCore.Entities.RequiredBuilding", "ReqBuildingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ReqBuilding");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.StolenMaterial", b =>

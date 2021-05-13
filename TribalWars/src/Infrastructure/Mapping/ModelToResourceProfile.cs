@@ -13,8 +13,11 @@ namespace Infrastructure.Mapping
     {
         public ModelToResourceProfile()
         {
-            CreateMap<Building, BuildingViewModel>();
-            CreateMap<BuildingRequiredBuilding, RequiredBuildingViewModel>(); 
+            CreateMap<BuildingRequiredBuilding, BuildingRequiredBuildingViewModel>()
+                .ForMember(dest => dest.Level, opt => opt
+                .MapFrom(src => src.RequiredBuilding.Level))
+                .ForMember(dest => dest.Name, opt => opt
+                .MapFrom(src => src.RequiredBuilding.ReqBuilding.Name)); 
         }
     }
 }

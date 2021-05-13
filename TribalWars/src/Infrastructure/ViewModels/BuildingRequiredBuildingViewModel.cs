@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.ViewModels
 {
-    public class BuildingViewModel
+    public class BuildingRequiredBuildingViewModel
     {
         public int Id { get; set; }
+        public int BuildingId { get; set; }
+        public int RequiredBuildingId { get; set; }
+        public int Level { get; set; }
         public string Name { get; set; }
-        public int ConstructionTime { get; set; }
-        public int MaxLevel { get; set; }
-        public string Type { get; set; }
-        public int BaseValue { get; set; }
     }
 }

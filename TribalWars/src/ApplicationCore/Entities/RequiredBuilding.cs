@@ -9,8 +9,9 @@ namespace ApplicationCore.Entities
     public class RequiredBuilding
     {
         public int Id { get; set; }
-        public int BuildingId { get; set; }
+        public int ReqBuildingId { get; set; }
         public int Level { get; set; }
         public virtual ICollection<BuildingRequiredBuilding> Buildings { get; set; }
+        public virtual Building ReqBuilding { get; set; }
     }
 }
