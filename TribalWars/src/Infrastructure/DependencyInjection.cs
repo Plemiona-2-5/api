@@ -1,3 +1,4 @@
+using System.Reflection;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,7 @@ using Infrastructure.Identity;
 using ApplicationCore.Interfaces;
 using Infrastructure.Repository;
 using ApplicationCore.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure
 {
@@ -18,10 +20,12 @@ namespace Infrastructure
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
 
-
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
