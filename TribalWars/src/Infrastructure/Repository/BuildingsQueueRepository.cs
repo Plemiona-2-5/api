@@ -33,6 +33,5 @@ namespace Infrastructure.Repository
             Context.BuildingQueues
                 .Remove(buildingQueue);
         }
-
     }
 }

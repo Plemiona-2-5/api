@@ -9,6 +9,9 @@ namespace ApplicationCore
         public static IServiceCollection AddApplicationCore(this IServiceCollection services)
         {
             services.AddTransient<IJwtService, JwtService>();
+
+            services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
+
             return services;
         }
     }

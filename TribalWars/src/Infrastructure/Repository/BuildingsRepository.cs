@@ -15,10 +15,10 @@ namespace Infrastructure.Repository
         {
         }
 
-        public Building SelectedBuilding(int idBuilding)
+        public Building GetBuildingById(int buildingId)
         {
             return Context.Buildings
-                .FirstOrDefault(building => building.Id == idBuilding);
+                .FirstOrDefault(building => building.Id == buildingId);
         }
     }
 }

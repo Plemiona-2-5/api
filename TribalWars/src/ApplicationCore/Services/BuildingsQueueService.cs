@@ -20,38 +20,43 @@ namespace ApplicationCore.Services
             _buildingsRepository = buildingsRepository;
         }
 
-        public BuildingQueue CreateBuildingQueue(int idVillage, int idBuilding)
+        public BuildingQueue CreateBuildingQueue(int viillageId, int buildingId)
         {
-            var building = _buildingsRepository.SelectedBuilding(idBuilding);
-            BuildingQueue buildingQueue = new BuildingQueue();
-            buildingQueue.VillageId = idVillage;
-            buildingQueue.BuildingId = idBuilding;
-            buildingQueue.StartDate = DateTime.Now;
-            buildingQueue.Duration = building.ConstructionTime;
+            var building = _buildingsRepository.GetBuildingById(buildingId);
+            BuildingQueue buildingQueue = new BuildingQueue
+            {
+                VillageId = viillageId,
+                BuildingId = buildingId,
+                StartDate = DateTime.Now,
+                Duration = building.ConstructionTime
+            };            
             return buildingQueue;
         }
+
         public List<BuildingQueue> QueueBuildings(int vilageId)
         {
             return _buildingsQueueRepository
                 .GetQueueBuildings(vilageId);
         }
-        public void AddBuildingsToQueue(int idVillage,int idBuilding)
+
+        public void AddBuildingsToQueue(int viillageId,int buildingId)
         {
-            var buildingsInQueue = _buildingsQueueRepository.GetQueueBuildings(idVillage);
-            var buildingQueue = CreateBuildingQueue(idVillage, idBuilding);
+            var buildingsInQueue = _buildingsQueueRepository.GetQueueBuildings(viillageId);
+            var buildingQueue = CreateBuildingQueue(viillageId, buildingId);
             if (buildingsInQueue.Count < 1 )
             {                
                 _buildingsQueueRepository
                     .AddBuildingsToQueue(buildingQueue);
             }
         }
+
         public void ConstructionCompletion()
         {
 
         }
+
         public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
         {
-
             _buildingsQueueRepository
                 .RemoveBuildingsFromQueue(buildingQueue);
         }

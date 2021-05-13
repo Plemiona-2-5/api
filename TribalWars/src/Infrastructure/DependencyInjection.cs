@@ -24,7 +24,6 @@ namespace Infrastructure
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IBuildingsQueueRepository, BuildingsQueueRepository>();
-            services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
 
             services.AddScoped<IBuildingsRepository, BuildingsRepository>();
 
