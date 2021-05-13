@@ -35,6 +35,8 @@ namespace Infrastructure.Data
         public virtual DbSet<VillageUnit> VillageUnits { get; set; }
         public virtual DbSet<TribePlayer> TribePlayers { get; set; }
         public virtual DbSet<AttackVillage> AttackVillages { get; set; }
+        public virtual DbSet<RequiredBuilding> RequiredBuildings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -61,6 +63,7 @@ namespace Infrastructure.Data
                 .ApplyConfiguration(new VillageConfig())
                 .ApplyConfiguration(new VillageStatisticConfig())
                 .ApplyConfiguration(new VillageUnitConfig())
+                .ApplyConfiguration(new BuildingRequiredConfig())
                 .ApplyConfiguration(new AttackVillageConfig());
         }
 

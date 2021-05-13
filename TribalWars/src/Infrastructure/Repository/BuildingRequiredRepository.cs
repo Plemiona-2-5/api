@@ -21,7 +21,8 @@ namespace Infrastructure.Repository
         {
             return Context.BuildingRequiredBuildings
                     .Where(building => building.BuildingId == buildingId)
-                    .Include(building => building.Building)
+                    .Include(building => building.RequiredBuilding)
+                    .ThenInclude(building => building.Buildings)
                     .ToList();
         }
 

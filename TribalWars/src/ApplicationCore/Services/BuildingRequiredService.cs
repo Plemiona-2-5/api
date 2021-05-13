@@ -54,7 +54,7 @@ namespace ApplicationCore.Services
             {
                 var building = villageBuildings
                     .FirstOrDefault(b => b.BuildingId == required.BuildingId);
-                if (building == null || required.Level > building.CurrentLevel)
+                if (building == null || required.RequiredBuilding.Level > building.CurrentLevel)
                 {
                     return false;
                 }
