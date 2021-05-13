@@ -1,5 +1,4 @@
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +21,8 @@ namespace Infrastructure
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
             services.AddScoped<IBuildingRequiredService, BuildingRequiredService>();
