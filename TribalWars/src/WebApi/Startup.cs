@@ -95,7 +95,7 @@ namespace WebApi
                 });
             });
 
-            services.AddAutoMapper(typeof(ModelToResourceProfile));
+            services.AddAutoMapper(typeof(EntityToViewModelProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

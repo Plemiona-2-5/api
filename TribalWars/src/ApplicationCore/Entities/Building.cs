@@ -19,6 +19,6 @@ namespace ApplicationCore.Entities
         public virtual ICollection<BuildingRequiredBuilding> BuildingRequiredBuildings { get; set; }
         public virtual ICollection<VillageBuilding> VillageBuildings { get; set; }
         public virtual ICollection<BuildingRequiredMaterial> BuildingRequiredMaterials { get; set; }
-        public virtual RequiredBuilding RequiredBuildings { get; set; }
+        public virtual RequiredBuilding RequiredBuilding { get; set; }
     }
 }

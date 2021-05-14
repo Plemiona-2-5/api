@@ -12,20 +12,13 @@ namespace Infrastructure.Configuration
 
             builder.HasOne<Building>(buildingRequiredBuilding => buildingRequiredBuilding.Building)
                 .WithMany(building => building.BuildingRequiredBuildings)
-                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.BuildingId);
+                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.BuildingId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<RequiredBuilding>(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuilding)
                 .WithMany(requiredBuildings => requiredBuildings.Buildings)
-                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuildingId);
-
-            builder.HasOne(rbr => rbr.RequiredBuilding)
-                    .WithMany(rb => rb.Buildings)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(rbr => rbr.Building)
-                    .WithMany(rb => rb.BuildingRequiredBuildings)
-                    .OnDelete(DeleteBehavior.Cascade);
-
+                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuildingId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

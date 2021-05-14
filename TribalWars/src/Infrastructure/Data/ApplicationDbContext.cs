@@ -63,7 +63,7 @@ namespace Infrastructure.Data
                 .ApplyConfiguration(new VillageConfig())
                 .ApplyConfiguration(new VillageStatisticConfig())
                 .ApplyConfiguration(new VillageUnitConfig())
-                .ApplyConfiguration(new BuildingRequiredConfig())
+                .ApplyConfiguration(new RequiredBuildingConfig())
                 .ApplyConfiguration(new AttackVillageConfig());
         }
 

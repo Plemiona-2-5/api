@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using ApplicationCore.ViewModels;
 using AutoMapper;
-using Infrastructure.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace WebApi.Controllers
     {
         private readonly IBuildingRequiredService _buildingRequiredService;
         private readonly IMapper _mapper;
+
         public RequiredBuildingsController(IBuildingRequiredService buildingRequiredService, IMapper mapper)
         {
             _buildingRequiredService = buildingRequiredService;

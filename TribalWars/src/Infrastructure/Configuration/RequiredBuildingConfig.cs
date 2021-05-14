@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
-    class BuildingRequiredConfig : IEntityTypeConfiguration<RequiredBuilding>
+    class RequiredBuildingConfig : IEntityTypeConfiguration<RequiredBuilding>
     {
         public void Configure(EntityTypeBuilder<RequiredBuilding> builder)
         {
@@ -20,7 +20,7 @@ namespace Infrastructure.Configuration
                 .HasForeignKey(brb => brb.RequiredBuildingId);
 
             builder.HasOne<Building>(rb => rb.ReqBuilding)
-                .WithOne(brb => brb.RequiredBuildings)
+                .WithOne(brb => brb.RequiredBuilding)
                 .HasForeignKey<RequiredBuilding>(brb => brb.ReqBuildingId);
         }
     }
