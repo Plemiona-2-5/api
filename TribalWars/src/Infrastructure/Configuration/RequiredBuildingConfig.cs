@@ -15,7 +15,7 @@ namespace Infrastructure.Configuration
         {
             builder.HasKey(rb => rb.Id);
 
-            builder.HasMany(rb => rb.Buildings)
+            builder.HasMany(rb => rb.BuildingRequiredBuildings)
                 .WithOne(brb => brb.RequiredBuilding)
                 .HasForeignKey(brb => brb.RequiredBuildingId);
 

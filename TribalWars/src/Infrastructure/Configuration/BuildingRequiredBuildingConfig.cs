@@ -16,7 +16,7 @@ namespace Infrastructure.Configuration
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<RequiredBuilding>(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuilding)
-                .WithMany(requiredBuildings => requiredBuildings.Buildings)
+                .WithMany(requiredBuildings => requiredBuildings.BuildingRequiredBuildings)
                 .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuildingId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
