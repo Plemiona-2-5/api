@@ -16,7 +16,7 @@ namespace Infrastructure.Mapping
                 .ForMember(dest => dest.Level, opt => opt
                 .MapFrom(src => src.RequiredBuilding.Level))
                 .ForMember(dest => dest.Name, opt => opt
-                .MapFrom(src => src.RequiredBuilding.ReqBuilding.Name)); 
+                .MapFrom(src => src.RequiredBuilding.Building.Name)); 
         }
     }
 }

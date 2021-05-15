@@ -22,7 +22,7 @@ namespace Infrastructure.Repository
             return Context.BuildingRequiredBuildings
                     .Where(building => building.BuildingId == buildingId)
                     .Include(building => building.RequiredBuilding)
-                    .ThenInclude(building => building.ReqBuilding)
+                    .ThenInclude(building => building.Building)
                     .ToList();
         }
 
