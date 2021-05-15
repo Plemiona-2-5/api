@@ -20,7 +20,7 @@ namespace ApplicationCore.Services
 
         public void CreateTribe(Tribe tribe, Guid playerId)
         {
-            if (tribe != null)
+            if (tribe != null && !TribeExist(tribe.Name))
             {
                 TribePlayer tribePlayer = new TribePlayer();
                 tribePlayer.PlayerId = playerId;
@@ -29,9 +29,18 @@ namespace ApplicationCore.Services
 
                 if (tribePlayer.TribeId != 0)
                 {
-                     _repository.AddPlayerToTribe(tribePlayer);
+                    _repository.AddPlayerToTribe(tribePlayer);
                 }
             }
+        }
+
+        public bool TribeExist(string tribeName)
+        {
+             if(_repository.TribeExist(tribeName) != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

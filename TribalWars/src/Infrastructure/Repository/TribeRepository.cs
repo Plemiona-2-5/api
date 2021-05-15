@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -15,12 +16,18 @@ namespace Infrastructure.Repository
         {
             Context.Tribes.Add(tribe);
             Context.SaveChanges();
+
             return tribe.Id;
         }
         public void AddPlayerToTribe(TribePlayer player)
         {
             Context.TribePlayers.Add(player);
             Context.SaveChanges();
+        }
+
+        public Tribe TribeExist(string tribeName)
+        {
+            return Context.Tribes.FirstOrDefault(tribe => tribe.Name == tribeName)
         }
     }
 }
