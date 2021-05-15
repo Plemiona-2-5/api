@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Interfaces
+namespace ApplicationCore.Interfaces.Services
 {
-    public interface IVillageMaterialRepository
+    public interface ITribeService
     {
-        IEnumerable<VillageMaterial> GetVillageMaterials(int villageId);
+        void CreateTribe(Tribe tribe, Guid playerId);
     }
 }
