@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("api/v1/getRequiredBuildings")]
-        public ActionResult<BuildingRequiredBuildingViewModel> GetRequiredBuildings(int buildingId)
+        public ActionResult<BuildingRequiredBuildingViewModel> GetRequiredBuildings([FromBody]int buildingId)
         {
             var requiredBuildings = _buildingRequiredService.GetRequiredBuildings(buildingId).ToList();
             var mappedRequiredBuildings =  _mapper.Map<List<BuildingRequiredBuildingViewModel>>(requiredBuildings);
