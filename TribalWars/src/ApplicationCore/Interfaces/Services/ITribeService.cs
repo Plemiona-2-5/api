@@ -9,7 +9,7 @@ namespace ApplicationCore.Interfaces.Services
 {
     public interface ITribeService
     {
-        void CreateTribe(Tribe tribe, Guid playerId);
+        string CreateTribe(Tribe tribe, Guid playerId);
         bool TribeExist(string tribeName);
     }
 }

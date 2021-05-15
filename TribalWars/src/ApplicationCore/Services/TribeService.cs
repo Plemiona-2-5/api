@@ -18,7 +18,7 @@ namespace ApplicationCore.Services
             _repository = repository;
         }
 
-        public void CreateTribe(Tribe tribe, Guid playerId)
+        public string CreateTribe(Tribe tribe, Guid playerId)
         {
             if (tribe != null && !TribeExist(tribe.Name))
             {
@@ -30,8 +30,12 @@ namespace ApplicationCore.Services
                 if (tribePlayer.TribeId != 0)
                 {
                     _repository.AddPlayerToTribe(tribePlayer);
+
+                    return "A tribe was created!";
                 }
+                return "Error while creating tribe!";
             }
+            return "Tribe already exist!";
         }
 
         public bool TribeExist(string tribeName)

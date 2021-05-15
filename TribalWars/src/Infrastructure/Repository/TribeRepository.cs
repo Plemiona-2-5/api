@@ -27,7 +27,7 @@ namespace Infrastructure.Repository
 
         public Tribe TribeExist(string tribeName)
         {
-            return Context.Tribes.FirstOrDefault(tribe => tribe.Name == tribeName)
+            return Context.Tribes.FirstOrDefault(tribe => tribe.Name == tribeName);
         }
     }
 }

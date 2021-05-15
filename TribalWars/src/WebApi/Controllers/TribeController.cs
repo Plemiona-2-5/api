@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using ApplicationCore.Response;
 
 namespace WebApi.Controllers
 {
@@ -23,11 +24,10 @@ namespace WebApi.Controllers
         [HttpPost("api/v1/Tribe/CreateTribe")]
         public async Task<IActionResult> CreateTribe([FromBody] TribeDto dto)
         {
-            Guid userId = new Guid();
-
+            Guid userId = new Guid(); // user session soon
             var tribe = _mapper.Map<Tribe>(dto);
-            _tribeService.CreateTribe(tribe, userId);
-            return Ok();
+
+            return Ok(new Response(_tribeService.CreateTribe(tribe, userId)));
         }
     }
 }
