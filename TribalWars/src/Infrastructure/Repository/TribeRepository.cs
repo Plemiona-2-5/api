@@ -16,7 +16,6 @@ namespace Infrastructure.Repository
         {
             Context.Tribes.Add(tribe);
             Context.SaveChanges();
-
             return tribe.Id;
         }
         public void AddPlayerToTribe(TribePlayer player)
@@ -25,7 +24,7 @@ namespace Infrastructure.Repository
             Context.SaveChanges();
         }
 
-        public Tribe TribeExist(string tribeName)
+        public Tribe SelectedTribe(string tribeName)
         {
             return Context.Tribes.FirstOrDefault(tribe => tribe.Name == tribeName);
         }

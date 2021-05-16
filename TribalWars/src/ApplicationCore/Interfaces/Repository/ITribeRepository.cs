@@ -11,6 +11,6 @@ namespace ApplicationCore.Interfaces.Repository
     {
         int CreateTribe(Tribe tribe);
         void AddPlayerToTribe(TribePlayer player);
-        Tribe TribeExist(string tribeName);
+        Tribe SelectedTribe(string tribeName);
     }
 }
