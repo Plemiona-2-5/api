@@ -17,23 +17,23 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
+        public async Task<IEnumerable<BuildingRequiredBuilding>> GetRequiredBuildings(int buildingId)
         {
-            return Context.BuildingRequiredBuildings
+            return await Context.BuildingRequiredBuildings
                     .Where(building => building.BuildingId == buildingId)
                     .Include(building => building.RequiredBuilding)
                     .ThenInclude(building => building.Building)
-                    .ToList();
+                    .ToListAsync();
         }
 
-        public IEnumerable<BuildingRequiredMaterial> GetBaseRequiredMaterials(int buildingId)
+        public async Task<IEnumerable<BuildingRequiredMaterial>> GetBaseRequiredMaterials(int buildingId)
         {
             var materials = Context.BuildingRequiredMaterials
                             .Include(material => material.Material)
                             .Where(material => material.BuildingId == buildingId)
-                            .ToList();
+                            .ToListAsync();
 
-            return materials;
+            return await materials;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<VillageBuilding> GetVillageBuildings(int villageId)
+        public async Task<IEnumerable<VillageBuilding>> GetVillageBuildings(int villageId)
         {
-            var villageBuildings = Context.VillageBuildings
+            var villageBuildings = await Context.VillageBuildings
                 .Where(building => building.VillageId == villageId)
-                .ToList();
+                .ToListAsync();
             return villageBuildings;
         }
     }

@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
@@ -21,9 +22,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("api/v1/getRequiredBuildings")]
-        public ActionResult<BuildingRequiredBuildingViewModel> GetRequiredBuildings([FromBody]int buildingId)
+        public async Task<ActionResult<BuildingRequiredBuildingViewModel>> GetRequiredBuildings([FromHeader]int buildingId)
         {
-            var requiredBuildings = _buildingRequiredService.GetRequiredBuildings(buildingId).ToList();
+            var requiredBuildings = await _buildingRequiredService.GetRequiredBuildings(buildingId);
             var mappedRequiredBuildings =  _mapper.Map<List<BuildingRequiredBuildingViewModel>>(requiredBuildings);
             return Ok(mappedRequiredBuildings);
         }
