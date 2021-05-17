@@ -40,11 +40,7 @@ namespace ApplicationCore.Services
 
         public bool TribeExist(string tribeName)
         {
-             if(_repository.SelectedTribe(tribeName) != null)
-            {
-                return true;
-            }
-            return false;
+            return _repository.SelectedTribe(tribeName) != null;
         }
     }
 }
