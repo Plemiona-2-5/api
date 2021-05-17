@@ -10,8 +10,8 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public int BuildingId { get; set; }
-        public virtual Building Building { get; set; }
         public int RequiredBuildingId { get; set; }
+        public virtual Building Building { get; set; }
         public virtual RequiredBuilding RequiredBuilding { get; set; }
     }
 }
