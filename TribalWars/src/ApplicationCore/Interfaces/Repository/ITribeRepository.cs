@@ -10,7 +10,7 @@ namespace ApplicationCore.Interfaces.Repository
     public interface ITribeRepository
     {
         int CreateTribe(Tribe tribe);
-        void AddPlayerToTribe(TribePlayer player);
-        Tribe SelectedTribe(string tribeName);
+        Task AddPlayerToTribe(TribePlayer player);
+        Task<Tribe> SelectedTribe(string tribeName);
     }
 }

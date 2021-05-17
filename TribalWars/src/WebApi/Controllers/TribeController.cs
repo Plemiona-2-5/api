@@ -27,7 +27,7 @@ namespace WebApi.Controllers
             Guid userId = new Guid(); // user session soon
             var tribe = _mapper.Map<Tribe>(dto);
 
-            return Ok(new Response(_tribeService.CreateTribe(tribe, userId)));
+            return Ok(new Response(await _tribeService.CreateTribe(tribe, userId)));
         }
     }
 }
