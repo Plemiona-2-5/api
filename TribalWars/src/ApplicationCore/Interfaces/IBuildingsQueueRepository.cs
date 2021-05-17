@@ -1,14 +1,15 @@
 ﻿using ApplicationCore.Entities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces
 {
     public interface IBuildingsQueueRepository
     {
-        List<BuildingQueue> GetQueueBuildings(int vilageId);
-        BuildingQueue GetBuildingQueueByUserId(Guid userId);
-        void AddBuildingsToQueue(BuildingQueue buildingQueue);
+        Task<List<BuildingQueue>> GetQueueBuildings(int vilageId);
+        Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId);
+        Task AddBuildingsToQueue(BuildingQueue buildingQueue);
         void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
     }
 }

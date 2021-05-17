@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,24 @@ namespace Infrastructure.Repository
         {
         }
 
-        public List<BuildingQueue> GetQueueBuildings(int villageId)
+        public async Task<List<BuildingQueue>> GetQueueBuildings(int villageId)
         {
-            return Context.BuildingQueues
+            return await Context.BuildingQueues
                 .Where(buildingQueue => buildingQueue.VillageId == villageId)
-                .ToList();
+                .ToListAsync();
         }
 
-        public BuildingQueue GetBuildingQueueByUserId(Guid userId)
+        public async Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId)
         {
-            return Context.BuildingQueues
-                .FirstOrDefault(buildingQueue => buildingQueue.Village.Player.UserId == userId);
+            return await Context.BuildingQueues
+                .FirstOrDefaultAsync(buildingQueue => buildingQueue.Village.Player.UserId == userId);
         }
 
-        public void AddBuildingsToQueue(BuildingQueue buildingQueue)
+        public async Task AddBuildingsToQueue(BuildingQueue buildingQueue)
         {          
-            Context.BuildingQueues
-                .Add(buildingQueue);
-            Context.SaveChanges();
+            await Context.BuildingQueues
+                .AddAsync(buildingQueue);
+            await Context.SaveChangesAsync();
         }
 
         public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)

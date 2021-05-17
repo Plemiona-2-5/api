@@ -7,5 +7,7 @@ namespace WebApi.Hubs
 {
     public interface IBuildingsQueueClient
     {
+        Task ConstructionCompleted(string message);
+        Task RequestQueueRefresh(string message);
     }
 }

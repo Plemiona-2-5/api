@@ -1,11 +1,7 @@
-﻿
-using ApplicationCore.Entities;
+﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -16,10 +12,10 @@ namespace Infrastructure.Repository
         {
         }
 
-        public Building GetBuildingById(int buildingId)
+        public async Task<Building> GetBuildingById(int buildingId)
         {
-            return Context.Buildings
-                .FirstOrDefault(building => building.Id == buildingId);
+            return await Context.Buildings
+                .FirstOrDefaultAsync(building => building.Id == buildingId);
         }
     }
 }

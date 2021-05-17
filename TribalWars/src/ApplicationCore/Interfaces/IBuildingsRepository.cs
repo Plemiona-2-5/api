@@ -9,6 +9,6 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingsRepository
     {
-        Building GetBuildingById(int idBuilding);
+        Task<Building> GetBuildingById(int idBuilding);
     }
 }

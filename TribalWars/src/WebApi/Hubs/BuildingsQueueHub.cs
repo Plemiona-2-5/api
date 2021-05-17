@@ -18,15 +18,14 @@ namespace WebApi.Hubs
         }
 
         [Authorize]
-        public async Task<bool> BuildingWasConstructed()
+        public async Task BuildingWasConstructed()
         {
             Guid userId =  Guid.Parse(Context.UserIdentifier);
-            var buildingQueue = _buildingsQueueService.BuildingQueueByUserId(userId);
+            var buildingQueue = await _buildingsQueueService.BuildingQueueByUserId(userId);
             if (_buildingsQueueService.ConstructionCompletion(buildingQueue))
             {
-                return true;
-            }
-            return false;
+                await Clients.Caller.ConstructionCompleted("The construction of the building has been completed");
+            }            
         }
     }
 }

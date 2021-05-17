@@ -9,11 +9,11 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingsQueueService
     {
-        BuildingQueue CreateBuildingQueue(int idVillage, int idBuilding);
-        List<BuildingQueue> QueueBuildings(int vilageId);
-        BuildingQueue BuildingQueueByUserId(Guid userId);
-        void AddBuildingsToQueue(int idVillage, int idBuilding);
+        Task<BuildingQueue> CreateBuildingQueue(int idVillage, int idBuilding);
+        Task<List<BuildingQueue>> QueueBuildings(int vilageId);
+        Task<BuildingQueue> BuildingQueueByUserId(Guid userId);
+        Task AddBuildingsToQueue(int idVillage, int idBuilding);
         void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
-        public bool ConstructionCompletion(BuildingQueue buildingQueue);
+        bool ConstructionCompletion(BuildingQueue buildingQueue);
     }
 }
