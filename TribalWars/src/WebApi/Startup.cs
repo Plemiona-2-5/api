@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ApplicationCore;
 using ApplicationCore.Settings;
+using ApplicationCore.Workers;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Hubs;
 
 namespace WebApi
 {
@@ -31,6 +33,7 @@ namespace WebApi
             services.AddApplicationCore();
             services.AddSignalR();
             services.AddAutoMapper(typeof(Startup));
+            services.AddHostedService<QueueTimerWorker>();
 
             services.AddControllers();
 
@@ -115,7 +118,11 @@ namespace WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => 
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<BuildingsQueueHub>("hub/buildingsQueue");
+            });
         }
     }
 }

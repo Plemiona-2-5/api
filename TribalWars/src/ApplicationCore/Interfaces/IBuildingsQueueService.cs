@@ -11,7 +11,9 @@ namespace ApplicationCore.Interfaces
     {
         BuildingQueue CreateBuildingQueue(int idVillage, int idBuilding);
         List<BuildingQueue> QueueBuildings(int vilageId);
+        BuildingQueue BuildingQueueByUserId(Guid userId);
         void AddBuildingsToQueue(int idVillage, int idBuilding);
         void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
+        public bool ConstructionCompletion(BuildingQueue buildingQueue);
     }
 }

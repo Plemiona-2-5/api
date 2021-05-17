@@ -20,12 +20,12 @@ namespace ApplicationCore.Services
             _buildingsRepository = buildingsRepository;
         }
 
-        public BuildingQueue CreateBuildingQueue(int viillageId, int buildingId)
+        public BuildingQueue CreateBuildingQueue(int viilageId, int buildingId)
         {
             var building = _buildingsRepository.GetBuildingById(buildingId);
             BuildingQueue buildingQueue = new BuildingQueue
             {
-                VillageId = viillageId,
+                VillageId = viilageId,
                 BuildingId = buildingId,
                 StartDate = DateTime.Now,
                 Duration = building.ConstructionTime
@@ -33,16 +33,20 @@ namespace ApplicationCore.Services
             return buildingQueue;
         }
 
-        public List<BuildingQueue> QueueBuildings(int vilageId)
+        public List<BuildingQueue> QueueBuildings(int villageId)
         {
             return _buildingsQueueRepository
-                .GetQueueBuildings(vilageId);
+                .GetQueueBuildings(villageId);
+        }
+        public BuildingQueue BuildingQueueByUserId(Guid userId)
+        {
+            return _buildingsQueueRepository.GetBuildingQueueByUserId(userId);
         }
 
-        public void AddBuildingsToQueue(int viillageId,int buildingId)
+        public void AddBuildingsToQueue(int villageId,int buildingId)
         {
-            var buildingsInQueue = _buildingsQueueRepository.GetQueueBuildings(viillageId);
-            var buildingQueue = CreateBuildingQueue(viillageId, buildingId);
+            var buildingsInQueue = _buildingsQueueRepository.GetQueueBuildings(villageId);
+            var buildingQueue = CreateBuildingQueue(villageId, buildingId);
             if (buildingsInQueue.Count < 1 )
             {                
                 _buildingsQueueRepository
@@ -50,9 +54,15 @@ namespace ApplicationCore.Services
             }
         }
 
-        public void ConstructionCompletion()
+        public bool ConstructionCompletion(BuildingQueue buildingQueue)
         {
-
+            DateTime timeOfCompletion = buildingQueue.StartDate.AddMinutes(buildingQueue.Duration);
+            if(timeOfCompletion == DateTime.Now)
+            {
+                _buildingsQueueRepository.RemoveBuildingsFromQueue(buildingQueue);
+                return true;
+            }
+            return false;
         }
 
         public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
