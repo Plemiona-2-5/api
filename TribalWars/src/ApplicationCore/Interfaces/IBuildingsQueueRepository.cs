@@ -7,7 +7,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBuildingsQueueRepository
     {
-        Task<List<BuildingQueue>> GetQueueBuildings(int vilageId);
+        Task<List<BuildingQueue>> GetQueueBuildings(int villageId);
         Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId);
         Task AddBuildingsToQueue(BuildingQueue buildingQueue);
         void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
