@@ -43,6 +43,23 @@ namespace Infrastructure.Identity
                 : ServiceResult.Failure(identityResult.Errors.Select(error => error.Description));
         }
 
+        public async Task<UserDto> GetUserDtoByCredentialsAsync(string email, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return null;
+
+            var hasValidPassword = await _userManager.CheckPasswordAsync(user, password);
+
+            if (!hasValidPassword)
+                return null;
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
+        }
+
         public async Task<bool> UserExistsByUserNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
