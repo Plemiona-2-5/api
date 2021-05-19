@@ -8,11 +8,11 @@ namespace ApplicationCore.Response
 {
     public class Response
     {
-        public string ResponseMessage { get; set; }
+        public string Message { get; set; }
 
-        public Response(string responseMessage)
+        public Response(string message)
         {
-            ResponseMessage = responseMessage;
+            Message = message;
         }
     }
 }

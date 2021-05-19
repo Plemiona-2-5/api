@@ -24,7 +24,8 @@ namespace WebApi.Controllers
         [HttpPost("api/v1/Tribe/CreateTribe")]
         public async Task<IActionResult> CreateTribe([FromBody] TribeDto dto)
         {
-            Guid userId = new Guid(); // user session soon
+            //TODO: Read userId from session
+            Guid userId = new Guid(); 
             var tribe = _mapper.Map<Tribe>(dto);
 
             return Ok(new Response(await _tribeService.CreateTribe(tribe, userId)));

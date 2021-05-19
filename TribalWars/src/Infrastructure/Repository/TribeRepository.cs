@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,21 +13,21 @@ namespace Infrastructure.Repository
         {
         }
 
-        public int CreateTribe(Tribe tribe)
+        public async Task<int> CreateTribe(Tribe tribe)
         {
-            Context.Tribes.Add(tribe);
-            Context.SaveChanges();
+            await Context.Tribes.AddAsync(tribe);
+            await Context.SaveChangesAsync();
             return tribe.Id;
         }
-        public void AddPlayerToTribe(TribePlayer player)
+        public async Task AddPlayerToTribe(TribePlayer player)
         {
-            Context.TribePlayers.Add(player);
-            Context.SaveChanges();
+            await Context.TribePlayers.AddAsync(player);
+            await Context.SaveChangesAsync();
         }
 
-        public Tribe SelectedTribe(string tribeName)
+        public async Task<Tribe> SelectedTribe(string tribeName)
         {
-            return Context.Tribes.FirstOrDefault(tribe => tribe.Name == tribeName);
+            return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.Name == tribeName);
         }
     }
 }

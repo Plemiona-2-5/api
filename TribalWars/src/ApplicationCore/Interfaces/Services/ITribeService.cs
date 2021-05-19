@@ -10,6 +10,6 @@ namespace ApplicationCore.Interfaces.Services
     public interface ITribeService
     {
         Task<string> CreateTribe(Tribe tribe, Guid playerId);
-        bool TribeExist(string tribeName);
+        Task<bool> TribeExist(string tribeName);
     }
 }

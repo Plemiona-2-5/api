@@ -18,18 +18,18 @@ namespace ApplicationCore.Services
             _repository = repository;
         }
 
-        public string CreateTribe(Tribe tribe, Guid playerId)
+        public async Task<string> CreateTribe(Tribe tribe, Guid playerId)
         {
-            if (tribe != null && !TribeExist(tribe.Name))
+            if (tribe != null && ! await TribeExist(tribe.Name))
             {
                 TribePlayer tribePlayer = new TribePlayer();
                 tribePlayer.PlayerId = playerId;
                 tribePlayer.TribeRole = Enums.TribeRole.Owner;
-                tribePlayer.TribeId = _repository.CreateTribe(tribe);
+                tribePlayer.TribeId = await _repository.CreateTribe(tribe);
 
                 if (tribePlayer.TribeId != 0)
                 {
-                    _repository.AddPlayerToTribe(tribePlayer);
+                    await _repository.AddPlayerToTribe(tribePlayer);
 
                     return "A tribe was created!";
                 }
@@ -38,9 +38,9 @@ namespace ApplicationCore.Services
             return "Tribe already exist!";
         }
 
-        public bool TribeExist(string tribeName)
+        public async Task<bool> TribeExist(string tribeName)
         {
-            return _repository.SelectedTribe(tribeName) != null;
+            return await _repository.SelectedTribe(tribeName) != null;
         }
     }
 }
