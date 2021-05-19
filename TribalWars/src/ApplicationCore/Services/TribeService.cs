@@ -6,16 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
+using ApplicationCore.Helper;
 
 namespace ApplicationCore.Services
 {
     public class TribeService : ITribeService
     {
         public readonly ITribeRepository _repository;
+        private readonly IStringLocalizer<StringHelper> _localizer;
 
-        public TribeService(ITribeRepository repository)
+        public TribeService(ITribeRepository repository, IStringLocalizer<StringHelper> localizer)
         {
             _repository = repository;
+            _localizer = localizer;
         }
 
         public async Task<string> CreateTribe(Tribe tribe, Guid playerId)
@@ -31,11 +35,11 @@ namespace ApplicationCore.Services
                 {
                     await _repository.AddPlayerToTribe(tribePlayer);
 
-                    return "A tribe was created!";
+                    return _localizer["AddTribeSuccess"];
                 }
                 return "Error while creating tribe!";
             }
-            return "Tribe already exist!";
+            return _localizer["TribeNameBussy"];
         }
 
         public async Task<bool> TribeExist(string tribeName)
