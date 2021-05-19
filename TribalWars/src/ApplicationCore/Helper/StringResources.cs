@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Helper
 {
-    public class StringHelper
+    public class StringResources
     {
     }
 }

@@ -14,9 +14,9 @@ namespace ApplicationCore.Services
     public class TribeService : ITribeService
     {
         public readonly ITribeRepository _repository;
-        private readonly IStringLocalizer<StringHelper> _localizer;
+        private readonly IStringLocalizer<StringResources> _localizer;
 
-        public TribeService(ITribeRepository repository, IStringLocalizer<StringHelper> localizer)
+        public TribeService(ITribeRepository repository, IStringLocalizer<StringResources> localizer)
         {
             _repository = repository;
             _localizer = localizer;
@@ -39,7 +39,7 @@ namespace ApplicationCore.Services
                 }
                 return "Error while creating tribe!";
             }
-            return _localizer["TribeNameBussy"];
+            return _localizer["TribeNameTaken"];
         }
 
         public async Task<bool> TribeExist(string tribeName)
