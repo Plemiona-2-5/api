@@ -9,5 +9,8 @@ namespace WebApi.Hubs
     {
         Task ConstructionCompleted(string message);
         Task RequestQueueRefresh(string message);
+        Task IdDoesNotExist(string message);
+        Task AddToGroup(string message);
+        Task RemoveFromGroup(string message);
     }
 }

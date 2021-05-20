@@ -25,7 +25,7 @@ namespace WebApi.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _hubContext.Clients.All.RequestQueueRefresh("Refresh queue");
+                await _hubContext.Clients.Group(GroupType.BuildingsQueue.ToString()).RequestQueueRefresh("Refresh queue");
                 await Task.Delay(RefreshDelayInMilliseconds);
             }
         }
