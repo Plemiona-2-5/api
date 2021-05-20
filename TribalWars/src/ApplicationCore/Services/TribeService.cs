@@ -6,7 +6,6 @@ using ApplicationCore.Results;
 using ApplicationCore.ViewModels;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -57,7 +56,8 @@ namespace ApplicationCore.Services
             if (tribe != null)
             {
                 var tribeUsers = await _tribeUserRepository.GetTribeUsersById(tribe.Id);
-                var owner = tribeUsers.Find(x => x.TribeRole == Enums.TribeRole.Owner);
+                var owner = tribeUsers
+                    .Find(player => player.TribeRole == Enums.TribeRole.Owner);
                 var details = new TribeDetailsVM
                 {
                     TribeName = tribe.Name,
