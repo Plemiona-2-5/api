@@ -2,7 +2,6 @@
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository

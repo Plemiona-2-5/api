@@ -34,7 +34,7 @@ namespace WebApi.Controllers
 
             var result = await _tribeService.CreateTribe(tribe, userId);
             return result.Succeeded 
-                ? Ok(new Response(_localizer["AddTribeSuccess"])) 
+                ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"])) 
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
