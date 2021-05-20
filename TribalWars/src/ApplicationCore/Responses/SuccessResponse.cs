@@ -1,10 +1,10 @@
 ﻿namespace ApplicationCore.Responses
 {
-    public class Response
+    public class SuccessResponse
     {
         public string Message { get; set; }
 
-        public Response(string message)
+        public SuccessResponse(string message)
         {
             Message = message;
         }

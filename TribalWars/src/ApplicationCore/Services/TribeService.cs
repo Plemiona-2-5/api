@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
+using ApplicationCore.Results;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace ApplicationCore.Services
             _localizer = localizer;
         }
 
-        public async Task<string> CreateTribe(Tribe tribe, Guid playerId)
+        public async Task<ServiceResult> CreateTribe(Tribe tribe, Guid playerId)
         {
             if (tribe != null && ! await TribeExists(tribe.Name))
             {
@@ -34,11 +35,11 @@ namespace ApplicationCore.Services
                 {
                     await _repository.AddPlayerToTribe(tribePlayer);
 
-                    return _localizer["AddTribeSuccess"];
+                    return ServiceResult.Success();
                 }
-                return _localizer["TribeAddError"];
+                return ServiceResult.Failure(_localizer["TribeAddError"]);
             }
-            return _localizer["TribeNameTaken"];
+            return ServiceResult.Failure(_localizer["TribeNameTaken"]);
         }
 
         public async Task<bool> TribeExists(string tribeName)

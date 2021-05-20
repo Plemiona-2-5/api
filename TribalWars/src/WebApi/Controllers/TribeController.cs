@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using ApplicationCore.Responses;
+using Microsoft.Extensions.Localization;
+using ApplicationCore.Resources;
 
 namespace WebApi.Controllers
 {
@@ -15,11 +17,13 @@ namespace WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ITribeService _tribeService;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public TribeController(IMapper mapper, ITribeService tribeService)
+        public TribeController(IMapper mapper, ITribeService tribeService, IStringLocalizer<MessageResource> localizer)
         {
             _mapper = mapper;
             _tribeService = tribeService;
+            _localizer = localizer;
         }
 
         [HttpPost("/create-tribe")]
@@ -28,7 +32,10 @@ namespace WebApi.Controllers
             var userId = new Guid();  //TODO: Read userId from session
             var tribe = _mapper.Map<Tribe>(dto);
 
-            return Ok(new Response(await _tribeService.CreateTribe(tribe, userId)));
+            var result = await _tribeService.CreateTribe(tribe, userId);
+            return result.Succeeded 
+                ? Ok(new Response(_localizer["AddTribeSuccess"])) 
+                : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
 }
