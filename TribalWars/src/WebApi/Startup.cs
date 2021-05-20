@@ -44,7 +44,6 @@ namespace WebApi
                     var supportedCultures = new List<CultureInfo>
                     {
                         new CultureInfo("en-US"),
-                        new CultureInfo("fr-FR")
                     };
 
                     options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
@@ -113,8 +112,6 @@ namespace WebApi
                     }
                 });
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
