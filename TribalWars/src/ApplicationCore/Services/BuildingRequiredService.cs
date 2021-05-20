@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Enums;
-using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
