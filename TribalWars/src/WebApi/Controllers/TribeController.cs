@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
+using ApplicationCore.ViewModels;
 
 namespace WebApi.Controllers
 {
@@ -36,6 +37,17 @@ namespace WebApi.Controllers
             return result.Succeeded 
                 ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"])) 
                 : BadRequest(new ErrorsResponse(result.Errors));
+        }
+
+        [HttpGet("/tribe-details")]
+        public async Task<ActionResult<TribeDetailsVM>> TribeDetails()
+        {
+            var userId = new Guid();  //TODO: Read userId from session
+            
+            var result = await _tribeService.TribeDetails(userId);
+            return result.Item1.Succeeded
+                ? Ok(result.Item2)
+                : BadRequest(new ErrorsResponse(result.Item1.Errors));
         }
     }
 }

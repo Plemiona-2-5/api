@@ -39,6 +39,8 @@ namespace Infrastructure
 
             services.AddScoped<ITribeRepository, TribeRepository>();
 
+            services.AddScoped<ITribeUserRepository, TribeUserRepository>();
+
             return services;
         }
     }

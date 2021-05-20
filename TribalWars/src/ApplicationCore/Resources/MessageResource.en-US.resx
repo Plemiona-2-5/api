@@ -123,6 +123,9 @@
   <data name="TribeAddError" xml:space="preserve">
     <value>Error while creating tribe!</value>
   </data>
+  <data name="TribeDetailsError" xml:space="preserve">
+    <value>Error while getting tribe</value>
+  </data>
   <data name="TribeNameTaken" xml:space="preserve">
     <value>The tribe's name is already taken</value>
   </data>
