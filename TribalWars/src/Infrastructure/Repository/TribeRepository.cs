@@ -19,13 +19,14 @@ namespace Infrastructure.Repository
             await Context.SaveChangesAsync();
             return tribe.Id;
         }
+
         public async Task AddPlayerToTribe(TribePlayer player)
         {
             await Context.TribePlayers.AddAsync(player);
             await Context.SaveChangesAsync();
         }
 
-        public async Task<Tribe> SelectedTribe(string tribeName)
+        public async Task<Tribe> GetTribeByName(string tribeName)
         {
             return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.Name == tribeName);
         }

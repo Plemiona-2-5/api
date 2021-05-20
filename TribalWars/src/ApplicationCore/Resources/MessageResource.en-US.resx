@@ -118,9 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddTribeSuccess" xml:space="preserve">
-    <value>dfweqf</value>
+    <value>A tribe was created!</value>
+  </data>
+  <data name="TribeAddError" xml:space="preserve">
+    <value>Error while creating tribe!</value>
   </data>
   <data name="TribeNameTaken" xml:space="preserve">
-    <value>Blabla</value>
+    <value>The tribe's name is already taken</value>
   </data>
 </root>

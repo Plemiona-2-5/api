@@ -1,22 +1,19 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Interfaces.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Resources;
 using Microsoft.Extensions.Localization;
-using ApplicationCore.Helper;
+using System;
+using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
     public class TribeService : ITribeService
     {
-        public readonly ITribeRepository _repository;
-        private readonly IStringLocalizer<StringResources> _localizer;
+        private readonly ITribeRepository _repository;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public TribeService(ITribeRepository repository, IStringLocalizer<StringResources> localizer)
+        public TribeService(ITribeRepository repository, IStringLocalizer<MessageResource> localizer)
         {
             _repository = repository;
             _localizer = localizer;
@@ -24,12 +21,14 @@ namespace ApplicationCore.Services
 
         public async Task<string> CreateTribe(Tribe tribe, Guid playerId)
         {
-            if (tribe != null && ! await TribeExist(tribe.Name))
+            if (tribe != null && ! await TribeExists(tribe.Name))
             {
-                TribePlayer tribePlayer = new TribePlayer();
-                tribePlayer.PlayerId = playerId;
-                tribePlayer.TribeRole = Enums.TribeRole.Owner;
-                tribePlayer.TribeId = await _repository.CreateTribe(tribe);
+                var tribePlayer = new TribePlayer
+                {
+                    PlayerId = playerId,
+                    TribeRole = Enums.TribeRole.Owner,
+                    TribeId = await _repository.CreateTribe(tribe)
+                };
 
                 if (tribePlayer.TribeId != 0)
                 {
@@ -37,14 +36,14 @@ namespace ApplicationCore.Services
 
                     return _localizer["AddTribeSuccess"];
                 }
-                return "Error while creating tribe!";
+                return _localizer["TribeAddError"];
             }
             return _localizer["TribeNameTaken"];
         }
 
-        public async Task<bool> TribeExist(string tribeName)
+        public async Task<bool> TribeExists(string tribeName)
         {
-            return await _repository.SelectedTribe(tribeName) != null;
+            return await _repository.GetTribeByName(tribeName) != null;
         }
     }
 }
