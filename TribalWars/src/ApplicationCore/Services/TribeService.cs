@@ -51,9 +51,9 @@ namespace ApplicationCore.Services
             return await _tribeRepository.GetTribeByName(tribeName) != null;
         }
 
-        public async Task<(ServiceResult, TribeDetailsVM)> TribeDetails(Guid userId)
+        public async Task<(ServiceResult, TribeDetailsVM)> TribeDetails(Guid playerId)
         {
-            var tribe = await _tribeRepository.GetTribeByUser(userId);
+            var tribe = await _tribeRepository.GetTribeByUser(playerId);
             if (tribe != null)
             {
                 var tribeUsers = await _tribeUserRepository.GetTribeUsersById(tribe.Id);

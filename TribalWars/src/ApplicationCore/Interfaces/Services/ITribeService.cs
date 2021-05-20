@@ -10,6 +10,6 @@ namespace ApplicationCore.Interfaces.Services
     {
         Task<ServiceResult> CreateTribe(Tribe tribe, Guid playerId);
         Task<bool> TribeExists(string tribeName);
-        Task<(ServiceResult, TribeDetailsVM)> TribeDetails(Guid userId);
+        Task<(ServiceResult, TribeDetailsVM)> TribeDetails(Guid playerId);
     }
 }

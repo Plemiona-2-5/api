@@ -30,10 +30,10 @@ namespace WebApi.Controllers
         [HttpPost("/create-tribe")]
         public async Task<IActionResult> CreateTribe([FromBody] TribeDto dto)
         {
-            var userId = new Guid();  //TODO: Read userId from session
+            var playerId = new Guid();  //TODO: Read playerId from session
             var tribe = _mapper.Map<Tribe>(dto);
 
-            var result = await _tribeService.CreateTribe(tribe, userId);
+            var result = await _tribeService.CreateTribe(tribe, playerId);
             return result.Succeeded 
                 ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"])) 
                 : BadRequest(new ErrorsResponse(result.Errors));
@@ -42,9 +42,9 @@ namespace WebApi.Controllers
         [HttpGet("/tribe-details")]
         public async Task<ActionResult<TribeDetailsVM>> TribeDetails()
         {
-            var userId = new Guid();  //TODO: Read userId from session
-            
-            var result = await _tribeService.TribeDetails(userId);
+            var playerId = new Guid();  //TODO: Read playerId from session
+
+            var result = await _tribeService.TribeDetails(playerId);
             return result.Item1.Succeeded
                 ? Ok(result.Item2)
                 : BadRequest(new ErrorsResponse(result.Item1.Errors));

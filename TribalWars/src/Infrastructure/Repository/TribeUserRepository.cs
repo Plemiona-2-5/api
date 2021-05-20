@@ -18,7 +18,10 @@ namespace Infrastructure.Repository
 
         public async Task<List<TribePlayer>> GetTribeUsersById(int tribeId)
         {
-            return await Context.TribePlayers.Where(tribe => tribe.TribeId == tribeId).ToListAsync();
+            return await Context.TribePlayers
+                .Where(tribe => tribe.TribeId == tribeId)
+                .Include(tribePlayer => tribePlayer.Player)
+                .ToListAsync();
         }
     }
 }
