@@ -9,6 +9,6 @@ namespace ApplicationCore.Interfaces.Repository
 {
     public interface IVillageBuildingRepository
     {
-        IEnumerable<VillageBuilding> GetVillageBuildings(int villageId);
+        Task<IEnumerable<VillageBuilding>> GetVillageBuildings(int villageId);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using ApplicationCore;
 using ApplicationCore.Settings;
 using Infrastructure;
+using Infrastructure.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -111,6 +112,8 @@ namespace WebApi
                     }
                 });
             });
+
+            services.AddAutoMapper(typeof(EntityToViewModelProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
