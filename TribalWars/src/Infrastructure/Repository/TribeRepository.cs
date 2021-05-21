@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -28,6 +29,11 @@ namespace Infrastructure.Repository
         public async Task<Tribe> GetTribeByName(string tribeName)
         {
             return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.Name == tribeName);
+        }
+
+        public async Task<Tribe> GetTribeByUser(Guid userId)
+        {
+            return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.TribePlayers.Player.UserId == userId);
         }
     }
 }

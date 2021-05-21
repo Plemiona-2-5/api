@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
+using ApplicationCore.ViewModels;
 
 namespace WebApi.Controllers
 {
@@ -29,12 +30,23 @@ namespace WebApi.Controllers
         [HttpPost("/create-tribe")]
         public async Task<IActionResult> CreateTribe([FromBody] TribeDto dto)
         {
-            var userId = new Guid();  //TODO: Read userId from session
+            var playerId = new Guid();  //TODO: Read playerId from session
             var tribe = _mapper.Map<Tribe>(dto);
 
-            var result = await _tribeService.CreateTribe(tribe, userId);
+            var result = await _tribeService.CreateTribe(tribe, playerId);
             return result.Succeeded 
                 ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"])) 
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
+
+        [HttpGet("/tribe-details")]
+        public async Task<ActionResult<TribeDetailsVM>> TribeDetails()
+        {
+            var playerId = new Guid();  //TODO: Read playerId from session
+
+            var result = await _tribeService.TribeDetails(playerId);
+            return result.Succeeded
+                ? Ok(result.Content)
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
