@@ -41,6 +41,10 @@ namespace Infrastructure
 
             services.AddScoped<ITribeUserRepository, TribeUserRepository>();
 
+            services.AddScoped<IBuildingsQueueRepository, BuildingsQueueRepository>();
+
+            services.AddScoped<IBuildingsRepository, BuildingsRepository>();
+
             return services;
         }
     }

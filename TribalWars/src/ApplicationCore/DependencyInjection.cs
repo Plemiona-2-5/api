@@ -11,6 +11,8 @@ namespace ApplicationCore
         {
             services.AddTransient<IJwtService, JwtService>();
 
+            services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
+
             services.AddScoped<ITribeService, TribeService>();
 
             return services;
