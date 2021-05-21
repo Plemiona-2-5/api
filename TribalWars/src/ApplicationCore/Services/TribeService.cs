@@ -67,9 +67,9 @@ namespace ApplicationCore.Services
                     NumberOfMembers = tribeUsers.Count
                 };
 
-                return ((ServiceResult<TribeDetailsVM>)ServiceResult.Success());
+                return (ServiceResult<TribeDetailsVM>)ServiceResult.Success();
             }
-            return (ServiceResult.Failure(_localizer["TribeDetailsError"]));
+            return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
         }
     }
 }
