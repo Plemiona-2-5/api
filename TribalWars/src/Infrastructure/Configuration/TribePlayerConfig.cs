@@ -21,8 +21,8 @@ namespace Infrastructure.Configuration
                 .HasForeignKey(tribePlayer => tribePlayer.PlayerId);
 
             builder.HasOne<Tribe>(tribePlayer => tribePlayer.Tribe)
-                .WithOne(tribe => tribe.TribePlayers)
-                .HasForeignKey<TribePlayer>(tribePlayer => tribePlayer.TribeId);
+                .WithMany(tribe => tribe.TribePlayers)
+                .HasForeignKey(tribePlayer => tribePlayer.TribeId);
 
             builder
                 .Property(tribePlayer => tribePlayer.TribeRole)

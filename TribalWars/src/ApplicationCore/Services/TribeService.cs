@@ -8,6 +8,7 @@ using ApplicationCore.Results.Generic;
 using ApplicationCore.ViewModels;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -75,26 +76,14 @@ namespace ApplicationCore.Services
 
         public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)
         {
-            var tribe = await _tribeRepository.GetTribeByUser(playerId);
-
-                if (await IsOwner(playerId, tribeId, tribe))
-                {
-                    tribe.Description = dto.Description;
-                    await _tribeRepository.UpdateTribe(tribe);
-                    return ServiceResult.Success();
-                }
-            return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
-        }
-
-        public async Task<bool> IsOwner(Guid playerId, int tribeId, Tribe tribe)
-        {
-            var tribeUsers = await _tribeUserRepository.GetTribeUsersById(tribeId);
-            var owner = tribeUsers.Find(player => player.TribeRole == Enums.TribeRole.Owner);
-            if (owner != null)
+            var tribe = await _tribeRepository.GetTribeByTribeId(tribeId);
+            if (tribe.TribePlayers.Any(x => x.Player.Id == playerId))
             {
-                return owner.PlayerId == playerId && owner.TribeId == tribe.Id;
+                tribe.Description = dto.Description;
+                await _tribeRepository.UpdateTribe(tribe);
+                return ServiceResult.Success();
             }
-            return false;
+            return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
         }
     }
 }

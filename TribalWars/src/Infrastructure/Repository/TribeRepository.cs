@@ -1,8 +1,10 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -31,13 +33,25 @@ namespace Infrastructure.Repository
             return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.Name == tribeName);
         }
 
-        public async Task<Tribe> GetTribeByUser(Guid userId)
+        public async Task<Tribe> GetTribeByUser(Guid playerId)
         {
-            return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.TribePlayers.Player.UserId == userId);
+            return await Context.Tribes
+                .FirstOrDefaultAsync(tribe => tribe.TribePlayers
+                .Any(tp => tp.Player.Id == playerId));
+        }
+
+        public async Task<Tribe> GetTribeByTribeId(int tribeId)
+        {
+            return await Context.Tribes
+                .Include(t => t.TribePlayers
+                .Where(tu => tu.TribeRole == TribeRole.Owner))
+                .Where(tribe => tribe.Id == tribeId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task UpdateTribe(Tribe tribe)
         {
+            Context.Update(tribe);
             await Context.SaveChangesAsync();
         }
     }
