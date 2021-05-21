@@ -9,6 +9,7 @@ using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
 using ApplicationCore.ViewModels;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -50,7 +51,7 @@ namespace WebApi.Controllers
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
 
-        [HttpPost("/edit-tribe-description")]
+        [HttpPut("/edit-tribe-description")]
         public async Task<ActionResult<TribeDescriptionDto>> EditTribeDescription([FromHeader] int tribeId, [FromBody] TribeDescriptionDto dto)
         {
             var playerId = new Guid();//new Guid();  //TODO: Read playerId from session

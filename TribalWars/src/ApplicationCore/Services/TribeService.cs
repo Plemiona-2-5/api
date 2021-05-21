@@ -69,7 +69,7 @@ namespace ApplicationCore.Services
                     NumberOfMembers = tribeUsers.Count
                 };
 
-                return (ServiceResult<TribeDetailsVM>)ServiceResult.Success();
+                return ServiceResult<TribeDetailsVM>.Success(details);
             }
             return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
         }
@@ -77,7 +77,7 @@ namespace ApplicationCore.Services
         public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)
         {
             var tribe = await _tribeRepository.GetTribeByTribeId(tribeId);
-            if (tribe.TribePlayers.Any(x => x.Player.Id == playerId))
+            if (tribe.TribePlayers.Where(x => x.Player.Id == playerId) != null)
             {
                 tribe.Description = dto.Description;
                 await _tribeRepository.UpdateTribe(tribe);
