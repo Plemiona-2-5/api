@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Dtos;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
@@ -7,6 +8,7 @@ using ApplicationCore.Results.Generic;
 using ApplicationCore.ViewModels;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -70,6 +72,18 @@ namespace ApplicationCore.Services
                 return (ServiceResult<TribeDetailsVM>)ServiceResult.Success();
             }
             return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
+        }
+
+        public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)
+        {
+            var tribe = await _tribeRepository.GetTribeByTribeId(tribeId);
+            if (tribe.TribePlayers.Any(x => x.Player.Id == playerId))
+            {
+                tribe.Description = dto.Description;
+                await _tribeRepository.UpdateTribe(tribe);
+                return ServiceResult.Success();
+            }
+            return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
         }
     }
 }

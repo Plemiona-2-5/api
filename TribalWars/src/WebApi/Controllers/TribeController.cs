@@ -34,8 +34,8 @@ namespace WebApi.Controllers
             var tribe = _mapper.Map<Tribe>(dto);
 
             var result = await _tribeService.CreateTribe(tribe, playerId);
-            return result.Succeeded 
-                ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"])) 
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["AddTribeSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
 
@@ -47,6 +47,17 @@ namespace WebApi.Controllers
             var result = await _tribeService.TribeDetails(playerId);
             return result.Succeeded
                 ? Ok(result.Content)
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
+
+        [HttpPost("/edit-tribe-description")]
+        public async Task<ActionResult<TribeDescriptionDto>> EditTribeDescription([FromHeader] int tribeId, [FromBody] TribeDescriptionDto dto)
+        {
+            var playerId = new Guid();//new Guid();  //TODO: Read playerId from session
+            var result = await _tribeService.EditTribeDescription(playerId, dto, tribeId);
+
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["EditTribeDescriptionSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }

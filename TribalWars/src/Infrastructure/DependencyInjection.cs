@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Identity;
-using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces;
 using Infrastructure.Repository;
 using ApplicationCore.Services;
 using Microsoft.AspNetCore.Identity;
 using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Interfaces.Repository;
 
 namespace Infrastructure
 {
