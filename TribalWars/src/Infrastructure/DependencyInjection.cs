@@ -1,13 +1,15 @@
+using System.Reflection;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Identity;
 using ApplicationCore.Interfaces.Repository;
-using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Interfaces;
 using Infrastructure.Repository;
 using ApplicationCore.Services;
+using Microsoft.AspNetCore.Identity;
+using ApplicationCore.Interfaces.Services;
 
 namespace Infrastructure
 {
@@ -20,9 +22,13 @@ namespace Infrastructure
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
 
-
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
             services.AddScoped<IBuildingRequiredService, BuildingRequiredService>();
@@ -30,6 +36,10 @@ namespace Infrastructure
             services.AddScoped<IVillageBuildingRepository, VillageBuildingRepository>();
 
             services.AddScoped<IVillageMaterialRepository, VillageMaterialRepository>();
+
+            services.AddScoped<ITribeRepository, TribeRepository>();
+
+            services.AddScoped<ITribeUserRepository, TribeUserRepository>();
 
             return services;
         }
