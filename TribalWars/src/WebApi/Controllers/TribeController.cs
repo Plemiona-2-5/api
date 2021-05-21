@@ -45,9 +45,9 @@ namespace WebApi.Controllers
             var playerId = new Guid();  //TODO: Read playerId from session
 
             var result = await _tribeService.TribeDetails(playerId);
-            return result.Item1.Succeeded
-                ? Ok(result.Item2)
-                : BadRequest(new ErrorsResponse(result.Item1.Errors));
+            return result.Succeeded
+                ? Ok(result.Content)
+                : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
 }

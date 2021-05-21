@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
 using ApplicationCore.Results;
+using ApplicationCore.Results.Generic;
 using ApplicationCore.ViewModels;
 using Microsoft.Extensions.Localization;
 using System;
@@ -50,7 +51,7 @@ namespace ApplicationCore.Services
             return await _tribeRepository.GetTribeByName(tribeName) != null;
         }
 
-        public async Task<(ServiceResult, TribeDetailsVM)> TribeDetails(Guid playerId)
+        public async Task<ServiceResult<TribeDetailsVM>> TribeDetails(Guid playerId)
         {
             var tribe = await _tribeRepository.GetTribeByUser(playerId);
             if (tribe != null)
@@ -66,9 +67,9 @@ namespace ApplicationCore.Services
                     NumberOfMembers = tribeUsers.Count
                 };
 
-                return (ServiceResult.Success(), details);
+                return ((ServiceResult<TribeDetailsVM>)ServiceResult.Success());
             }
-            return (ServiceResult.Failure(_localizer["TribeDetailsError"]), null);
+            return (ServiceResult.Failure(_localizer["TribeDetailsError"]));
         }
     }
 }
