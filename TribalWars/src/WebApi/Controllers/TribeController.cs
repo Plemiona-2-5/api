@@ -53,7 +53,7 @@ namespace WebApi.Controllers
         [HttpPost("/edit-tribe-description")]
         public async Task<ActionResult<TribeDescriptionDto>> EditTribeDescription([FromHeader] int tribeId, [FromBody] TribeDescriptionDto dto)
         {
-            var playerId = Guid.Parse("CC78FA59-15A5-453B-BA09-08D91B96ABD0");//new Guid();  //TODO: Read playerId from session
+            var playerId = new Guid();//new Guid();  //TODO: Read playerId from session
             var result = await _tribeService.EditTribeDescription(playerId, dto, tribeId);
 
             return result.Succeeded
