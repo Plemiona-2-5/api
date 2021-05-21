@@ -1,11 +1,9 @@
 using ApplicationCore.Entities;
 using ApplicationCore.Enums;
-using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Interfaces.Repository;
-using System;
+using ApplicationCore.Interfaces.Services;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
