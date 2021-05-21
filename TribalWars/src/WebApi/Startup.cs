@@ -33,7 +33,7 @@ namespace WebApi
             services.AddApplicationCore();
             services.AddSignalR();
             services.AddAutoMapper(typeof(Startup));
-            services.AddHostedService<QueueTimerWorker>();
+            services.AddHostedService<BuildingsQueueTimerWorker>();
 
             services.AddControllers();
 

@@ -20,14 +20,14 @@ namespace WebApi.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).AddToGroup(Context.ConnectionId+" has joined the group "+groupName+".");
+            await Clients.Group(groupName).AddToGroup($"{Context.ConnectionId} has joined the group {groupName }.");
         }
 
         public async Task RemoveFromBuildingQueueGroup(string groupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.Group(groupName).RemoveFromGroup(Context.ConnectionId+" has left the group "+groupName+".");
+            await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         }
 
         [Authorize]

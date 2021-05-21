@@ -10,6 +10,6 @@ namespace ApplicationCore.Interfaces
         Task<List<BuildingQueue>> GetQueueBuildings(int villageId);
         Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId);
         Task AddBuildingsToQueue(BuildingQueue buildingQueue);
-        void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
+        Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
     }
 }

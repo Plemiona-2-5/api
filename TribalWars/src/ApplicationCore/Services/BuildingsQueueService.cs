@@ -54,20 +54,20 @@ namespace ApplicationCore.Services
             }
         }
 
-        public bool ConstructionCompletion(BuildingQueue buildingQueue)
+        public async Task<bool> ConstructionCompletion(BuildingQueue buildingQueue)
         {
             DateTime timeOfCompletion = buildingQueue.StartDate.AddSeconds(buildingQueue.Duration);
             if(timeOfCompletion == DateTime.Now)
             {
-                _buildingsQueueRepository.RemoveBuildingsFromQueue(buildingQueue);
+                await _buildingsQueueRepository.RemoveBuildingsFromQueue(buildingQueue);
                 return true;
             }
             return false;
         }
 
-        public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
+        public async Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
         {
-            _buildingsQueueRepository
+            await _buildingsQueueRepository
                 .RemoveBuildingsFromQueue(buildingQueue);
         }
     }

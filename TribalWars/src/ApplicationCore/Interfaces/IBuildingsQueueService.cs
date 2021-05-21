@@ -13,7 +13,7 @@ namespace ApplicationCore.Interfaces
         Task<List<BuildingQueue>> QueueBuildings(int villageId);
         Task<BuildingQueue> BuildingQueueByUserId(Guid userId);
         Task AddBuildingsToQueue(int villageId, int buildingId);
-        void RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
-        bool ConstructionCompletion(BuildingQueue buildingQueue);
+        Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
+        Task<bool> ConstructionCompletion(BuildingQueue buildingQueue);
     }
 }

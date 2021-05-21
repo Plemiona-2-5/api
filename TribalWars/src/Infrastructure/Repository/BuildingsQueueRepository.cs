@@ -36,11 +36,11 @@ namespace Infrastructure.Repository
             await Context.SaveChangesAsync();
         }
 
-        public void RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
+        public async Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue)
         {
             Context.BuildingQueues
                 .Remove(buildingQueue);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

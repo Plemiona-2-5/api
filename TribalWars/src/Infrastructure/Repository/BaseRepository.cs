@@ -1,5 +1,4 @@
-﻿
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
