@@ -4,14 +4,16 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210517221319_rename_reqBuilding")]
+    partial class rename_reqBuilding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -438,7 +440,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.HasIndex("TribeId");
+                    b.HasIndex("TribeId")
+                        .IsUnique();
 
                     b.ToTable("TribePlayers");
                 });
@@ -970,8 +973,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("ApplicationCore.Entities.Tribe", "Tribe")
-                        .WithMany("TribePlayers")
-                        .HasForeignKey("TribeId")
+                        .WithOne("TribePlayers")
+                        .HasForeignKey("ApplicationCore.Entities.TribePlayer", "TribeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

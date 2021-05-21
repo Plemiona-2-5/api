@@ -4,14 +4,16 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210513135425_add_required_building")]
+    partial class add_required_building
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,15 +362,15 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuildingId")
+                    b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.Property<int>("Level")
+                    b.Property<int>("ReqBuildingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuildingId")
+                    b.HasIndex("ReqBuildingId")
                         .IsUnique();
 
                     b.ToTable("RequiredBuildings");
@@ -438,7 +440,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.HasIndex("TribeId");
+                    b.HasIndex("TribeId")
+                        .IsUnique();
 
                     b.ToTable("TribePlayers");
                 });
@@ -874,7 +877,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("ApplicationCore.Entities.RequiredBuilding", "RequiredBuilding")
-                        .WithMany("BuildingRequiredBuildings")
+                        .WithMany("Buildings")
                         .HasForeignKey("RequiredBuildingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -933,13 +936,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.RequiredBuilding", b =>
                 {
-                    b.HasOne("ApplicationCore.Entities.Building", "Building")
-                        .WithOne("RequiredBuilding")
-                        .HasForeignKey("ApplicationCore.Entities.RequiredBuilding", "BuildingId")
+                    b.HasOne("ApplicationCore.Entities.Building", "ReqBuilding")
+                        .WithOne("RequiredBuildings")
+                        .HasForeignKey("ApplicationCore.Entities.RequiredBuilding", "ReqBuildingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Building");
+                    b.Navigation("ReqBuilding");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.StolenMaterial", b =>
@@ -970,8 +973,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("ApplicationCore.Entities.Tribe", "Tribe")
-                        .WithMany("TribePlayers")
-                        .HasForeignKey("TribeId")
+                        .WithOne("TribePlayers")
+                        .HasForeignKey("ApplicationCore.Entities.TribePlayer", "TribeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1142,7 +1145,7 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("BuildingRequiredMaterials");
 
-                    b.Navigation("RequiredBuilding");
+                    b.Navigation("RequiredBuildings");
 
                     b.Navigation("VillageBuildings");
                 });
@@ -1167,7 +1170,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.RequiredBuilding", b =>
                 {
-                    b.Navigation("BuildingRequiredBuildings");
+                    b.Navigation("Buildings");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Tribe", b =>

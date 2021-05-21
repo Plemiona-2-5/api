@@ -10,6 +10,7 @@ namespace Infrastructure.Repository
     public abstract class BaseRepository
     {
         protected readonly ApplicationDbContext Context;
+
         public BaseRepository(ApplicationDbContext context)
         {
             Context = context;

@@ -1,4 +1,5 @@
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,8 @@ namespace ApplicationCore
             services.AddTransient<IJwtService, JwtService>();
 
             services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
+
+            services.AddScoped<ITribeService, TribeService>();
 
             return services;
         }
