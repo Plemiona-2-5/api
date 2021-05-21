@@ -10,5 +10,7 @@ namespace ApplicationCore.Interfaces.Repository
         Task AddPlayerToTribe(TribePlayer player);
         Task<Tribe> GetTribeByName(string tribeName);
         Task<Tribe> GetTribeByUser(Guid userId);
+        Task UpdateTribe(Tribe tribe);
+
     }
 }

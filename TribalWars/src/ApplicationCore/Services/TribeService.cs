@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Dtos;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
@@ -70,6 +71,30 @@ namespace ApplicationCore.Services
                 return (ServiceResult<TribeDetailsVM>)ServiceResult.Success();
             }
             return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
+        }
+
+        public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)
+        {
+            var tribe = await _tribeRepository.GetTribeByUser(playerId);
+
+                if (await IsOwner(playerId, tribeId, tribe))
+                {
+                    tribe.Description = dto.Description;
+                    await _tribeRepository.UpdateTribe(tribe);
+                    return ServiceResult.Success();
+                }
+            return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
+        }
+
+        public async Task<bool> IsOwner(Guid playerId, int tribeId, Tribe tribe)
+        {
+            var tribeUsers = await _tribeUserRepository.GetTribeUsersById(tribeId);
+            var owner = tribeUsers.Find(player => player.TribeRole == Enums.TribeRole.Owner);
+            if (owner != null)
+            {
+                return owner.PlayerId == playerId && owner.TribeId == tribe.Id;
+            }
+            return false;
         }
     }
 }

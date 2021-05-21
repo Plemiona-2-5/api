@@ -35,5 +35,10 @@ namespace Infrastructure.Repository
         {
             return await Context.Tribes.FirstOrDefaultAsync(tribe => tribe.TribePlayers.Player.UserId == userId);
         }
+
+        public async Task UpdateTribe(Tribe tribe)
+        {
+            await Context.SaveChangesAsync();
+        }
     }
 }

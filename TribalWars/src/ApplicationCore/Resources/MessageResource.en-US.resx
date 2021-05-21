@@ -120,6 +120,12 @@
   <data name="AddTribeSuccess" xml:space="preserve">
     <value>A tribe was created!</value>
   </data>
+  <data name="EditTribeDescriptionError" xml:space="preserve">
+    <value>You are not owner of this tribe</value>
+  </data>
+  <data name="EditTribeDescriptionSuccess" xml:space="preserve">
+    <value>Tribe description changed successfully</value>
+  </data>
   <data name="TribeAddError" xml:space="preserve">
     <value>Error while creating tribe!</value>
   </data>
