@@ -61,5 +61,14 @@ namespace WebApi.Controllers
                 ? Ok(new SuccessResponse(_localizer["EditTribeDescriptionSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
+
+        [HttpGet("/tribe-members")]
+        public async Task<ActionResult<TribeDetailsVM>> TribeMembers([FromHeader] int tribeId)
+        {
+            var result = ;
+            return result.Succeeded
+                ? Ok(result.Content)
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
     }
 }
