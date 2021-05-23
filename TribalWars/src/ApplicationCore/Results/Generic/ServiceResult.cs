@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace ApplicationCore.Results.Generic
@@ -11,10 +12,17 @@ namespace ApplicationCore.Results.Generic
         {
             Content = content;
         }
+        public ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors) : base(serviceStatus, errors)
+        {
+        }
 
         public static ServiceResult<T> Success(T content)
         {
             return new(ServiceResultStatus.Success, null, content );
+        }
+        public static new ServiceResult<T> Failure(string error)
+        {
+            return new(ServiceResultStatus.Failure, new List<string> { error });
         }
     }
 }

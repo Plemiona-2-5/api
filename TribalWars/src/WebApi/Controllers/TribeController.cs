@@ -19,12 +19,17 @@ namespace WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ITribeService _tribeService;
+        private readonly ITribeMemberService _tribeMemberService;
         private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public TribeController(IMapper mapper, ITribeService tribeService, IStringLocalizer<MessageResource> localizer)
+        public TribeController(IMapper mapper,
+                               ITribeService tribeService,
+                               IStringLocalizer<MessageResource> localizer,
+                               ITribeMemberService tribeMemberService)
         {
             _mapper = mapper;
             _tribeService = tribeService;
+            _tribeMemberService = tribeMemberService;
             _localizer = localizer;
         }
 
@@ -63,11 +68,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("/tribe-members")]
-        public async Task<ActionResult<TribeDetailsVM>> TribeMembers([FromHeader] int tribeId)
+        public async Task<ActionResult> TribeMembers([FromHeader] int tribeId)
         {
-            var result = ;
+            var result = await _tribeMemberService.GetTribeUsersByTribeId(tribeId);
             return result.Succeeded
-                ? Ok(result.Content)
+                ? Ok(_mapper.Map<List<TribeMemberVM>>(result.Content))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
