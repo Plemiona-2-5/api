@@ -5,6 +5,6 @@ namespace ApplicationCore.Interfaces.Repository
 {
     public interface IPlayerRepository
     {
-        Task<bool> GetPlayerById(Guid playerId);
+        Task<bool> PlayerExistById(Guid playerId);
     }
 }

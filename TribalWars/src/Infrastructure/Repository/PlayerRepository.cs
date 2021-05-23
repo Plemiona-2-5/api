@@ -12,7 +12,7 @@ namespace Infrastructure.Repository
         {
         }
 
-        public async Task<bool> GetPlayerById(Guid playerId)
+        public async Task<bool> PlayerExistById(Guid playerId)
         {
             return await Context.Players.AnyAsync(p => p.Id == playerId);
         }
