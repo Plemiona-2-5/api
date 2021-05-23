@@ -14,6 +14,12 @@ namespace Infrastructure.Repository
         {
         }
 
+        public async Task AddNewMember(TribePlayer player)
+        {
+            await Context.TribePlayers.AddAsync(player);
+            await Context.SaveChangesAsync();
+        }
+
         public async Task<List<TribePlayer>> GetTribeUsersById(int tribeId)
         {
             return await Context.TribePlayers

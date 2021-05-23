@@ -9,7 +9,6 @@ using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
 using ApplicationCore.ViewModels;
-using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -20,12 +19,14 @@ namespace WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly ITribeService _tribeService;
         private readonly IStringLocalizer<MessageResource> _localizer;
+        private readonly ITribeMemberService _tribeMemberService;
 
-        public TribeController(IMapper mapper, ITribeService tribeService, IStringLocalizer<MessageResource> localizer)
+        public TribeController(IMapper mapper, ITribeService tribeService, IStringLocalizer<MessageResource> localizer, ITribeMemberService tribeMemberService)
         {
             _mapper = mapper;
             _tribeService = tribeService;
             _localizer = localizer;
+            _tribeMemberService = tribeMemberService;
         }
 
         [HttpPost("/create-tribe")]
@@ -59,6 +60,16 @@ namespace WebApi.Controllers
 
             return result.Succeeded
                 ? Ok(new SuccessResponse(_localizer["EditTribeDescriptionSuccess"]))
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
+
+        [HttpPost("/invite-tribe-member")]
+        public async Task<ActionResult> AddTribeMember([FromBody] InviteTribeMemberDto dto)
+        {
+            var playerId = new Guid();  //TODO: Read playerId from session
+            var result = await _tribeMemberService.InviteNewMember(playerId, dto.InvitedPlayerId);
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["AddTribeMemberSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
