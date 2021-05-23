@@ -44,7 +44,7 @@ namespace WebApi.Hubs
             if(Guid.TryParse(Context.UserIdentifier, out Guid userId))
             {
                 var buildingQueue = await _buildingsQueueService.BuildingQueueByUserId(userId);
-                if (_buildingsQueueService.ConstructionCompletion(buildingQueue))
+                if (await _buildingsQueueService.ConstructionCompletion(buildingQueue))
                 {
                     await RemoveFromBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
                     await Clients.Caller.ConstructionCompleted("The construction of the building has been completed");

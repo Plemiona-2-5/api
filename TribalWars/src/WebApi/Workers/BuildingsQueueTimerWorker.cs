@@ -11,12 +11,12 @@ using WebApi.Hubs;
 
 namespace WebApi.Workers
 {
-    public class QueueTimerWorker : BackgroundService
+    public class BuildingsQueueTimerWorker : BackgroundService
     {
         private const int RefreshDelayInMilliseconds = 1000;
         private readonly IHubContext<BuildingsQueueHub, IBuildingsQueueClient> _hubContext;
 
-        public QueueTimerWorker(IHubContext<BuildingsQueueHub, IBuildingsQueueClient> hubContext)
+        public BuildingsQueueTimerWorker(IHubContext<BuildingsQueueHub, IBuildingsQueueClient> hubContext)
         {
             _hubContext = hubContext;
         }
@@ -26,7 +26,7 @@ namespace WebApi.Workers
             while (!stoppingToken.IsCancellationRequested)
             {
                 await _hubContext.Clients.Group(GroupType.BuildingsQueue.ToString()).RequestQueueRefresh("Refresh queue");
-                await Task.Delay(RefreshDelayInMilliseconds);
+                await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
             }
         }
     }
