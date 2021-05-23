@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Hubs
@@ -40,7 +38,6 @@ namespace WebApi.Hubs
         [Authorize]
         public async Task BuildingWasConstructed()
         {
-
             if(Guid.TryParse(Context.UserIdentifier, out Guid userId))
             {
                 var buildingQueue = await _buildingsQueueService.BuildingQueueByUserId(userId);

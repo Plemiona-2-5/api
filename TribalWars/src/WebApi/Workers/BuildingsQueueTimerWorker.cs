@@ -1,10 +1,5 @@
-﻿using ApplicationCore.Interfaces;
-using ApplicationCore.Services;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApi.Hubs;

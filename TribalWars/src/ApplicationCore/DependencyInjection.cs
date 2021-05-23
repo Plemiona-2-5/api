@@ -1,4 +1,5 @@
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,8 @@ namespace ApplicationCore
             services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
 
             services.AddScoped<ITribeService, TribeService>();
+
+            services.AddScoped<IRecruitmentQueueService, RecruitmentQueueService>();
 
             return services;
         }
