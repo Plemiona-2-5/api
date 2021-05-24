@@ -86,5 +86,14 @@ namespace WebApi.Controllers
                 ? Ok(result)
                 : BadRequest(result);
         }
+
+        [HttpDelete("/leave-tribe")]
+        public async Task<ActionResult> LeaveTheTribe([FromHeader] Guid playerId)
+        {
+            var result = await _tribeMemberService.LeaveTribe(playerId);
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["LeaveTribeSuccess"]))
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
     }
 }
