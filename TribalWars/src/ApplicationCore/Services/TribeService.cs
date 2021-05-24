@@ -58,7 +58,7 @@ namespace ApplicationCore.Services
             var tribe = await _tribeRepository.GetTribeByUser(playerId);
             if (tribe != null)
             {
-                var tribeUsers = await _tribeUserRepository.GetTribeUsersById(tribe.Id);
+                var tribeUsers = await _tribeUserRepository.GetTribeUsersByTribeId(tribe.Id);
                 var owner = tribeUsers
                     .Find(player => player.TribeRole == Enums.TribeRole.Owner);
                 var details = new TribeDetailsVM
