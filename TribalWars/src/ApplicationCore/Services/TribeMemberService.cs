@@ -77,7 +77,7 @@ namespace ApplicationCore.Services
             return memberTribeId.Id == ownerTribeId.Id;
         }
 
-        public async Task<ServiceResult> RemoveTribeUser(Guid ownerId, Guid memberId)
+        public async Task<ServiceResult> RemoveTribeMember(Guid ownerId, Guid memberId)
         {
             if (!await HasTribe(memberId) && await _tribeUserRepository.IsOwner(ownerId))
             {

@@ -90,7 +90,7 @@ namespace WebApi.Controllers
         [HttpDelete("/remove-member")]
         public async Task<ActionResult> RemoveMember([FromBody] RemoveTribeMemberDto dto)
         {
-            var result = await _tribeMemberService.RemoveTribeUser(dto.OwnerId, dto.MemberId);
+            var result = await _tribeMemberService.RemoveTribeMember(dto.OwnerId, dto.MemberId);
             return result.Succeeded
                 ? Ok(new SuccessResponse(_localizer["RemoveTribeMemberSuccess"]))
                 : BadRequest(result.Errors);
