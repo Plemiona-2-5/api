@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.ViewModels;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,14 @@ namespace Infrastructure.Mapping
     {
         public EntityToViewModelProfile()
         {
-            CreateMap<BuildingRequiredBuilding, ApplicationCore.ViewModels.BuildingRequiredBuildingViewModel>()
+            CreateMap<BuildingRequiredBuilding, BuildingRequiredBuildingViewModel>()
                 .ForMember(dest => dest.Level, opt => opt
                 .MapFrom(src => src.RequiredBuilding.Level))
                 .ForMember(dest => dest.Name, opt => opt
-                .MapFrom(src => src.RequiredBuilding.Building.Name)); 
+                .MapFrom(src => src.RequiredBuilding.Building.Name));
+            CreateMap<TribePlayer, TribeMemberVM>()
+                .ForMember(dest => dest.Nickname, opt => opt
+                .MapFrom(src => src.Player.Nickname));
         }
     }
 }

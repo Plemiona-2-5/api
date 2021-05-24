@@ -71,7 +71,7 @@ namespace ApplicationCore.Services
 
                 return ServiceResult<TribeDetailsVM>.Success(details);
             }
-            return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
+            return ServiceResult<TribeDetailsVM>.Failure(_localizer["TribeDetailsError"]);
         }
 
         public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)
