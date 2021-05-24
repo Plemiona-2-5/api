@@ -8,11 +8,11 @@ namespace ApplicationCore.Results.Generic
     {
         public T Content { get; }
 
-        public ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors, T content) : base(serviceStatus, errors)
+        private ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors, T content) : base(serviceStatus, errors)
         {
             Content = content;
         }
-        public ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors) : base(serviceStatus, errors)
+        private ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors) : base(serviceStatus, errors)
         {
         }
 
