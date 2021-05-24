@@ -32,7 +32,7 @@ namespace ApplicationCore.Services
             var tribe = await _tribeRepository.GetTribeByUser(playerId);
             if (tribe != null && await _playerRepository.PlayerExistById(invitedPlayerId))
             {
-                if (await HasTribe(invitedPlayerId))
+                if (!await HasTribe(invitedPlayerId))
                 {
                     var member = new TribePlayer
                     {
@@ -50,7 +50,7 @@ namespace ApplicationCore.Services
 
         public async Task<bool> HasTribe(Guid invitedPlayerId)
         {
-            return await _tribeRepository.GetTribeByUser(invitedPlayerId) == null;
+            return await _tribeRepository.GetTribeByUser(invitedPlayerId) != null;
         }
     }
 }
