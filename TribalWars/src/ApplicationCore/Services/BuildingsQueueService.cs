@@ -48,16 +48,11 @@ namespace ApplicationCore.Services
             var buildingsInQueue = await _buildingsQueueRepository.GetQueueBuildings(villageId);
             var createBuildingQueue = await CreateBuildingQueue(villageId, buildingId);
             var buildingQueue = await _buildingsQueueRepository.GetBuildingQueueByVillageId(villageId);
-            if (buildingsInQueue.Count == 0 )
-            {                
-                await _buildingsQueueRepository
-                    .AddBuildingsToQueue(createBuildingQueue);
-            }
-            else if(buildingsInQueue.Count == 1)
+            if(buildingsInQueue.Count < 2)
             {
-                createBuildingQueue.StartDate = buildingQueue.StartDate.AddSeconds(buildingQueue.Duration);
+                createBuildingQueue.StartDate = buildingQueue?.StartDate.AddSeconds(buildingQueue.Duration) ?? createBuildingQueue.StartDate;
                 await _buildingsQueueRepository
-                    .AddBuildingsToQueue(createBuildingQueue);
+                        .AddBuildingsToQueue(createBuildingQueue);
             }
         }
 
