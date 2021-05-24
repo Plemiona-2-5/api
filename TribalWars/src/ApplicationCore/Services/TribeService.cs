@@ -85,5 +85,16 @@ namespace ApplicationCore.Services
             }
             return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
         }
+
+        public async Task<ServiceResult> DisbandTribe(Guid ownerId)
+        {
+            if (await _tribeUserRepository.IsOwner(ownerId))
+            {
+                var tribe = await _tribeRepository.GetTribeByUser(ownerId);
+                await _tribeRepository.DisbandTribe(tribe);
+                return ServiceResult.Success();
+            }
+            return ServiceResult.Failure(_localizer["DisbandTribeError"]);
+        }
     }
 }
