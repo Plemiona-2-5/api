@@ -9,6 +9,7 @@ using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
 using ApplicationCore.ViewModels;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -20,7 +21,6 @@ namespace WebApi.Controllers
         private readonly ITribeService _tribeService;
         private readonly ITribeMemberService _tribeMemberService;
         private readonly IStringLocalizer<MessageResource> _localizer;
-        private readonly ITribeMemberService _tribeMemberService;
 
         public TribeController(IMapper mapper,
                                ITribeService tribeService,
@@ -53,8 +53,8 @@ namespace WebApi.Controllers
 
             var result = await _tribeService.TribeDetails(playerId);
             return result.Succeeded
-                ? Ok(result.Content)
-                : BadRequest(new ErrorsResponse(result.Errors));
+                ? Ok(result)
+                : BadRequest(result);
         }
 
         [HttpPut("/edit-tribe-description")]
@@ -75,14 +75,16 @@ namespace WebApi.Controllers
             var result = await _tribeMemberService.InviteNewMember(playerId, dto.InvitedPlayerId);
             return result.Succeeded
                 ? Ok(new SuccessResponse(_localizer["AddTribeMemberSuccess"]))
+                : BadRequest(new ErrorsResponse(_localizer["TribeDetailsError"]));
+        }
 
         [HttpGet("/tribe-members")]
         public async Task<ActionResult> TribeMembers([FromHeader] int tribeId)
         {
             var result = await _tribeMemberService.GetTribeUsersByTribeId(tribeId);
             return result.Succeeded
-                ? Ok(_mapper.Map<List<TribeMemberVM>>(result.Content))
-                : BadRequest(new ErrorsResponse(result.Errors));
+                ? Ok(result)
+                : BadRequest(result);
         }
     }
 }

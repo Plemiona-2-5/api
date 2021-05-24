@@ -11,6 +11,6 @@ namespace ApplicationCore.Interfaces.Services
     {
         Task<ServiceResult> InviteNewMember(Guid playerId, Guid invitedPlayerId);
 
-        Task<ServiceResult<List<TribePlayer>>> GetTribeUsersByTribeId(int tribeId);
+        Task<ServiceResult> GetTribeUsersByTribeId(int tribeId);
     }
 }

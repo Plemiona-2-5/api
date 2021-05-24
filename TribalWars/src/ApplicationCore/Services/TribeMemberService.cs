@@ -6,9 +6,10 @@ using ApplicationCore.Results;
 using Microsoft.Extensions.Localization;
 using System;
 using ApplicationCore.Results.Generic;
-using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ApplicationCore.ViewModels;
+using AutoMapper;
 
 namespace ApplicationCore.Services
 {
@@ -18,16 +19,19 @@ namespace ApplicationCore.Services
         private readonly ITribeRepository _tribeRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IStringLocalizer<MessageResource> _localizer;
+        private readonly IMapper _mapper;
 
         public TribeMemberService(ITribeUserRepository tribeUserRepository,
             IStringLocalizer<MessageResource> localizer,
             ITribeRepository tribeRepository,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            IMapper mapper)
         {
             _tribeUserRepository = tribeUserRepository;
             _localizer = localizer;
             _tribeRepository = tribeRepository;
             _playerRepository = playerRepository;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResult> InviteNewMember(Guid playerId, Guid invitedPlayerId)
@@ -56,14 +60,14 @@ namespace ApplicationCore.Services
             return await _tribeRepository.GetTribeByUser(invitedPlayerId) != null;
         }
 
-        public async Task<ServiceResult<List<TribePlayer>>> GetTribeUsersByTribeId(int tribeId)
+        public async Task<ServiceResult> GetTribeUsersByTribeId(int tribeId)
         {
             var tribeMembers = await _tribeUserRepository.GetTribeUsersById(tribeId);
             if(tribeMembers.Count > 0)
             {
-                return ServiceResult<List<TribePlayer>>.Success(tribeMembers);
+                return ServiceResult<List<TribeMemberVM>>.Success(_mapper.Map<List<TribeMemberVM>>(tribeMembers));
             }
-            return ServiceResult<List<TribePlayer>>.Failure(_localizer["ReturnTribeMembersError"]);
+            return ServiceResult.Failure(_localizer["ReturnTribeMembersError"]);
         }
     }
 }
