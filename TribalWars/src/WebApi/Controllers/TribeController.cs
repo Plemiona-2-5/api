@@ -9,7 +9,6 @@ using ApplicationCore.Responses;
 using Microsoft.Extensions.Localization;
 using ApplicationCore.Resources;
 using ApplicationCore.ViewModels;
-using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -21,6 +20,7 @@ namespace WebApi.Controllers
         private readonly ITribeService _tribeService;
         private readonly ITribeMemberService _tribeMemberService;
         private readonly IStringLocalizer<MessageResource> _localizer;
+        private readonly ITribeMemberService _tribeMemberService;
 
         public TribeController(IMapper mapper,
                                ITribeService tribeService,
@@ -31,6 +31,7 @@ namespace WebApi.Controllers
             _tribeService = tribeService;
             _tribeMemberService = tribeMemberService;
             _localizer = localizer;
+            _tribeMemberService = tribeMemberService;
         }
 
         [HttpPost("/create-tribe")]
@@ -66,6 +67,14 @@ namespace WebApi.Controllers
                 ? Ok(new SuccessResponse(_localizer["EditTribeDescriptionSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
+
+        [HttpPost("/invite-tribe-member")]
+        public async Task<ActionResult> AddTribeMember([FromBody] InviteTribeMemberDto dto)
+        {
+            var playerId = new Guid();  //TODO: Read playerId from session
+            var result = await _tribeMemberService.InviteNewMember(playerId, dto.InvitedPlayerId);
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["AddTribeMemberSuccess"]))
 
         [HttpGet("/tribe-members")]
         public async Task<ActionResult> TribeMembers([FromHeader] int tribeId)
