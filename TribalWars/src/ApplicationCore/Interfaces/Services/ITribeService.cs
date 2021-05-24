@@ -12,7 +12,7 @@ namespace ApplicationCore.Interfaces.Services
     {
         Task<ServiceResult> CreateTribe(Tribe tribe, Guid playerId);
         Task<bool> TribeExists(string tribeName);
-        Task<ServiceResult<TribeDetailsVM>> TribeDetails(Guid playerId);
+        Task<ServiceResult> TribeDetails(Guid playerId);
         Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto tribe, int tribeId);
     }
 }
