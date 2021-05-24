@@ -135,6 +135,9 @@
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
   </data>
+  <data name="ReturnTribeMembersError" xml:space="preserve">
+    <value>The tribe with this id does not exist</value>
+  </data>
   <data name="TribeAddError" xml:space="preserve">
     <value>Error while creating tribe!</value>
   </data>

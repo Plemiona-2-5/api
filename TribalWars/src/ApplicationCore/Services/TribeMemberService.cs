@@ -5,6 +5,9 @@ using ApplicationCore.Resources;
 using ApplicationCore.Results;
 using Microsoft.Extensions.Localization;
 using System;
+using ApplicationCore.Results.Generic;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -51,6 +54,16 @@ namespace ApplicationCore.Services
         public async Task<bool> HasTribe(Guid invitedPlayerId)
         {
             return await _tribeRepository.GetTribeByUser(invitedPlayerId) != null;
+        }
+
+        public async Task<ServiceResult<List<TribePlayer>>> GetTribeUsersByTribeId(int tribeId)
+        {
+            var tribeMembers = await _tribeUserRepository.GetTribeUsersById(tribeId);
+            if(tribeMembers.Count > 0)
+            {
+                return ServiceResult<List<TribePlayer>>.Success(tribeMembers);
+            }
+            return ServiceResult<List<TribePlayer>>.Failure(_localizer["ReturnTribeMembersError"]);
         }
     }
 }
