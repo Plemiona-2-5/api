@@ -46,17 +46,18 @@ namespace ApplicationCore.Services
         public async Task AddBuildingsToQueue(int villageId,int buildingId)
         {
             var buildingsInQueue = await _buildingsQueueRepository.GetQueueBuildings(villageId);
-            var buildingQueue = await CreateBuildingQueue(villageId, buildingId);
+            var createBuildingQueue = await CreateBuildingQueue(villageId, buildingId);
+            var buildingQueue = await _buildingsQueueRepository.GetBuildingQueueByVillageId(villageId);
             if (buildingsInQueue.Count == 0 )
             {                
                 await _buildingsQueueRepository
-                    .AddBuildingsToQueue(buildingQueue);
+                    .AddBuildingsToQueue(createBuildingQueue);
             }
             else if(buildingsInQueue.Count == 1)
             {
-                buildingQueue.StartDate = buildingsInQueue[0].StartDate.AddSeconds(buildingsInQueue[0].Duration);
+                createBuildingQueue.StartDate = buildingQueue.StartDate.AddSeconds(buildingQueue.Duration);
                 await _buildingsQueueRepository
-                    .AddBuildingsToQueue(buildingQueue);
+                    .AddBuildingsToQueue(createBuildingQueue);
             }
         }
 
