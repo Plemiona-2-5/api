@@ -49,6 +49,8 @@ namespace Infrastructure
 
             services.AddScoped<IArmyUnitTypeRepository, ArmyUnitTypeRepository>();
 
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+
             return services;
         }
     }

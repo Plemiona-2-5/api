@@ -53,7 +53,7 @@ namespace ApplicationCore.Services
             return await _tribeRepository.GetTribeByName(tribeName) != null;
         }
 
-        public async Task<ServiceResult<TribeDetailsVM>> TribeDetails(Guid playerId)
+        public async Task<ServiceResult> TribeDetails(Guid playerId)
         {
             var tribe = await _tribeRepository.GetTribeByUser(playerId);
             if (tribe != null)
@@ -71,7 +71,7 @@ namespace ApplicationCore.Services
 
                 return ServiceResult<TribeDetailsVM>.Success(details);
             }
-            return (ServiceResult<TribeDetailsVM>)ServiceResult.Failure(_localizer["TribeDetailsError"]);
+            return ServiceResult.Failure(_localizer["TribeDetailsError"]);
         }
 
         public async Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto dto, int tribeId)

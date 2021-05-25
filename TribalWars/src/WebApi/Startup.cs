@@ -85,7 +85,11 @@ namespace WebApi
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
-                    builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+                    builder => { builder.WithOrigins("http://localhost:8086", "https://localhost:8086")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
             });
 
             services.AddSwaggerGen(c =>

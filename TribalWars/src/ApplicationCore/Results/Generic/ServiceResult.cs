@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace ApplicationCore.Results.Generic
@@ -7,7 +8,7 @@ namespace ApplicationCore.Results.Generic
     {
         public T Content { get; }
 
-        public ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors, T content) : base(serviceStatus, errors)
+        private ServiceResult(ServiceResultStatus serviceStatus, IEnumerable<string> errors, T content) : base(serviceStatus, errors)
         {
             Content = content;
         }

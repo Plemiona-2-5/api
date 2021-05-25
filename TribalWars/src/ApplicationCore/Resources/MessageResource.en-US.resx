@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTribeMemberFailed" xml:space="preserve">
+    <value>A tribe/player with this id does not exist</value>
+  </data>
+  <data name="AddTribeMemberHasTribe" xml:space="preserve">
+    <value>Player is already in the tribe</value>
+  </data>
+  <data name="AddTribeMemberSuccess" xml:space="preserve">
+    <value>A new member has been successfully added to the tribe</value>
+  </data>
   <data name="AddTribeSuccess" xml:space="preserve">
     <value>A tribe was created!</value>
   </data>
@@ -125,6 +134,9 @@
   </data>
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
+  </data>
+  <data name="ReturnTribeMembersError" xml:space="preserve">
+    <value>The tribe with this id does not exist</value>
   </data>
   <data name="TribeAddError" xml:space="preserve">
     <value>Error while creating tribe!</value>

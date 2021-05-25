@@ -28,6 +28,12 @@ namespace Infrastructure.Repository
                 .FirstOrDefaultAsync(buildingQueue => buildingQueue.Village.Player.UserId == userId);
         }
 
+        public async Task<BuildingQueue> GetBuildingQueueByVillageId(int villageId)
+        {
+            return await Context.BuildingQueues
+                .FirstOrDefaultAsync(buildingQueue => buildingQueue.VillageId == villageId);
+        }
+
         public async Task AddBuildingsToQueue(BuildingQueue buildingQueue)
         {          
             await Context.BuildingQueues
