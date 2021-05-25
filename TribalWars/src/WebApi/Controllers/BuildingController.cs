@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Dtos;
+using ApplicationCore.Interfaces;
 using ApplicationCore.Resources;
 using ApplicationCore.Responses;
 using AutoMapper;
@@ -23,10 +24,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("/add-building-to-queue")]
-        public async Task<IActionResult> AddBuildingToQueue([FromHeader] int buildingId)
+        public async Task<IActionResult> AddBuildingToQueue([FromBody] AddBuilidingToQueueDto dto)
         {
-            var village = 5;
-            var result = await _buildingsQueueService.AddBuildingsToQueue(village, buildingId);
+            var result = await _buildingsQueueService.AddBuildingsToQueue(dto.VillageId, dto.BuildingId);
             return result.Succeeded
                 ? Ok(new SuccessResponse(_localizer["AddBuildingToQueueSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
