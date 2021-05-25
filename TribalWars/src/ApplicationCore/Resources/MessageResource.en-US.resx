@@ -141,6 +141,15 @@
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
   </data>
+  <data name="RemoveTribeMemberSuccess" xml:space="preserve">
+    <value>Member successfully removed</value>
+  </data>
+  <data name="RemoveTribeUserError" xml:space="preserve">
+    <value>Error while removing tribe member</value>
+  </data>
+  <data name="RemoveTribeUserOtherTribeError" xml:space="preserve">
+    <value>Owner and member are not from the same tribe</value>
+  </data>
   <data name="ReturnTribeMembersError" xml:space="preserve">
     <value>The tribe with this id does not exist</value>
   </data>

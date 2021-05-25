@@ -62,12 +62,33 @@ namespace ApplicationCore.Services
 
         public async Task<ServiceResult> GetTribeUsersByTribeId(int tribeId)
         {
-            var tribeMembers = await _tribeUserRepository.GetTribeUsersById(tribeId);
-            if(tribeMembers.Count > 0)
+            var tribeMembers = await _tribeUserRepository.GetTribeUsersByTribeId(tribeId);
+            if (tribeMembers.Count > 0)
             {
                 return ServiceResult<List<TribeMemberVM>>.Success(_mapper.Map<List<TribeMemberVM>>(tribeMembers));
             }
             return ServiceResult.Failure(_localizer["ReturnTribeMembersError"]);
+        }
+
+        public async Task<bool> SameTribe(Guid ownerId, Guid memberId)
+        {
+            var memberTribeId = await _tribeRepository.GetTribeByUser(memberId);
+            var ownerTribeId = await _tribeRepository.GetTribeByUser(ownerId);
+            return memberTribeId.Id == ownerTribeId.Id;
+        }
+
+        public async Task<ServiceResult> RemoveTribeMember(Guid ownerId, Guid memberId)
+        {
+            if (!await HasTribe(memberId) && await _tribeUserRepository.IsOwner(ownerId))
+            {
+                if(await SameTribe(ownerId, memberId))
+                {
+                    await _tribeUserRepository.RemoveMember(await _tribeUserRepository.GetTribeUserById(memberId));
+                    return ServiceResult.Success();
+                }
+                return ServiceResult.Failure(_localizer["RemoveTribeUserOtherTribeError"]);
+            }
+            return ServiceResult.Failure(_localizer["RemoveTribeUserError"]);
         }
     }
 }

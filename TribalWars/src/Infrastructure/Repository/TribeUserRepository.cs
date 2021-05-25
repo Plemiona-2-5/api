@@ -22,7 +22,13 @@ namespace Infrastructure.Repository
             await Context.SaveChangesAsync();
         }
 
-        public async Task<List<TribePlayer>> GetTribeUsersById(int tribeId)
+        public Task<TribePlayer> GetTribeUserById(Guid playerId)
+        {
+            return Context.TribePlayers.
+                FirstOrDefaultAsync(tp => tp.PlayerId == playerId);
+        }
+
+        public async Task<List<TribePlayer>> GetTribeUsersByTribeId(int tribeId)
         {
             return await Context.TribePlayers
                 .Where(tribe => tribe.TribeId == tribeId)
@@ -37,6 +43,12 @@ namespace Infrastructure.Repository
                 .Where(tp => tp.PlayerId == playerId)
                 .Where(tp => tp.TribeRole == TribeRole.Owner)
                 .AnyAsync();
+        }
+
+        public async Task RemoveMember(TribePlayer player)
+        {
+            Context.TribePlayers.Remove(player);
+            await Context.SaveChangesAsync();
         }
     }
 }
