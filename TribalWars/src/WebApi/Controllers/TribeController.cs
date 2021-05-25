@@ -95,5 +95,14 @@ namespace WebApi.Controllers
                 ? Ok(new SuccessResponse(_localizer["RemoveTribeMemberSuccess"]))
                 : BadRequest(result.Errors);
         }
+        
+        [HttpDelete("/disband-tribe")]
+        public async Task<ActionResult> DisbandTribe([FromBody] DisbandTribeDto dto)
+        {
+            var result = await _tribeService.DisbandTribe(dto);
+            return result.Succeeded
+                ? Ok(new SuccessResponse(_localizer["DisbandTribeSuccess"]))
+                : BadRequest(new ErrorsResponse(result.Errors));
+        }
     }
 }

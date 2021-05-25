@@ -54,5 +54,11 @@ namespace Infrastructure.Repository
             Context.Update(tribe);
             await Context.SaveChangesAsync();
         }
+
+        public async Task DisbandTribe(Tribe tribe)
+        {
+            Context.Remove(tribe);
+            await Context.SaveChangesAsync();
+        }
     }
 }

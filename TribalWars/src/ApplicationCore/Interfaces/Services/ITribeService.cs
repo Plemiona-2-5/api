@@ -14,5 +14,6 @@ namespace ApplicationCore.Interfaces.Services
         Task<bool> TribeExists(string tribeName);
         Task<ServiceResult> TribeDetails(Guid playerId);
         Task<ServiceResult> EditTribeDescription(Guid playerId, TribeDescriptionDto tribe, int tribeId);
+        Task<ServiceResult> DisbandTribe(DisbandTribeDto dto);
     }
 }

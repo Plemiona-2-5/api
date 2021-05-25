@@ -45,6 +45,10 @@ namespace Infrastructure
 
             services.AddScoped<IBuildingsRepository, BuildingsRepository>();
 
+            services.AddScoped<IRecruitmentQueueRepository, RecruitmentQueueRepository>();
+
+            services.AddScoped<IArmyUnitTypeRepository, ArmyUnitTypeRepository>();
+
             services.AddScoped<IPlayerRepository, PlayerRepository>();
 
             return services;

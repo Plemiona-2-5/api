@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Hubs
@@ -28,19 +26,17 @@ namespace WebApi.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
-        }
+        } 
 
         [Authorize]
-        public async Task BuildingQueueGroup(int viilageId, int buildingId)
+        public async Task BuildingQueueGroup()
         {
-                await _buildingsQueueService.CreateBuildingQueue(viilageId, buildingId);
                 await AddToBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
         }
 
         [Authorize]
         public async Task BuildingWasConstructed()
         {
-
             if(Guid.TryParse(Context.UserIdentifier, out Guid userId))
             {
                 var buildingQueue = await _buildingsQueueService.BuildingQueueByUserId(userId);

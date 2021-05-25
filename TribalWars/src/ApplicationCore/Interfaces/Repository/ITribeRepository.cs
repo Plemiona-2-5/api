@@ -12,5 +12,6 @@ namespace ApplicationCore.Interfaces.Repository
         Task<Tribe> GetTribeByUser(Guid playerId);
         Task<Tribe> GetTribeByTribeId(int tribeId);
         Task UpdateTribe(Tribe tribe);
+        Task DisbandTribe(Tribe tribe);
     }
 }
