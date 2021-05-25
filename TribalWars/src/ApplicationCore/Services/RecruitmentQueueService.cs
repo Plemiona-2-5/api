@@ -23,7 +23,7 @@ namespace ApplicationCore.Services
         public async Task ReduceRecruitmentQueue(RecruitmentQueue recruitmentQueue)
         {
             var constructionTimePerUnit = recruitmentQueue.ArmyUnitType.RecruitmentTime;
-            if (recruitmentQueue.StartData.AddSeconds(constructionTimePerUnit) <= DateTime.Now)
+            if ((recruitmentQueue.StartData.AddSeconds(constructionTimePerUnit) <= DateTime.Now) && (recruitmentQueue.Quantity > 0))
             {
                 recruitmentQueue.Quantity -= 1;
                 recruitmentQueue.StartData = recruitmentQueue.StartData
