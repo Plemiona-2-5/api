@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApi.Hubs
+﻿namespace WebApi.Hubs
 {
     public enum GroupType
     {
-        BuildingsQueue
+        BuildingsQueue,
+        RecruitmentQueue
     }
 }
