@@ -45,6 +45,10 @@ namespace WebApi.Hubs
                     await RemoveFromRecruitmentQueueHubGroup(GroupType.BuildingsQueue.ToString());
                     await Clients.Caller.RefreshQueueRequest("The construction of the building has been completed");
                 }
+                else
+                {
+                    await _recruitmentQueueService.ReduceRecruitmentQueue(recruitmentQueue);
+                }
             }
             else
             {

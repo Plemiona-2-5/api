@@ -20,7 +20,7 @@ namespace ApplicationCore.Services
             return await _recruitmentQueueRepository.GetRecruitmentQueueByUserId(userId);
         }
 
-        public async Task ReductRecruitmentQueue(RecruitmentQueue recruitmentQueue)
+        public async Task ReduceRecruitmentQueue(RecruitmentQueue recruitmentQueue)
         {
             var constructionTimePerUnit = recruitmentQueue.ArmyUnitType.RecruitmentTime;
             if (recruitmentQueue.StartData.AddSeconds(constructionTimePerUnit) <= DateTime.Now)
