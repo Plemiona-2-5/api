@@ -14,6 +14,10 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Tribe> builder)
         {
             builder.HasKey(tribe => tribe.Id);
+
+            builder.HasMany(tribe => tribe.TribePlayers)
+            .WithOne()
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
