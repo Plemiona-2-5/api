@@ -19,20 +19,38 @@ namespace ApplicationCore.Services
         public async Task<int> CurrentBuildingLevel(int villageId, int buildingId)
         {
             var building = await _villageBuildingRepository.GetVillageBuilding(villageId, buildingId);
-            return building.CurrentLevel;
+            return building != null ? building.CurrentLevel : 0;
         }
 
         public async Task<bool> HasMaxLevel(int villageId, int buildingId)
         {
             var building = await _buildingRepository.GetBuilding(buildingId);
-            return building.MaxLevel > await CurrentBuildingLevel(villageId, buildingId);
+            return building.MaxLevel <= await CurrentBuildingLevel(villageId, buildingId);
         }
 
         public async Task UpgradeBuilding(BuildingQueue buildingQueue)
         {
-            var building = await _villageBuildingRepository.GetVillageBuilding(buildingQueue.Id, buildingQueue.BuildingId);
-            building.CurrentLevel++;
-            await _villageBuildingRepository.UpgradeBuilding(building);
+            if (!await _villageBuildingRepository.BuildingExist(buildingQueue.VillageId, buildingQueue.BuildingId))
+            {
+                await CreateBuilding(buildingQueue);
+            }
+            else
+            {
+                var building = await _villageBuildingRepository.GetVillageBuilding(buildingQueue.Id, buildingQueue.BuildingId);
+                building.CurrentLevel++;
+                await _villageBuildingRepository.UpgradeBuilding(building);
+            }
+        }
+
+        public async Task CreateBuilding(BuildingQueue buildingQueue)
+        {
+            VillageBuilding villageBuilding = new()
+            {
+                VillageId = buildingQueue.VillageId,
+                BuildingId = buildingQueue.BuildingId,
+                CurrentLevel = 1
+            };
+            await _villageBuildingRepository.AddVillageBuilding(villageBuilding);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ApplicationCore.Interfaces.Repository
         Task<IEnumerable<VillageBuilding>> GetVillageBuildings(int villageId);
         Task<VillageBuilding> GetVillageBuilding(int villageId, int buildingId);
         Task UpgradeBuilding(VillageBuilding building);
-
+        Task AddVillageBuilding(VillageBuilding building);
+        Task<bool> BuildingExist(int villageId, int buildingId);
     }
 }

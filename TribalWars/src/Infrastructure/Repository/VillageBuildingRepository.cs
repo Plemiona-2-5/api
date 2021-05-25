@@ -34,5 +34,18 @@ namespace Infrastructure.Repository
             Context.Update(building);
             await Context.SaveChangesAsync();
         }
+
+        public async Task<bool> BuildingExist(int villageId, int buildingId)
+        {
+            return await Context.VillageBuildings
+                .Where(vb => vb.VillageId == villageId)
+                .AnyAsync(vb => vb.BuildingId == buildingId);
+        }
+
+        public async Task AddVillageBuilding(VillageBuilding building)
+        {
+            await Context.VillageBuildings.AddAsync(building);
+            await Context.SaveChangesAsync();
+        }
     }
 }

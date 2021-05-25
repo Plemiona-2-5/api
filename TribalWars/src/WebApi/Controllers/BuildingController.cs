@@ -28,7 +28,7 @@ namespace WebApi.Controllers
             var village = 5;
             var result = await _buildingsQueueService.AddBuildingsToQueue(village, buildingId);
             return result.Succeeded
-                ? Ok(new SuccessResponse(_localizer[""]))
+                ? Ok(new SuccessResponse(_localizer["AddBuildingToQueueSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
     }
