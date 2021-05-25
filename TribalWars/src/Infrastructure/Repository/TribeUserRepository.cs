@@ -30,9 +30,10 @@ namespace Infrastructure.Repository
                 .ToListAsync();
         }
 
-        public async Task<bool> IsOwner(Guid playerId)
+        public async Task<bool> IsOwner(Guid playerId, int tribeId)
         {
             return await Context.TribePlayers
+                .Where(tp => tp.TribeId == tribeId)
                 .Where(tp => tp.PlayerId == playerId)
                 .Where(tp => tp.TribeRole == TribeRole.Owner)
                 .AnyAsync();

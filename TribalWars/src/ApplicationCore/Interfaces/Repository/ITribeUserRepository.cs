@@ -9,6 +9,6 @@ namespace ApplicationCore.Interfaces.Repository
     {
         Task<List<TribePlayer>> GetTribeUsersById(int tribeId);
         Task AddNewMember(TribePlayer player);
-        Task<bool> IsOwner(Guid playerId);
+        Task<bool> IsOwner(Guid playerId, int tribeId);
     }
 }

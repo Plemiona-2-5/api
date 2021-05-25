@@ -86,11 +86,11 @@ namespace ApplicationCore.Services
             return ServiceResult.Failure(_localizer["EditTribeDescriptionError"]);
         }
 
-        public async Task<ServiceResult> DisbandTribe(Guid ownerId)
+        public async Task<ServiceResult> DisbandTribe(DisbandTribeDto dto)
         {
-            if (await _tribeUserRepository.IsOwner(ownerId))
+            if (await _tribeUserRepository.IsOwner(dto.PlayerId, dto.VillageId))
             {
-                var tribe = await _tribeRepository.GetTribeByUser(ownerId);
+                var tribe = await _tribeRepository.GetTribeByUser(dto.PlayerId);
                 await _tribeRepository.DisbandTribe(tribe);
                 return ServiceResult.Success();
             }
