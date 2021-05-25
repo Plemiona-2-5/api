@@ -72,9 +72,10 @@ namespace ApplicationCore.Services
 
         public async Task<ServiceResult> LeaveTribe(Guid playerId)
         {
-            if(await HasTribe(playerId) && await _tribeUserRepository.IsOwner(playerId))
+            var tribe = await _tribeUserRepository.GetTribeUserById(playerId);
+            if (await HasTribe(playerId) && await _tribeUserRepository.IsOwner(playerId, tribe.TribeId))
             {
-                if (!await _tribeUserRepository.IsOwner(playerId))
+                if (!await _tribeUserRepository.IsOwner(playerId, tribe.TribeId))
                 {
                     await _tribeUserRepository.RemoveMember(await _tribeUserRepository.GetTribeUserById(playerId));
                     return ServiceResult.Success();
