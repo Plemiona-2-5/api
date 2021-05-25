@@ -129,6 +129,12 @@
   <data name="AddTribeSuccess" xml:space="preserve">
     <value>A tribe was created!</value>
   </data>
+  <data name="DisbandTribeError" xml:space="preserve">
+    <value>You are not owner of this tribe</value>
+  </data>
+  <data name="DisbandTribeSuccess" xml:space="preserve">
+    <value>Tribe successfully disbanded</value>
+  </data>
   <data name="EditTribeDescriptionError" xml:space="preserve">
     <value>You are not owner of this tribe</value>
   </data>
@@ -143,6 +149,14 @@
   </data>
   <data name="LeaveTribeSuccess" xml:space="preserve">
     <value>You left the tribe</value>
+  <data name="RemoveTribeMemberSuccess" xml:space="preserve">
+    <value>Member successfully removed</value>
+  </data>
+  <data name="RemoveTribeUserError" xml:space="preserve">
+    <value>Error while removing tribe member</value>
+  </data>
+  <data name="RemoveTribeUserOtherTribeError" xml:space="preserve">
+    <value>Owner and member are not from the same tribe</value>
   </data>
   <data name="ReturnTribeMembersError" xml:space="preserve">
     <value>The tribe with this id does not exist</value>

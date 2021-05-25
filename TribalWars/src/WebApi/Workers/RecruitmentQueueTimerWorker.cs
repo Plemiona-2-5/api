@@ -1,17 +1,20 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApi.Hubs;
 
 namespace WebApi.Workers
 {
-    public class BuildingsQueueTimerWorker : BackgroundService
+    public class RecruitmentQueueTimerWorker : BackgroundService
     {
         private const int RefreshDelayInMilliseconds = 1000;
-        private readonly IHubContext<BuildingsQueueHub, IBuildingsQueueClient> _hubContext;
+        private readonly IHubContext<RecruitmentQueueHub, IRecruitmentQueueClient> _hubContext;
 
-        public BuildingsQueueTimerWorker(IHubContext<BuildingsQueueHub, IBuildingsQueueClient> hubContext)
+        public RecruitmentQueueTimerWorker(IHubContext<RecruitmentQueueHub, IRecruitmentQueueClient> hubContext)
         {
             _hubContext = hubContext;
         }
@@ -20,7 +23,7 @@ namespace WebApi.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _hubContext.Clients.Group(GroupType.BuildingsQueue.ToString()).RequestQueueRefresh("Refresh queue");
+                await _hubContext.Clients.Group(GroupType.RecruitmentQueue.ToString()).RefreshQueueRequest("Refresh queue");
                 await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
             }
         }

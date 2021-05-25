@@ -83,5 +83,27 @@ namespace ApplicationCore.Services
             }
             return ServiceResult.Failure(_localizer["LeaveTribeError"]);
         }
+        
+        public async Task<bool> SameTribe(Guid ownerId, Guid memberId)
+        {
+            var memberTribeId = await _tribeRepository.GetTribeByUser(memberId);
+            var ownerTribeId = await _tribeRepository.GetTribeByUser(ownerId);
+            return memberTribeId.Id == ownerTribeId.Id;
+        }
+
+        public async Task<ServiceResult> RemoveTribeMember(Guid ownerId, Guid memberId)
+        {
+            var tribe = await _tribeUserRepository.GetTribeUserById(ownerId);
+            if (!await HasTribe(memberId) && await _tribeUserRepository.IsOwner(ownerId, tribe.TribeId))
+            {
+                if(await SameTribe(ownerId, memberId))
+                {
+                    await _tribeUserRepository.RemoveMember(await _tribeUserRepository.GetTribeUserById(memberId));
+                    return ServiceResult.Success();
+                }
+                return ServiceResult.Failure(_localizer["RemoveTribeUserOtherTribeError"]);
+            }
+            return ServiceResult.Failure(_localizer["RemoveTribeUserError"]);
+        }
     }
 }

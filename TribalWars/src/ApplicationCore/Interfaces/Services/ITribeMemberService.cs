@@ -9,5 +9,6 @@ namespace ApplicationCore.Interfaces.Services
         Task<ServiceResult> InviteNewMember(Guid playerId, Guid invitedPlayerId);
         Task<ServiceResult> GetTribeUsersByTribeId(int tribeId);
         Task<ServiceResult> LeaveTribe(Guid playerId);
+        Task<ServiceResult> RemoveTribeMember(Guid ownerId, Guid memberId);
     }
 }
