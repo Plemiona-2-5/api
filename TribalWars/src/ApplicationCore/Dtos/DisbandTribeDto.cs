@@ -2,7 +2,7 @@
 
 namespace ApplicationCore.Dtos
 {
-    public class PlayerIdDto
+    public class DisbandTribeDto
     {
         public Guid PlayerId { get; set; }
         public int VillageId { get; set; }
