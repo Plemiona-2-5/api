@@ -88,7 +88,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("/disband-tribe")]
-        public async Task<ActionResult> DisbandTheTribe([FromBody] DisbandTribeDto dto)
+        public async Task<ActionResult> DisbandTribe([FromBody] DisbandTribeDto dto)
         {
             var result = await _tribeService.DisbandTribe(dto);
             return result.Succeeded
