@@ -33,7 +33,6 @@ namespace WebApi.Hubs
         [Authorize]
         public async Task BuildingQueueGroup(int viilageId, int buildingId)
         {
-                await _buildingsQueueService.CreateBuildingQueue(viilageId, buildingId);
                 await AddToBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
         }
 

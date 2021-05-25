@@ -1,8 +1,5 @@
 ﻿using ApplicationCore.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces.Repository
@@ -10,5 +7,8 @@ namespace ApplicationCore.Interfaces.Repository
     public interface IVillageBuildingRepository
     {
         Task<IEnumerable<VillageBuilding>> GetVillageBuildings(int villageId);
+        Task<VillageBuilding> GetVillageBuilding(int villageId, int buildingId);
+        Task UpgradeBuilding(VillageBuilding building);
+
     }
 }

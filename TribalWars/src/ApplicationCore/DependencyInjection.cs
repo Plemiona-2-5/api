@@ -17,6 +17,8 @@ namespace ApplicationCore
 
             services.AddScoped<ITribeMemberService, TribeMemberService>();
 
+            services.AddScoped<IBuildingService, BuildingService>();
+
             return services;
         }
     }

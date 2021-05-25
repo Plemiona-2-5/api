@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -26,6 +25,7 @@ namespace Infrastructure.Repository
         public async Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId)
         {
             return await Context.BuildingQueues
+                .Include(bq => bq.Village)
                 .FirstOrDefaultAsync(buildingQueue => buildingQueue.Village.Player.UserId == userId);
         }
 
