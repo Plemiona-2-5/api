@@ -17,10 +17,15 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<VillageMaterial>> GetVillageMaterials(int villageId)
         {
-            var playerMaterials = Context.VillageMaterials
+            return await Context.VillageMaterials
                 .Where(material => material.VillageId == villageId)
                 .ToListAsync();
-            return await playerMaterials;
+        }
+
+        public async Task UpdateVillageMaterials(VillageMaterial villageMaterial)
+        {
+            Context.VillageMaterials.Update(villageMaterial);
+            await Context.SaveChangesAsync();
         }
     }
 }
