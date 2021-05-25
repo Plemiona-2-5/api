@@ -26,12 +26,11 @@ namespace WebApi.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
-        }
+        } 
 
         [Authorize]
-        public async Task BuildingQueueGroup(int viilageId, int buildingId)
+        public async Task BuildingQueueGroup()
         {
-                await _buildingsQueueService.CreateBuildingQueue(viilageId, buildingId);
                 await AddToBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
         }
 

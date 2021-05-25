@@ -146,6 +146,7 @@ namespace WebApi
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<BuildingsQueueHub>("hub/buildingsQueue");
+                endpoints.MapHub<RecruitmentQueueHub>("hub/recruitmentQueue");
             });
         }
     }

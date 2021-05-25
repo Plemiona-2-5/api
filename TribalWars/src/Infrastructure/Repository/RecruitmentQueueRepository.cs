@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,11 +35,18 @@ namespace Infrastructure.Repository
             await Context.SaveChangesAsync();
         }
 
-        public async Task RemoveMilitaryUnitsToQueue(RecruitmentQueue recruitmentQueue)
+        public async Task RemoveRecruitmentQueue(RecruitmentQueue recruitmentQueue)
         {
             Context.RecruitmentQueues
                 .Remove(recruitmentQueue);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<RecruitmentQueue> GetRecruitmentQueueByUserId(Guid userId)
+        {
+            return await Context.RecruitmentQueues
+                .Include(recruitmentQueue => recruitmentQueue.Village)
+                .FirstOrDefaultAsync(recruitmentQueue => recruitmentQueue.Village.Player.UserId == userId);
         }
     }
 }

@@ -1,43 +1,49 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Interfaces.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
-    public class RecruitmentQueueService
+    public class RecruitmentQueueService : IRecruitmentQueueService
     {
         private readonly IRecruitmentQueueRepository _recruitmentQueueRepository;
-        private readonly IArmyUnitTypeRepository _armyUnitTypeRepository;
-        public RecruitmentQueueService(IRecruitmentQueueRepository recruitmentQueueRepository,
-            IArmyUnitTypeRepository armyUnitTypeRepository)
+
+        public RecruitmentQueueService(IRecruitmentQueueRepository recruitmentQueueRepository)
         {
             _recruitmentQueueRepository = recruitmentQueueRepository;
-            _armyUnitTypeRepository = armyUnitTypeRepository;
         }
 
-        public async Task<RecruitmentQueue> CreateRecruitmentQueue(int villageId, int armyUnitTypeId, int quantity)
+        public async Task<RecruitmentQueue> GetRecruitmentQueueByUserId(Guid userId)
         {
-            var armyUnitType = await _armyUnitTypeRepository.GetArmyUnitTypeById(armyUnitTypeId);
-            RecruitmentQueue recruitmentQueue = new RecruitmentQueue()
+            return await _recruitmentQueueRepository.GetRecruitmentQueueByUserId(userId);
+        }
+
+        public async Task ReductRecruitmentQueue(RecruitmentQueue recruitmentQueue)
+        {
+            var constructionTimePerUnit = recruitmentQueue.ArmyUnitType.RecruitmentTime;
+            if (recruitmentQueue.StartData.AddSeconds(constructionTimePerUnit) <= DateTime.Now)
             {
-                VillageId = villageId,
-                ArmyUnitTypeId = armyUnitTypeId,
-                Quantity = quantity,
-                StartData = DateTime.Now,
-                Duration = armyUnitType.RecruitmentTime
-            };
-            return recruitmentQueue;
+                recruitmentQueue.Quantity -= 1;
+                recruitmentQueue.StartData = recruitmentQueue.StartData
+                    .AddSeconds(constructionTimePerUnit);
+                await _recruitmentQueueRepository
+                    .UpdateRecruitmentQueues(recruitmentQueue);
+            }
         }
 
-        public async Task AddMilitaryUnitsToQueue(int villageId, int armyUnitTypeId, int quantity)
+        public async Task<bool> EndUnitRecruitment(RecruitmentQueue recruitmentQueue)
         {
-            var createRecruitmentQueue = await CreateRecruitmentQueue(villageId, armyUnitTypeId, quantity);
-            await _recruitmentQueueRepository
-                .AddMilitaryUnitsToQueue(createRecruitmentQueue);
+            var endUnitRecruitmentTime = recruitmentQueue.StartData
+                .AddSeconds(recruitmentQueue.Duration);
+            if (endUnitRecruitmentTime <= DateTime.Now)
+            {
+                await _recruitmentQueueRepository
+                    .RemoveRecruitmentQueue(recruitmentQueue);
+                return true;
+            }
+            return false;
         }
     }
 }
