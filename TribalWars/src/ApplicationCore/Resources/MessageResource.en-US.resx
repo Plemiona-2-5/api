@@ -141,6 +141,14 @@
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
   </data>
+  <data name="LeaveTribeError" xml:space="preserve">
+    <value>Error while leaving the tribe</value>
+  </data>
+  <data name="LeaveTribeOwneError" xml:space="preserve">
+    <value>You can't leave tribe as tribe owner</value>
+  </data>
+  <data name="LeaveTribeSuccess" xml:space="preserve">
+    <value>You left the tribe</value>
   <data name="RemoveTribeMemberSuccess" xml:space="preserve">
     <value>Member successfully removed</value>
   </data>

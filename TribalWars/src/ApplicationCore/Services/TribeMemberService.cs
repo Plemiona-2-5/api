@@ -63,13 +63,27 @@ namespace ApplicationCore.Services
         public async Task<ServiceResult> GetTribeUsersByTribeId(int tribeId)
         {
             var tribeMembers = await _tribeUserRepository.GetTribeUsersByTribeId(tribeId);
-            if (tribeMembers.Count > 0)
+            if(tribeMembers.Count > 0)
             {
                 return ServiceResult<List<TribeMemberVM>>.Success(_mapper.Map<List<TribeMemberVM>>(tribeMembers));
             }
             return ServiceResult.Failure(_localizer["ReturnTribeMembersError"]);
         }
 
+        public async Task<ServiceResult> LeaveTribe(Guid playerId)
+        {
+            if(await HasTribe(playerId) && await _tribeUserRepository.IsOwner(playerId))
+            {
+                if (!await _tribeUserRepository.IsOwner(playerId))
+                {
+                    await _tribeUserRepository.RemoveMember(await _tribeUserRepository.GetTribeUserById(playerId));
+                    return ServiceResult.Success();
+                }
+                return ServiceResult.Failure(_localizer["LeaveTribeOwnerError"]);
+            }
+            return ServiceResult.Failure(_localizer["LeaveTribeError"]);
+        }
+        
         public async Task<bool> SameTribe(Guid ownerId, Guid memberId)
         {
             var memberTribeId = await _tribeRepository.GetTribeByUser(memberId);
