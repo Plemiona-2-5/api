@@ -147,8 +147,9 @@
   <data name="LeaveTribeOwneError" xml:space="preserve">
     <value>You can't leave tribe as tribe owner</value>
   </data>
-  <data name="LeaveTribeSuccess" xml:space="preserve">
+	<data name="LeaveTribeSuccess" xml:space="preserve">
     <value>You left the tribe</value>
+  </data>
   <data name="RemoveTribeMemberSuccess" xml:space="preserve">
     <value>Member successfully removed</value>
   </data>
