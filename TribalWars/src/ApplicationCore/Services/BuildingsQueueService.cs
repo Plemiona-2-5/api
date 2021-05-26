@@ -3,6 +3,8 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
 using ApplicationCore.Results;
+using ApplicationCore.ViewModels;
+using AutoMapper;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -19,13 +21,15 @@ namespace ApplicationCore.Services
         private readonly IStringLocalizer<MessageResource> _localizer;
         private readonly IVillageMaterialService _villageMaterialService;
         private const int MaxQueueCount = 2;
+        private readonly IMapper _mapper;
 
         public BuildingsQueueService(IBuildingsQueueRepository buildingsQueueRepository,
                                      IBuildingsRepository buildingsRepository,
                                      IBuildingService buildingService,
                                      IBuildingRequiredService buildingRequiredService,
                                      IStringLocalizer<MessageResource> localizer,
-                                     IVillageMaterialService villageMaterialService)
+                                     IVillageMaterialService villageMaterialService,
+                                     IMapper mapper)
         {
             _buildingsQueueRepository = buildingsQueueRepository;
             _buildingsRepository = buildingsRepository;
@@ -33,6 +37,7 @@ namespace ApplicationCore.Services
             _buildingRequiredService = buildingRequiredService;
             _localizer = localizer;
             _villageMaterialService = villageMaterialService;
+            _mapper = mapper;
         }
 
         public async Task<BuildingQueue> CreateBuildingQueue(int viilageId, int buildingId)
@@ -107,6 +112,13 @@ namespace ApplicationCore.Services
         {
             await _buildingsQueueRepository
                 .RemoveBuildingsFromQueue(buildingQueue);
+        }
+
+        public async Task<List<BuildingQueueVM>> BuildingQueues(Guid playerId)
+        {
+            var buildingQueues = await _buildingsQueueRepository.GetBuildingQueuesByPlayerId(playerId);
+
+            return _mapper.Map<List<BuildingQueueVM>>(buildingQueues);
         }
     }
 }
