@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
+    [Route("api/village")]
     public class VillageUnitController : Controller
     {
         private readonly IVillageUnitService _villageUnitService;
