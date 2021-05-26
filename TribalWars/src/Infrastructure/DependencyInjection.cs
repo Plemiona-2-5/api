@@ -51,6 +51,8 @@ namespace Infrastructure
 
             services.AddScoped<IPlayerRepository, PlayerRepository>();
 
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
+
             return services;
         }
     }

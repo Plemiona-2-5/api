@@ -22,5 +22,11 @@ namespace Infrastructure.Repository
                 .ToListAsync();
             return await playerMaterials;
         }
+
+        public async Task UpdateVillageMaterial(VillageMaterial material)
+        {
+            Context.Update(material);
+            await Context.SaveChangesAsync();
+        }
     }
 }

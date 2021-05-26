@@ -25,6 +25,7 @@ namespace Infrastructure.Repository
         public async Task<BuildingQueue> GetBuildingQueueByUserId(Guid userId)
         {
             return await Context.BuildingQueues
+                .Include(bq => bq.Village)
                 .FirstOrDefaultAsync(buildingQueue => buildingQueue.Village.Player.UserId == userId);
         }
 

@@ -20,6 +20,10 @@ namespace ApplicationCore
           
             services.AddScoped<ITribeMemberService, TribeMemberService>();
 
+            services.AddScoped<IBuildingService, BuildingService>();
+
+            services.AddScoped<IVillageMaterialService, VillageMaterialService>();
+
             return services;
         }
     }
