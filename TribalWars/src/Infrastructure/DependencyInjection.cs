@@ -53,6 +53,8 @@ namespace Infrastructure
 
             services.AddScoped<IBuildingRepository, BuildingRepository>();
 
+            services.AddScoped<IVillageRepository, VillageRepository>();
+
             return services;
         }
     }
