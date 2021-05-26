@@ -18,6 +18,7 @@ namespace ApplicationCore.Services
         private readonly IBuildingRequiredService _buildingRequiredService;
         private readonly IStringLocalizer<MessageResource> _localizer;
         private readonly IVillageMaterialService _villageMaterialService;
+        private const int MaxQueueCount = 2;
 
         public BuildingsQueueService(IBuildingsQueueRepository buildingsQueueRepository,
                                      IBuildingsRepository buildingsRepository,
@@ -60,7 +61,7 @@ namespace ApplicationCore.Services
         public async Task<bool> CanAddToQueue(int villageId)
         {
             var buildingsInQueue = await _buildingsQueueRepository.GetQueueBuildings(villageId);
-            return buildingsInQueue.Count < 0;
+            return buildingsInQueue.Count < MaxQueueCount;
         }
         public async Task<ServiceResult> AddBuildingsToQueue(int villageId, int buildingId)
         {

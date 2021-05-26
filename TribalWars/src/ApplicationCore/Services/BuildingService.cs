@@ -19,7 +19,7 @@ namespace ApplicationCore.Services
         public async Task<int> CurrentBuildingLevel(int villageId, int buildingId)
         {
             var building = await _villageBuildingRepository.GetVillageBuilding(villageId, buildingId);
-            return building != null ? building.CurrentLevel : 0;
+            return building?.CurrentLevel ?? 0;
         }
 
         public async Task<bool> HasMaxLevel(int villageId, int buildingId)
