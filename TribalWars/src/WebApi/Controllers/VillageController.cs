@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
+    [Route("api/village")]
     public class VillageController : Controller
     {
         private readonly IVillageService _villageService;
@@ -16,7 +17,7 @@ namespace WebApi.Controllers
             _villageService = villageService;
         }
 
-        [HttpGet("/village-coordinates")]
+        [HttpGet("/coordinates")]
         public async Task<ActionResult<CoordinatesVM>> TribeDetails()
         {
             var playerId = new Guid();  //TODO: Read playerId from session
