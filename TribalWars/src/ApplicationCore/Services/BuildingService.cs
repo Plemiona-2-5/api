@@ -16,7 +16,7 @@ namespace ApplicationCore.Services
             _buildingRepository = buildingRepository;
         }
 
-        public async Task<int> CurrentBuildingLevel(int villageId, int buildingId)
+        public async Task<int> GetCurrentBuildingLevel(int villageId, int buildingId)
         {
             var building = await _villageBuildingRepository.GetVillageBuilding(villageId, buildingId);
             return building?.CurrentLevel ?? 0;
@@ -25,7 +25,7 @@ namespace ApplicationCore.Services
         public async Task<bool> HasMaxLevel(int villageId, int buildingId)
         {
             var building = await _buildingRepository.GetBuilding(buildingId);
-            return building.MaxLevel <= await CurrentBuildingLevel(villageId, buildingId);
+            return building.MaxLevel <= await GetCurrentBuildingLevel(villageId, buildingId);
         }
 
         public async Task UpgradeBuilding(BuildingQueue buildingQueue)
