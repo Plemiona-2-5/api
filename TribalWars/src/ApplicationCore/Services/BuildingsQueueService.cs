@@ -65,7 +65,7 @@ namespace ApplicationCore.Services
         }
         public async Task<ServiceResult> AddBuildingsToQueue(int villageId, int buildingId)
         {
-            var buildingLevel =  await _buildingService.CurrentBuildingLevel(villageId, buildingId) + 1;
+            var buildingLevel =  await _buildingService.GetCurrentBuildingLevel(villageId, buildingId) + 1;
             if (await _buildingRequiredService.CanBuild(buildingId, buildingLevel, villageId))
             {
                 if (await CanAddToQueue(villageId))
