@@ -3,6 +3,7 @@ using ApplicationCore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -31,6 +32,17 @@ namespace WebApi.Controllers
             return result.Succeeded
                 ? Ok(result)
                 : BadRequest(result);
+        }
+
+        [Authorize]
+        [HttpGet("/village-buildings")]
+        public async Task<ActionResult<List<VillageBuildingVM>>> VillageBuildings()
+        {
+            var user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var playerId = await _playerService.GetPlayerId(Guid.Parse(user));
+
+            var result = await _villageService.GetVillageBuildings(playerId);
+            return result;
         }
     }
 }
