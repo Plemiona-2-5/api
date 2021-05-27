@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Interfaces.Services;
 using ApplicationCore.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet("/get-required-buildings")]
         public async Task<ActionResult<BuildingRequiredBuildingViewModel>> GetRequiredBuildings([FromHeader]int buildingId)
         {

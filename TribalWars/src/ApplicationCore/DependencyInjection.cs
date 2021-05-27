@@ -26,6 +26,8 @@ namespace ApplicationCore
 
             services.AddScoped<IVillageMaterialService, VillageMaterialService>();
 
+            services.AddScoped<IPlayerService, PlayerService>();
+
             services.AddScoped<IVillageUnitService, VillageUnitService>();
           
             services.AddScoped<IVillageService, VillageService>();
