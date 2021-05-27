@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces.Repository;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,12 @@ namespace Infrastructure.Repository
     {
         public PlayerRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<Player> GetPlayerByUserId(Guid userId)
+        {
+            return await Context.Players
+                .FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
         public async Task<bool> PlayerExistById(Guid playerId)

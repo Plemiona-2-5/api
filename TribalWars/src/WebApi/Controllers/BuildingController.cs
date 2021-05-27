@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Resources;
 using ApplicationCore.Responses;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -23,6 +24,7 @@ namespace WebApi.Controllers
             _localizer = localizer;
         }
 
+        [Authorize]
         [HttpPost("/add-building-to-queue")]
         public async Task<IActionResult> AddBuildingToQueue([FromBody] AddBuilidingToQueueDto dto)
         {
