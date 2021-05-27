@@ -11,7 +11,7 @@ namespace ApplicationCore
         public static IServiceCollection AddApplicationCore(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            
+
             services.AddTransient<IJwtService, JwtService>();
 
             services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
@@ -20,6 +20,7 @@ namespace ApplicationCore
             services.AddScoped<ITribeMemberService, TribeMemberService>();
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IVillageMaterialService, VillageMaterialService>();
+            services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IVillageService, VillageService>();
 
             return services;

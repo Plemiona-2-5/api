@@ -10,7 +10,9 @@ namespace Infrastructure.Mapping
     {
         public DtoToEntityProfile()
         {
-            CreateMap<UserDto, User>();
+            CreateMap<UserDto, User>()
+                .ForMember(dest => dest.UserName,
+                    opt => opt.MapFrom(src => src.Email));
             CreateMap<TribeDto, Tribe>();
         }
     }

@@ -29,6 +29,7 @@ namespace Infrastructure.Identity
                 return (ServiceResult.Failure(identityResult.Errors.Select(error => error.Description)), null);
 
             var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            _mapper.Map(newUser, userDto);
 
             return (ServiceResult.Success(), emailConfirmationToken);
         }

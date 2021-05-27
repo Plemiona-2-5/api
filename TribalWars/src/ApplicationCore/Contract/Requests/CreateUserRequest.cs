@@ -10,7 +10,7 @@ namespace ApplicationCore.Contract.Requests
 
         [Required]
         [StringLength(16, MinimumLength = 4, ErrorMessage = "The {0} must be between {1} and {2} characters length")]
-        public string UserName { get; set; }
+        public string Nickname { get; set; }
 
         [Required]
         [StringLength(18, MinimumLength = 8, ErrorMessage = "The {0} must be between {1} and {2} characters length")]

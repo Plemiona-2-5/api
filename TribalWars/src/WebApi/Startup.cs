@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using ApplicationCore;
+using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Settings;
 using WebApi.Workers;
 using Infrastructure;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.Hubs;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -121,6 +123,7 @@ namespace WebApi
             });
 
             services.AddAutoMapper(typeof(EntityToViewModelProfile));
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
