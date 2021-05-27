@@ -6,6 +6,6 @@ namespace ApplicationCore.Interfaces.Services
 {
     public interface IVillageService
     {
-        Task<ServiceResult> CreateNewVillage(Guid playerId);
+        Task<ServiceResult> CreateNewVillageAsync(Guid playerId);
     }
 }

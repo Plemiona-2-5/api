@@ -6,6 +6,7 @@ using ApplicationCore.DTOs;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
+using ApplicationCore.Results;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -18,16 +19,18 @@ namespace WebApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IPlayerService _playerService;
+        private readonly IVillageService _villageService;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<MessageResource> _localizer;
 
         public RegisterController(IUserService userService, IMapper mapper, IPlayerService playerService,
-            IStringLocalizer<MessageResource> localizer)
+            IStringLocalizer<MessageResource> localizer, IVillageService villageService)
         {
             _userService = userService;
             _mapper = mapper;
             _playerService = playerService;
             _localizer = localizer;
+            _villageService = villageService;
         }
 
         [HttpPost("register")]
@@ -49,9 +52,14 @@ namespace WebApi.Controllers
 
             var playerResult = await _playerService.CreatePlayerAsync(userDto.Id, request.Nickname);
 
-            return playerResult.Succeeded
+            if (!playerResult.Succeeded)
+                BadRequest(new ErrorsResponse(playerResult.Errors));
+
+            var villageResult = await CreateNewVillageAsync(userDto.Id);
+            
+            return villageResult.Succeeded
                 ? Ok(new {EmailConfirmationToken = emailConfirmationToken})
-                : BadRequest(new ErrorsResponse(playerResult.Errors));
+                : BadRequest(new ErrorsResponse(villageResult.Errors));
         }
 
         [HttpPost("confirm-email")]
@@ -68,6 +76,12 @@ namespace WebApi.Controllers
             return result.Succeeded
                 ? NoContent()
                 : BadRequest(new ErrorsResponse(result.Errors));
+        }
+
+        private async Task<ServiceResult> CreateNewVillageAsync(Guid userId)
+        {
+            var playerDto = await _playerService.GetPlayerDtoByUserIdAsync(userId);
+            return await _villageService.CreateNewVillageAsync(playerDto.Id);
         }
     }
 }

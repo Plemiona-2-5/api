@@ -32,9 +32,9 @@ namespace ApplicationCore.Services
         public async Task<bool> PlayerExistsByNicknameAsync(string nickname) =>
             await _playerRepository.GetByNicknameAsync(nickname) != null;
 
-        public async Task<PlayerDto> GetPlayerDtoByUserId(Guid userId)
+        public async Task<PlayerDto> GetPlayerDtoByUserIdAsync(Guid userId)
         {
-            var player = await _playerRepository.GetByUserId(userId);
+            var player = await _playerRepository.GetByUserIdAsync(userId);
 
             if (player == null)
                 return null;

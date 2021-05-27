@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
@@ -17,9 +18,9 @@ namespace Infrastructure.Repository
             return await Context.Villages.AsNoTracking().SingleOrDefaultAsync(village => village.Id == villageId);
         }
 
-        public async Task<bool> VillageExistsByCoordinatesAsync(int coordinateX, int coordinateY)
+        public bool VillageExistsByCoordinates(int coordinateX, int coordinateY)
         {
-            return await Context.Villages.AsNoTracking().AnyAsync(village =>
+            return Context.Villages.AsNoTracking().Any(village =>
                 village.CoordinateX == coordinateX && village.CoordinateY == coordinateY);
         }
 

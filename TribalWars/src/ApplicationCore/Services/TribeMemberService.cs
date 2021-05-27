@@ -37,7 +37,7 @@ namespace ApplicationCore.Services
         public async Task<ServiceResult> InviteNewMember(Guid playerId, Guid invitedPlayerId)
         {
             var tribe = await _tribeRepository.GetTribeByUser(playerId);
-            if (tribe != null && await _playerRepository.PlayerExistById(invitedPlayerId))
+            if (tribe != null && await _playerRepository.PlayerExistByIdAsync(invitedPlayerId))
             {
                 if (!await HasTribe(invitedPlayerId))
                 {

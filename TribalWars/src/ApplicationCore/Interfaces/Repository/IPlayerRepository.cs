@@ -8,7 +8,7 @@ namespace ApplicationCore.Interfaces.Repository
     {
         Task<bool> AddAsync(Player player); 
         Task<Player> GetByNicknameAsync(string nickname); 
-        Task<Player> GetByUserId(Guid userId); 
-        Task<bool> PlayerExistById(Guid playerId);
+        Task<Player> GetByUserIdAsync(Guid userId); 
+        Task<bool> PlayerExistByIdAsync(Guid playerId);
     }
 }

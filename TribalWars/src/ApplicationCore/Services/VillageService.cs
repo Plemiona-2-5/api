@@ -23,22 +23,22 @@ namespace ApplicationCore.Services
             _localizer = localizer;
         }
 
-        public async Task<ServiceResult> CreateNewVillage(Guid playerId)
+        public async Task<ServiceResult> CreateNewVillageAsync(Guid playerId)
         {
             var newVillage = new Village
             {
                 PlayerId = playerId,
             };
 
-            GenerateNewCoordinatesAsync(newVillage);
+            GenerateNewCoordinates(newVillage);
 
             return await _villageRepository.AddVillageAsync(newVillage)
                 ? ServiceResult.Success()
                 : ServiceResult.Failure(_localizer["AddVillageError"]);
         }
 
-        //TODO: generate new coordinates based on growing circle
-        private async void GenerateNewCoordinatesAsync(Village village)
+        //TODO: generate new coordinates based on growing circle, its only for demonstration purposes
+        private void GenerateNewCoordinates(Village village)
         {
             var random = new Random();
             bool villageExists;
@@ -50,7 +50,7 @@ namespace ApplicationCore.Services
                 coordinateX = random.Next(MapWidth);
                 coordinateY = random.Next(MapHeight);
 
-                villageExists = await _villageRepository.VillageExistsByCoordinatesAsync(coordinateX, coordinateY);
+                villageExists = _villageRepository.VillageExistsByCoordinates(coordinateX, coordinateY);
             } while (villageExists);
 
             village.CoordinateX = coordinateX;

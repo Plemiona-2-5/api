@@ -16,12 +16,12 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
-        public async Task<Player> GetByUserId(Guid userId)
+        public async Task<Player> GetByUserIdAsync(Guid userId)
         {
-            return await _context.Players.FirstOrDefaultAsync(p => p.Id == userId);
+            return await _context.Players.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
-        public async Task<bool> PlayerExistById(Guid playerId)
+        public async Task<bool> PlayerExistByIdAsync(Guid playerId)
         {
             return await _context.Players.AnyAsync(p => p.Id == playerId);
         }
