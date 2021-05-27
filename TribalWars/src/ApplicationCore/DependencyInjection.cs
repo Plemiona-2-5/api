@@ -28,6 +28,10 @@ namespace ApplicationCore
 
             services.AddScoped<IPlayerService, PlayerService>();
 
+            services.AddScoped<IVillageUnitService, VillageUnitService>();
+          
+            services.AddScoped<IVillageService, VillageService>();
+
             return services;
         }
     }

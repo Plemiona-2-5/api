@@ -4,14 +4,17 @@ using ApplicationCore.Resources;
 using ApplicationCore.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using ApplicationCore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [ApiController]
+    [Route("api/building")]
     public class BuildingController : Controller
     {
         private readonly IBuildingsQueueService _buildingsQueueService;
@@ -33,5 +36,12 @@ namespace WebApi.Controllers
                 ? Ok(new SuccessResponse(_localizer["AddBuildingToQueueSuccess"]))
                 : BadRequest(new ErrorsResponse(result.Errors));
         }
+
+        [HttpGet("/building-queue")]
+        public async Task<ActionResult<List<BuildingQueueVM>>> BuildingQueue()
+        {
+            var playerId =  new Guid();  //TODO: Read playerId from session
+            return Ok(await _buildingsQueueService.BuildingQueues(playerId));
+        }       
     }
 }

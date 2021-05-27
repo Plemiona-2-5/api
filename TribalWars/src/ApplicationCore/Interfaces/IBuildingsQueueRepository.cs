@@ -12,5 +12,6 @@ namespace ApplicationCore.Interfaces
         Task<BuildingQueue> GetBuildingQueueByVillageId(int villageId);
         Task AddBuildingsToQueue(BuildingQueue buildingQueue);
         Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
+        Task<List<BuildingQueue>> GetBuildingQueuesByPlayerId(Guid playerId);
     }
 }

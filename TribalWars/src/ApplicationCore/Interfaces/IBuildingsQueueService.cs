@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Results;
+using ApplicationCore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,5 +16,6 @@ namespace ApplicationCore.Interfaces
         Task RemoveBuildingsFromQueue(BuildingQueue buildingQueue);
         Task<bool> ConstructionCompletion(BuildingQueue buildingQueue);
         Task<bool> CanAddToQueue(int villageId);
+        Task<List<BuildingQueueVM>> BuildingQueues(Guid playerId);
     }
 }
