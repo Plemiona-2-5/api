@@ -9,5 +9,6 @@ namespace ApplicationCore.Interfaces.Services
     {
         Task<ServiceResult> CreatePlayerAsync(Guid userId, string nickname);
         Task<bool> PlayerExistsByNicknameAsync(string nickname);
+        Task<PlayerDto> GetPlayerDtoByUserId(Guid userId);
     }
 }

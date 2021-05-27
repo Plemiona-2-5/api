@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Repositories;
+using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +15,12 @@ namespace Infrastructure.Repository
         {
             _context = context;
         }
-        
+
+        public async Task<Player> GetByUserId(Guid userId)
+        {
+            return await _context.Players.FirstOrDefaultAsync(p => p.Id == userId);
+        }
+
         public async Task<bool> PlayerExistById(Guid playerId)
         {
             return await _context.Players.AnyAsync(p => p.Id == playerId);
