@@ -207,4 +207,7 @@
   <data name="SomethingWentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="GetRecruitmentQueue" xml:space="preserve">
+    <value>Succefully get recruitment queue</value>
+  </data>
 </root>

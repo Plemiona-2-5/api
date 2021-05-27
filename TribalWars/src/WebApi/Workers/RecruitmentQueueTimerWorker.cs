@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using ApplicationCore.Resources;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,14 @@ namespace WebApi.Workers
     {
         private const int RefreshDelayInMilliseconds = 1000;
         private readonly IHubContext<RecruitmentQueueHub, IRecruitmentQueueClient> _hubContext;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public RecruitmentQueueTimerWorker(IHubContext<RecruitmentQueueHub, IRecruitmentQueueClient> hubContext)
+        public RecruitmentQueueTimerWorker(IHubContext<RecruitmentQueueHub,
+            IRecruitmentQueueClient> hubContext,
+            IStringLocalizer<MessageResource> localizer)
         {
             _hubContext = hubContext;
+            _localizer = localizer;
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -24,6 +30,7 @@ namespace WebApi.Workers
             while (!stoppingToken.IsCancellationRequested)
             {
                 await _hubContext.Clients.Group(GroupType.RecruitmentQueue.ToString()).RefreshQueueRequest("Refresh queue");
+                await _hubContext.Clients.All.GetRecruitmentQueue(_localizer["GetRecruitmentQueue"]);
                 await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
             }
         }

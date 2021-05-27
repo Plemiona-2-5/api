@@ -48,5 +48,13 @@ namespace Infrastructure.Repository
                 .Include(recruitmentQueue => recruitmentQueue.Village)
                 .FirstOrDefaultAsync(recruitmentQueue => recruitmentQueue.Village.Player.UserId == userId);
         }
+
+        public async Task<IEnumerable<RecruitmentQueue>> GetRecruitmentQueuesByUserId(Guid userId)
+        {
+            return await Context.RecruitmentQueues
+                .Include(rq => rq.ArmyUnitType)
+                .Where(rq => rq.Village.Player.UserId == userId)
+                .ToListAsync();
+        }
     }
 }
