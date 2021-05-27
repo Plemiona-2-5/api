@@ -28,8 +28,6 @@ namespace ApplicationCore
           
             services.AddScoped<IVillageService, VillageService>();
 
-            services.AddScoped<IVillageMaterialServices, VillageMaterialServices>();
-
             return services;
         }
     }

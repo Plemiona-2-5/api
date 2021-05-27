@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApi.Hubs;
@@ -11,6 +12,7 @@ namespace WebApi.Workers
     public class VillageMaterialsTimerWorker : BackgroundService
     {
         private const int RefreshDelayInMilliseconds = 1000;
+        private const int RefreshDelayOfOneMinute = 60000;
         private readonly IHubContext<VillageMaterialsHub, IVillageMaterialsClient> _hubContext;
         private readonly IStringLocalizer<MessageResource> _localizer;
 
@@ -25,10 +27,25 @@ namespace WebApi.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
-                    .RefreshVillageMaterialst(_localizer["RefreshVillageMaterials"]);
-                await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
+                List<Task> taskList = new List<Task>();
+                taskList.Add(RefreshUpdateVillageMaterials(stoppingToken));
+                taskList.Add(RefreshVillageMaterials(stoppingToken));
+                await Task.WhenAll(taskList);
             }
+        }
+
+        public async Task RefreshUpdateVillageMaterials(CancellationToken stoppingToken)
+        {
+            await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
+                .UpdateVillageMaterials(_localizer["UpdateVillageMaterials"]);
+            await Task.Delay(RefreshDelayOfOneMinute, stoppingToken);
+        }
+
+        public async Task RefreshVillageMaterials(CancellationToken stoppingToken)
+        {
+            await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
+                    .RefreshVillageMaterials(_localizer["RefreshVillageMaterials"]);
+            await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
         }
     }
 }

@@ -219,4 +219,7 @@
   <data name="SomethingWentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="UpdateVillageMaterials" xml:space="preserve">
+    <value>Update village materials</value>
+  </data>
 </root>

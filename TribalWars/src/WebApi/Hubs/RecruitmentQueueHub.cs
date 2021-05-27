@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Hubs
 {
+    [Authorize]
     public class RecruitmentQueueHub : Hub<IRecruitmentQueueClient>
     {
         private readonly IRecruitmentQueueService _recruitmentQueueService;
@@ -34,13 +35,11 @@ namespace WebApi.Hubs
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         }
 
-        [Authorize]
         public async Task RecruitmentQueueGroup()
         {
             await AddToRecruitmentQueueHubGroup(GroupType.RecruitmentQueue.ToString());
         }
 
-        [Authorize]
         public async Task BuildingWasConstructed()
         {
             if (Guid.TryParse(Context.UserIdentifier, out Guid userId))

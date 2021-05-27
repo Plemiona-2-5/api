@@ -22,15 +22,9 @@ namespace Infrastructure.Repository
                 .ToListAsync();
         }
 
-        public async Task UpdateVillageMaterials(VillageMaterial villageMaterial)
+        public async Task UpdateVillageMaterial(VillageMaterial villageMaterial)
         {
-            Context.VillageMaterials.Update(villageMaterial);
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task UpdateVillageMaterial(VillageMaterial material)
-        {
-            Context.Update(material);
+            Context.Update(villageMaterial);
             await Context.SaveChangesAsync();
         }
     }

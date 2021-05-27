@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Hubs
 {
+    [Authorize]
     public class BuildingsQueueHub : Hub<IBuildingsQueueClient>
     {
         private readonly IBuildingsQueueService _buildingsQueueService;
@@ -33,13 +34,11 @@ namespace WebApi.Hubs
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         } 
 
-        [Authorize]
         public async Task BuildingQueueGroup()
         {
                 await AddToBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
         }
 
-        [Authorize]
         public async Task BuildingWasConstructed()
         {
             if(Guid.TryParse(Context.UserIdentifier, out Guid userId))

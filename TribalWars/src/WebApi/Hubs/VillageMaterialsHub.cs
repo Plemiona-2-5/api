@@ -13,16 +13,26 @@ using System.Threading.Tasks;
 
 namespace WebApi.Hubs
 {
+    [Authorize]
     public class VillageMaterialsHub : Hub<IVillageMaterialsClient>
     {
-        private readonly IVillageMaterialServices _villageMaterialServices;
+        private readonly IVillageMaterialService _villageMaterialServices;
         private readonly IMapper _mapper;
+        private readonly IVillageService _villageService;
+        private readonly IPlayerService _playerService;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public VillageMaterialsHub(IVillageMaterialServices villageMaterialServices,
-            IMapper mapper)
+        public VillageMaterialsHub(IVillageMaterialService villageMaterialServices,
+                                   IMapper mapper,
+                                   IVillageService villageService,
+                                   IPlayerService playerService,
+                                   IStringLocalizer<MessageResource> localizer)
         {
             _villageMaterialServices = villageMaterialServices;
             _mapper = mapper;
+            _villageService = villageService;
+            _playerService = playerService;
+            _localizer = localizer;
         }
 
         public async Task AddToVillageMaterialsGroup(string groupName)
@@ -39,7 +49,6 @@ namespace WebApi.Hubs
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         }
 
-        [Authorize]
         public async Task VillageMaterialsGroup()
         {
             await AddToVillageMaterialsGroup(GroupType.VillageMaterials.ToString());
@@ -50,12 +59,16 @@ namespace WebApi.Hubs
            await _villageMaterialServices.UpdateVillageMaterials(actualVillageMaterials);
         }
 
-        [Authorize]
-        public async Task<IEnumerable<VillageMaterialVM>> BartekZDrungiemZaPociungiem()
+        public async Task<IEnumerable<VillageMaterialVM>> ActualVillageMaterials()
         {
-            var villageId = 1;
-            var villageMaterials = await _villageMaterialServices.GetActualMaterials(villageId);
-            return _mapper.Map<List<VillageMaterialVM>>(villageMaterials);
+            if(Guid.TryParse(Context.UserIdentifier, out Guid userId))
+            {
+                var playerId = await _playerService.GetPlayerId(userId);
+                var village = await _villageService.GetVillageByPlayerId(playerId) ;
+                var villageMaterials = await _villageMaterialServices.GetActualMaterials(village.Id);
+                return _mapper.Map<List<VillageMaterialVM>>(villageMaterials);
+            }
+            return null;
         }
     }
 }
