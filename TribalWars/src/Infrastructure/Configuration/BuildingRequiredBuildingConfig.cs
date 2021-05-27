@@ -1,11 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
@@ -17,7 +12,13 @@ namespace Infrastructure.Configuration
 
             builder.HasOne<Building>(buildingRequiredBuilding => buildingRequiredBuilding.Building)
                 .WithMany(building => building.BuildingRequiredBuildings)
-                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.BuildingId);
+                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.BuildingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne<RequiredBuilding>(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuilding)
+                .WithMany(requiredBuildings => requiredBuildings.BuildingRequiredBuildings)
+                .HasForeignKey(buildingRequiredBuilding => buildingRequiredBuilding.RequiredBuildingId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

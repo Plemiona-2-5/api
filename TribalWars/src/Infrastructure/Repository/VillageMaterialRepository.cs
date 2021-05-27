@@ -1,11 +1,11 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces;
+using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Infrastructure.Repository
 {
@@ -15,12 +15,18 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<VillageMaterial> GetVillageMaterials(int villageId)
+        public async Task<IEnumerable<VillageMaterial>> GetVillageMaterials(int villageId)
         {
             var playerMaterials = Context.VillageMaterials
                 .Where(material => material.VillageId == villageId)
-                .ToList();
-            return playerMaterials;
+                .ToListAsync();
+            return await playerMaterials;
+        }
+
+        public async Task UpdateVillageMaterial(VillageMaterial material)
+        {
+            Context.Update(material);
+            await Context.SaveChangesAsync();
         }
     }
 }

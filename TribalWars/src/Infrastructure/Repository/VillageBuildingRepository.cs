@@ -1,10 +1,9 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -15,12 +14,38 @@ namespace Infrastructure.Repository
         {
         }
 
-        public IEnumerable<VillageBuilding> GetVillageBuildings(int villageId)
+        public async Task<IEnumerable<VillageBuilding>> GetVillageBuildings(int villageId)
         {
-            var villageBuildings = Context.VillageBuildings
+            var villageBuildings = await Context.VillageBuildings
                 .Where(building => building.VillageId == villageId)
-                .ToList();
+                .ToListAsync();
             return villageBuildings;
+        }
+
+        public async Task<VillageBuilding> GetVillageBuilding(int villageID, int buildingId)
+        {
+            return await Context.VillageBuildings
+                .Where(vb => vb.VillageId == villageID)
+                .FirstOrDefaultAsync(vb => vb.BuildingId == buildingId);
+        }
+
+        public async Task UpgradeBuilding(VillageBuilding building)
+        {
+            Context.Update(building);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task<bool> BuildingExist(int villageId, int buildingId)
+        {
+            return await Context.VillageBuildings
+                .Where(vb => vb.VillageId == villageId)
+                .AnyAsync(vb => vb.BuildingId == buildingId);
+        }
+
+        public async Task AddVillageBuilding(VillageBuilding building)
+        {
+            await Context.VillageBuildings.AddAsync(building);
+            await Context.SaveChangesAsync();
         }
     }
 }

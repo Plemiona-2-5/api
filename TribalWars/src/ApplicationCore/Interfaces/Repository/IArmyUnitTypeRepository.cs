@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Interfaces
+namespace ApplicationCore.Interfaces.Repository
 {
-    public interface IVillageMaterialRepository
+    public interface IArmyUnitTypeRepository
     {
-        IEnumerable<VillageMaterial> GetVillageMaterials(int villageId);
+        Task<ArmyUnitType> GetArmyUnitTypeById(int armyUnitTypeId);
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces
 {
-    public interface IVillageBuildingRepository
+    public interface IBuildingsRepository
     {
-        IEnumerable<VillageBuilding> GetVillageBuildings(int villageId);
+        Task<Building> GetBuildingById(int idBuilding);
     }
 }
