@@ -26,6 +26,11 @@ namespace Infrastructure.Mapping
                 .MapFrom(src => src.Quantity))
                 .ForMember(dest => dest.Name, opt => opt
                 .MapFrom(src => src.ArmyUnitType.Name));
+            CreateMap<Village, CoordinatesVM>()
+                .ForMember(dest => dest.CoordinateX, opt => opt
+                .MapFrom(src => src.CoordinateX))
+                .ForMember(dest => dest.CoordinateY, opt => opt
+                .MapFrom(src => src.CoordinateY));
         }
     }
 }

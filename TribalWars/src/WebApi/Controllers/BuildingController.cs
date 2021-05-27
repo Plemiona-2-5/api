@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
+    [Route("api/village")]
     public class BuildingController : Controller
     {
         private readonly IBuildingsQueueService _buildingsQueueService;
