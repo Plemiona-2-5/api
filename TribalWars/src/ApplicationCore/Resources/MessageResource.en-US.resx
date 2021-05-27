@@ -129,6 +129,9 @@
   <data name="AddTribeSuccess" xml:space="preserve">
     <value>A tribe was created!</value>
   </data>
+  <data name="ConstructionCompleted" xml:space="preserve">
+    <value>The construction of the building has been completed</value>
+  </data>
   <data name="DisbandTribeError" xml:space="preserve">
     <value>You are not owner of this tribe</value>
   </data>
@@ -141,14 +144,23 @@
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
   </data>
+  <data name="IdDoesNotExist" xml:space="preserve">
+    <value>Such an id does not exist</value>
+  </data>
   <data name="LeaveTribeError" xml:space="preserve">
     <value>Error while leaving the tribe</value>
   </data>
   <data name="LeaveTribeOwneError" xml:space="preserve">
     <value>You can't leave tribe as tribe owner</value>
   </data>
-	<data name="LeaveTribeSuccess" xml:space="preserve">
+  <data name="LeaveTribeSuccess" xml:space="preserve">
     <value>You left the tribe</value>
+  </data>
+  <data name="RefreshQueueRequest" xml:space="preserve">
+    <value>Refresh queue</value>
+  </data>
+  <data name="RefreshVillageMaterials" xml:space="preserve">
+    <value>Refresh Village Materials</value>
   </data>
   <data name="RemoveTribeMemberSuccess" xml:space="preserve">
     <value>Member successfully removed</value>

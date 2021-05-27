@@ -1,11 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.ViewModels;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Mapping
 {
@@ -21,6 +16,11 @@ namespace Infrastructure.Mapping
             CreateMap<TribePlayer, TribeMemberVM>()
                 .ForMember(dest => dest.Nickname, opt => opt
                 .MapFrom(src => src.Player.Nickname));
+            CreateMap<VillageMaterial, VillageMaterialVM>()
+                .ForMember(dest => dest.Name, opt => opt
+                .MapFrom(src => src.Material.Name))
+                .ForMember(dest => dest.Quantity, opt => opt
+                .MapFrom(src => src.Quantity));
         }
     }
 }

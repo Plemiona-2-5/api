@@ -8,14 +8,13 @@ using WebApi.Hubs;
 
 namespace WebApi.Workers
 {
-    public class BuildingsQueueTimerWorker : BackgroundService
+    public class VillageMaterialsTimerWorker : BackgroundService
     {
         private const int RefreshDelayInMilliseconds = 1000;
-        private readonly IHubContext<BuildingsQueueHub, IBuildingsQueueClient> _hubContext;
+        private readonly IHubContext<VillageMaterialsHub, IVillageMaterialsClient> _hubContext;
         private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public BuildingsQueueTimerWorker(IHubContext<BuildingsQueueHub,
-            IBuildingsQueueClient> hubContext,
+        public VillageMaterialsTimerWorker(IHubContext<VillageMaterialsHub, IVillageMaterialsClient> hubContext,
             IStringLocalizer<MessageResource> localizer)
         {
             _hubContext = hubContext;
@@ -26,8 +25,8 @@ namespace WebApi.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _hubContext.Clients.Group(GroupType.BuildingsQueue.ToString())
-                    .RequestQueueRefresh(_localizer["RequestQueueRefresh"]);
+                await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
+                    .RefreshVillageMaterialst(_localizer["RefreshVillageMaterials"]);
                 await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
             }
         }

@@ -3,6 +3,7 @@
     public enum GroupType
     {
         BuildingsQueue,
-        RecruitmentQueue
+        RecruitmentQueue,
+        VillageMaterials
     }
 }
