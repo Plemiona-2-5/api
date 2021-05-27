@@ -183,4 +183,22 @@
   <data name="TribeNameTaken" xml:space="preserve">
     <value>The tribe's name is already taken</value>
   </data>
+  <data name="WrongPasswordOrLogin" xml:space="preserve">
+    <value>login or password is wrong</value>
+  </data>
+  <data name="NotConfirmedEmail" xml:space="preserve">
+    <value>email isn't confirmed</value>
+  </data>
+  <data name="EmailIsTaken" xml:space="preserve">
+    <value>user with this email already exists</value>
+  </data>
+  <data name="UsernameIsTaken" xml:space="preserve">
+    <value>user with this user name already exists</value>
+  </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>user email is already confirmed</value>
+  </data>
+  <data name="UserNotFoundByEmail" xml:space="preserve">
+    <value>user with this email doesn't exist</value>
+  </data>
 </root>
