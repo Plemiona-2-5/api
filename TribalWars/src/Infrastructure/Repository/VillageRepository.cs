@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
@@ -28,6 +30,23 @@ namespace Infrastructure.Repository
         {
             await Context.Villages.AddAsync(village);
             return await Context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Village> GetVillageByPlayerIdAsync(Guid playerId)
+        {
+            return await Context.Villages
+                .AsNoTracking()
+                .Include(village => village.Player)
+                .FirstOrDefaultAsync(village => village.PlayerId == playerId);
+        }
+
+        public async Task<IEnumerable<Village>> GetAllVillagesExceptPlayerIdAsync(Guid playerId)
+        {
+            return await Context.Villages
+                .AsNoTracking()
+                .Include(village => village.Player)
+                .Where(village => village.PlayerId != playerId)
+                .ToListAsync();
         }
     }
 }

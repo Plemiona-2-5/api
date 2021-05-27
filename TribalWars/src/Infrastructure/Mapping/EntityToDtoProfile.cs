@@ -1,3 +1,4 @@
+using ApplicationCore.Dtos;
 using ApplicationCore.DTOs;
 using ApplicationCore.Entities;
 using AutoMapper;
@@ -11,6 +12,9 @@ namespace Infrastructure.Mapping
         {
             CreateMap<User, UserDto>();
             CreateMap<Player, PlayerDto>();
+            CreateMap<Village, VillageDto>()
+                .ForMember(dto => dto.Nickname,
+                    opt => opt.MapFrom(sourceMember => sourceMember.Player.Nickname));
         }
     }
 }
