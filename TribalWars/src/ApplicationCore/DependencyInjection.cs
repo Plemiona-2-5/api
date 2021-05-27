@@ -1,3 +1,4 @@
+using System.Reflection;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Services;
@@ -9,15 +10,23 @@ namespace ApplicationCore
     {
         public static IServiceCollection AddApplicationCore(this IServiceCollection services)
         {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             services.AddTransient<IJwtService, JwtService>();
 
             services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
-
             services.AddScoped<ITribeService, TribeService>();
-
             services.AddScoped<IRecruitmentQueueService, RecruitmentQueueService>();
-          
             services.AddScoped<ITribeMemberService, TribeMemberService>();
+            services.AddScoped<IBuildingService, BuildingService>();
+            services.AddScoped<IVillageMaterialService, VillageMaterialService>();
+            services.AddScoped<IPlayerService, PlayerService>();
+
+            services.AddScoped<IPlayerService, PlayerService>();
+
+            services.AddScoped<IVillageUnitService, VillageUnitService>();
+          
+            services.AddScoped<IVillageService, VillageService>();
 
             services.AddScoped<IVillageMaterialServices, VillageMaterialServices>();
 

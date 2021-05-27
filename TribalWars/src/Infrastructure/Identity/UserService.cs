@@ -29,6 +29,7 @@ namespace Infrastructure.Identity
                 return (ServiceResult.Failure(identityResult.Errors.Select(error => error.Description)), null);
 
             var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            _mapper.Map(newUser, userDto);
 
             return (ServiceResult.Success(), emailConfirmationToken);
         }
@@ -41,6 +42,23 @@ namespace Infrastructure.Identity
             return identityResult.Succeeded
                 ? ServiceResult.Success()
                 : ServiceResult.Failure(identityResult.Errors.Select(error => error.Description));
+        }
+
+        public async Task<UserDto> GetUserDtoByCredentialsAsync(string email, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return null;
+
+            var hasValidPassword = await _userManager.CheckPasswordAsync(user, password);
+
+            if (!hasValidPassword)
+                return null;
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
         }
 
         public async Task<bool> UserExistsByUserNameAsync(string userName)

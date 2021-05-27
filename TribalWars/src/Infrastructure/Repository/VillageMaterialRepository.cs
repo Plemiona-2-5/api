@@ -27,5 +27,11 @@ namespace Infrastructure.Repository
             Context.VillageMaterials.Update(villageMaterial);
             await Context.SaveChangesAsync();
         }
+
+        public async Task UpdateVillageMaterial(VillageMaterial material)
+        {
+            Context.Update(material);
+            await Context.SaveChangesAsync();
+        }
     }
 }

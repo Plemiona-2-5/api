@@ -6,9 +6,9 @@ namespace ApplicationCore.Interfaces
 {
     public interface IUserService
     {
-        Task<(ServiceResult, string)> CreateUserAsync(UserDto userDto, string password);
         Task<ServiceResult> ConfirmUserEmailAsync(string email, string confirmationToken);
-        Task<bool> UserExistsByUserNameAsync(string userName);
+        Task<(ServiceResult, string)> CreateUserAsync(UserDto userDto, string password);
+        Task<UserDto> GetUserDtoByCredentialsAsync(string email, string password);
         Task<bool> UserExistsByEmailAsync(string email);
         Task<bool> EmailConfirmedAsync(string email);
     }
