@@ -1,15 +1,14 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Services;
+﻿using ApplicationCore.Interfaces.Services;
 using ApplicationCore.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [ApiController]
+    [Route("api/required-buildings")]
     public class RequiredBuildingsController : Controller
     {
         private readonly IBuildingRequiredService _buildingRequiredService;
@@ -21,7 +20,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("api/v1/getRequiredBuildings")]
+        [HttpGet("/get-required-buildings")]
         public async Task<ActionResult<BuildingRequiredBuildingViewModel>> GetRequiredBuildings([FromHeader]int buildingId)
         {
             var requiredBuildings = await _buildingRequiredService.GetRequiredBuildings(buildingId);
