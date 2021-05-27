@@ -190,18 +190,21 @@
     <value>login or password is wrong</value>
   </data>
   <data name="NotConfirmedEmail" xml:space="preserve">
-    <value>email isn't confirmed</value>
+    <value>Email isn't confirmed</value>
   </data>
   <data name="EmailIsTaken" xml:space="preserve">
     <value>user with this email already exists</value>
   </data>
   <data name="UsernameIsTaken" xml:space="preserve">
-    <value>user with this user name already exists</value>
+    <value>User with this user name already exists</value>
   </data>
   <data name="EmailAlreadyConfirmed" xml:space="preserve">
     <value>user email is already confirmed</value>
   </data>
   <data name="UserNotFoundByEmail" xml:space="preserve">
-    <value>user with this email doesn't exist</value>
+    <value>User with this email doesn't exist</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong</value>
   </data>
 </root>
