@@ -46,5 +46,11 @@ namespace ApplicationCore.Services
 
             return _mapper.Map<PlayerDto>(player);
         }
+        
+        public async Task<Guid> GetPlayerId(Guid userId)
+        {
+            var player = await _playerRepository.GetPlayerByUserId(userId);
+            return player.Id;
+        }
     }
 }

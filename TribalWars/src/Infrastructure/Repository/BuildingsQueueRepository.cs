@@ -48,5 +48,13 @@ namespace Infrastructure.Repository
                 .Remove(buildingQueue);
             await Context.SaveChangesAsync();
         }
+
+        public async Task<List<BuildingQueue>> GetBuildingQueuesByPlayerId(Guid playerId)
+        {
+            return await Context.BuildingQueues
+                .Include(bq => bq.Building)
+                .Where(bq => bq.Village.PlayerId == playerId)
+                .ToListAsync();
+        }
     }
 }

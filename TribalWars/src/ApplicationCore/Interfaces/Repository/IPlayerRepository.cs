@@ -10,5 +10,6 @@ namespace ApplicationCore.Interfaces.Repository
         Task<Player> GetByNicknameAsync(string nickname); 
         Task<Player> GetByUserId(Guid userId); 
         Task<bool> PlayerExistById(Guid playerId);
+        Task<Player> GetPlayerByUserId(Guid userId);
     }
 }

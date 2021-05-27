@@ -31,5 +31,12 @@ namespace Infrastructure.Repository
 
         public async Task<Player> GetByNicknameAsync(string nickname) =>
             await Context.Players.FirstOrDefaultAsync(player => player.Nickname == nickname);
+        
+        public async Task<Player> GetPlayerByUserId(Guid userId)
+        {
+            return await Context.Players
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+        }
+        
     }
 }
