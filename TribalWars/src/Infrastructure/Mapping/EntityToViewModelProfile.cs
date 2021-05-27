@@ -21,6 +21,11 @@ namespace Infrastructure.Mapping
             CreateMap<TribePlayer, TribeMemberVM>()
                 .ForMember(dest => dest.Nickname, opt => opt
                 .MapFrom(src => src.Player.Nickname));
+            CreateMap<VillageUnit, VillageUnitVM>()
+                .ForMember(dest => dest.Quantity, opt => opt
+                .MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.Name, opt => opt
+                .MapFrom(src => src.ArmyUnitType.Name));
             CreateMap<Village, CoordinatesVM>()
                 .ForMember(dest => dest.CoordinateX, opt => opt
                 .MapFrom(src => src.CoordinateX))
