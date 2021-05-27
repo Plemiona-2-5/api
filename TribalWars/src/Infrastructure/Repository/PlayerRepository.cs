@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repositories;
@@ -13,6 +14,11 @@ namespace Infrastructure.Repository
         public PlayerRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+        
+        public async Task<bool> PlayerExistById(Guid playerId)
+        {
+            return await _context.Players.AnyAsync(p => p.Id == playerId);
         }
 
         public async Task<bool> AddAsync(Player player)

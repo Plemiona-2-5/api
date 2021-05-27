@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using ApplicationCore;
 using ApplicationCore.Settings;
+using WebApi.Workers;
 using Infrastructure;
+using Infrastructure.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Hubs;
 
 namespace WebApi
 {
@@ -31,6 +37,22 @@ namespace WebApi
             services.AddApplicationCore();
             services.AddSignalR();
             services.AddAutoMapper(typeof(Startup));
+            services.AddHostedService<BuildingsQueueTimerWorker>();
+
+            services.AddLocalization();
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("en-US"),
+                    };
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
 
             services.AddControllers();
 
@@ -63,7 +85,11 @@ namespace WebApi
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
-                    builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+                    builder => { builder.WithOrigins("http://localhost:8086", "https://localhost:8086")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
             });
 
             services.AddSwaggerGen(c =>
@@ -93,6 +119,8 @@ namespace WebApi
                     }
                 });
             });
+
+            services.AddAutoMapper(typeof(EntityToViewModelProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,6 +136,9 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            var localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizeOptions.Value);
+
             app.UseCors();
 
             app.UseRouting();
@@ -115,7 +146,12 @@ namespace WebApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => 
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<BuildingsQueueHub>("hub/buildingsQueue");
+                endpoints.MapHub<RecruitmentQueueHub>("hub/recruitmentQueue");
+            });
         }
     }
 }

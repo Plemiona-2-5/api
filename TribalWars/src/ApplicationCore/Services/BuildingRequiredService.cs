@@ -1,10 +1,9 @@
-﻿using ApplicationCore.Entities;
+using ApplicationCore.Entities;
 using ApplicationCore.Enums;
-using ApplicationCore.Interfaces;
-using System;
+using ApplicationCore.Interfaces.Repository;
+using ApplicationCore.Interfaces.Services;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -24,16 +23,16 @@ namespace ApplicationCore.Services
             _villageMaterialRepository = villageMaterialRepository;
         }
 
-        public bool CanBuild(int buildingId, int level, int villageId)
+        public async Task<bool> CanBuild(int buildingId, int level, int villageId)
         {
-            return HasMaterial(buildingId, level, villageId) && HasRequiredBuilding(buildingId, villageId);
+            return await HasMaterial(buildingId, level, villageId) && await HasRequiredBuilding(buildingId, villageId);
         }
 
-        public bool HasMaterial(int buildingId, int level, int villageId)
+        public async Task<bool> HasMaterial(int buildingId, int level, int villageId)
         {
-            var playerMaterials = _villageMaterialRepository.GetVillageMaterials(villageId);
-            var requiredMaterials = GetRequiredMaterials(level, buildingId);
-            foreach (var required in requiredMaterials)
+            var playerMaterials = await _villageMaterialRepository.GetVillageMaterials(villageId);
+            var requiredMaterials = await GetRequiredMaterials(level, buildingId);
+            foreach (var required in  requiredMaterials)
             {
                 var material = playerMaterials
                     .FirstOrDefault(m => m.MaterialId == required.MaterialId);
@@ -45,16 +44,16 @@ namespace ApplicationCore.Services
             return true;
         }
 
-        public bool HasRequiredBuilding(int buildingId, int villageId)
+        public async Task<bool> HasRequiredBuilding(int buildingId, int villageId)
         {
-            var requiredBuilding = GetRequiredBuildings(buildingId);
-            var villageBuildings = _villageBuildingRepository.GetVillageBuildings(villageId);
+            var requiredBuilding = await GetRequiredBuildings(buildingId);
+            var villageBuildings = await _villageBuildingRepository.GetVillageBuildings(villageId);
 
             foreach (var required in requiredBuilding)
             {
                 var building = villageBuildings
                     .FirstOrDefault(b => b.BuildingId == required.BuildingId);
-                if (building == null || required.Level > building.CurrentLevel)
+                if (building == null || required.RequiredBuilding.Level > building.CurrentLevel)
                 {
                     return false;
                 }
@@ -62,14 +61,14 @@ namespace ApplicationCore.Services
             return true;
         }
 
-        public IEnumerable<BuildingRequiredBuilding> GetRequiredBuildings(int buildingId)
+        public async Task<IEnumerable<BuildingRequiredBuilding>> GetRequiredBuildings(int buildingId)
         {
-            return _buildingRequiredRepository.GetRequiredBuildings(buildingId);
+            return await _buildingRequiredRepository.GetRequiredBuildings(buildingId);
         }
 
-        public IEnumerable<BuildingRequiredMaterial> GetRequiredMaterials(int level, int buildingId)
+        public async Task<IEnumerable<BuildingRequiredMaterial>> GetRequiredMaterials(int level, int buildingId)
         {
-            var materials = _buildingRequiredRepository.GetBaseRequiredMaterials(buildingId);
+            var materials = await _buildingRequiredRepository.GetBaseRequiredMaterials(buildingId);
             foreach (var material in materials)
             {
                 material.Quantity *= level;
