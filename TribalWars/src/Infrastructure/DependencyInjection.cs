@@ -29,29 +29,20 @@ namespace Infrastructure
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             
             services.AddScoped<IUserService, UserService>();
-
-            services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
             services.AddScoped<IBuildingRequiredService, BuildingRequiredService>();
 
+            services.AddScoped<IBuildingRequiredRepository, BuildingRequiredRepository>();
             services.AddScoped<IVillageBuildingRepository, VillageBuildingRepository>();
-
             services.AddScoped<IVillageMaterialRepository, VillageMaterialRepository>();
-
             services.AddScoped<ITribeRepository, TribeRepository>();
-
             services.AddScoped<ITribeUserRepository, TribeUserRepository>();
-
             services.AddScoped<IBuildingsQueueRepository, BuildingsQueueRepository>();
-
             services.AddScoped<IBuildingsRepository, BuildingsRepository>();
-
             services.AddScoped<IRecruitmentQueueRepository, RecruitmentQueueRepository>();
-
             services.AddScoped<IArmyUnitTypeRepository, ArmyUnitTypeRepository>();
-
             services.AddScoped<IPlayerRepository, PlayerRepository>();
-
             services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<IVillageRepository, VillageRepository>();
 
             return services;
         }

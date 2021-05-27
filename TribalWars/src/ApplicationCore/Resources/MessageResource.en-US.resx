@@ -201,4 +201,7 @@
   <data name="UserNotFoundByEmail" xml:space="preserve">
     <value>user with this email doesn't exist</value>
   </data>
+  <data name="AddVillageError" xml:space="preserve">
+    <value>Cannot add village</value>
+  </data>
 </root>

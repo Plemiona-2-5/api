@@ -15,16 +15,12 @@ namespace ApplicationCore
             services.AddTransient<IJwtService, JwtService>();
 
             services.AddScoped<IBuildingsQueueService, BuildingsQueueService>();
-
             services.AddScoped<ITribeService, TribeService>();
-
             services.AddScoped<IRecruitmentQueueService, RecruitmentQueueService>();
-          
             services.AddScoped<ITribeMemberService, TribeMemberService>();
-
             services.AddScoped<IBuildingService, BuildingService>();
-
             services.AddScoped<IVillageMaterialService, VillageMaterialService>();
+            services.AddScoped<IVillageService, VillageService>();
 
             return services;
         }
