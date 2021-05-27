@@ -4,8 +4,10 @@ using ApplicationCore.DTOs;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Resources;
 using ApplicationCore.Results;
 using AutoMapper;
+using Microsoft.Extensions.Localization;
 
 namespace ApplicationCore.Services
 {
@@ -13,20 +15,23 @@ namespace ApplicationCore.Services
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public PlayerService(IPlayerRepository playerRepository, IMapper mapper)
+        public PlayerService(IPlayerRepository playerRepository, IMapper mapper,
+            IStringLocalizer<MessageResource> localizer)
         {
             _playerRepository = playerRepository;
             _mapper = mapper;
+            _localizer = localizer;
         }
 
         public async Task<ServiceResult> CreatePlayerAsync(Guid userId, string nickname)
         {
             var player = new Player {UserId = userId, Nickname = nickname, CreatedAt = DateTime.Now};
-            
+
             return await _playerRepository.AddAsync(player)
                 ? ServiceResult.Success()
-                : ServiceResult.Failure("Something went wrong");
+                : ServiceResult.Failure(_localizer["SomethingWentWrong"]);
         }
 
         public async Task<bool> PlayerExistsByNicknameAsync(string nickname) =>
