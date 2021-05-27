@@ -7,32 +7,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    public class PlayerRepository : IPlayerRepository
+    public class PlayerRepository : BaseRepository, IPlayerRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public PlayerRepository(ApplicationDbContext context)
+        public PlayerRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<Player> GetByUserId(Guid userId)
         {
-            return await _context.Players.FirstOrDefaultAsync(p => p.Id == userId);
+            return await Context.Players.FirstOrDefaultAsync(p => p.Id == userId);
         }
 
         public async Task<bool> PlayerExistById(Guid playerId)
         {
-            return await _context.Players.AnyAsync(p => p.Id == playerId);
+            return await Context.Players.AnyAsync(p => p.Id == playerId);
         }
 
         public async Task<bool> AddAsync(Player player)
         {
-            _context.Players.Add(player);
-            return await _context.SaveChangesAsync() > 0;
+            Context.Players.Add(player);
+            return await SaveChangesAsync();
         }
 
         public async Task<Player> GetByNicknameAsync(string nickname) =>
-            await _context.Players.FirstOrDefaultAsync(player => player.Nickname == nickname);
+            await Context.Players.FirstOrDefaultAsync(player => player.Nickname == nickname);
     }
 }
