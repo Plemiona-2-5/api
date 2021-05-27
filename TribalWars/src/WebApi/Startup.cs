@@ -40,7 +40,8 @@ namespace WebApi
             services.AddSignalR();
             services.AddAutoMapper(typeof(Startup));
             services.AddHostedService<BuildingsQueueTimerWorker>();
-
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddLocalization();
 
             services.Configure<RequestLocalizationOptions>(
@@ -121,9 +122,6 @@ namespace WebApi
                     }
                 });
             });
-
-            services.AddAutoMapper(typeof(EntityToViewModelProfile));
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
