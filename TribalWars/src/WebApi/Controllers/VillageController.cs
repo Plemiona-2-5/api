@@ -1,7 +1,9 @@
 ﻿using ApplicationCore.Interfaces.Services;
 using ApplicationCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -11,16 +13,19 @@ namespace WebApi.Controllers
     public class VillageController : Controller
     {
         private readonly IVillageService _villageService;
-
-        public VillageController(IVillageService villageService)
+        private readonly IPlayerService _playerService;
+        public VillageController(IVillageService villageService, IPlayerService playerService)
         {
             _villageService = villageService;
+            _playerService = playerService;
         }
 
+        [Authorize]
         [HttpGet("/coordinates")]
         public async Task<ActionResult<CoordinatesVM>> TribeDetails()
         {
-            var playerId = new Guid();  //TODO: Read playerId from session
+            var user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var playerId = await _playerService.GetPlayerId(Guid.Parse(user));
 
             var result = await _villageService.GetVillageCoordinates(playerId);
             return result.Succeeded
