@@ -63,6 +63,7 @@ namespace ApplicationCore.Services
                     .Find(player => player.TribeRole == Enums.TribeRole.Owner);
                 var details = new TribeDetailsVM
                 {
+                    Id = tribe.Id,
                     TribeName = tribe.Name,
                     Description = tribe.Description,
                     OwnerName = owner.Player.Nickname,

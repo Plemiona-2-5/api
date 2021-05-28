@@ -8,8 +8,6 @@ using AutoMapper;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -19,12 +17,24 @@ namespace ApplicationCore.Services
         private readonly IVillageRepository _villageRepository;
         private readonly IStringLocalizer<MessageResource> _localizer;
         private readonly IMapper _mapper;
+        private readonly IVillageBuildingRepository _villageBuildingRepository;
 
-        public VillageService(IVillageRepository villageRepository, IStringLocalizer<MessageResource> localizer, IMapper mapper)
+        public VillageService(IVillageRepository villageRepository,
+            IStringLocalizer<MessageResource> localizer,
+            IMapper mapper,
+            IVillageBuildingRepository villageBuildingRepository)
         {
             _villageRepository = villageRepository;
             _localizer = localizer;
             _mapper = mapper;
+            _villageBuildingRepository = villageBuildingRepository;
+        }
+
+        public async Task<List<VillageBuildingVM>> GetVillageBuildings(Guid playerId)
+        {
+            var buildings = await _villageBuildingRepository.GetVillageBuildingsByPlayerId(playerId);
+            return _mapper.Map <List<VillageBuildingVM>>(buildings);
+
         }
 
         public async Task<ServiceResult> GetVillageCoordinates(Guid playerId)
