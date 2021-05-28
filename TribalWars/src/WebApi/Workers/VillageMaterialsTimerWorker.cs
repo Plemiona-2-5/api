@@ -24,28 +24,31 @@ namespace WebApi.Workers
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
+        {            
                 List<Task> taskList = new List<Task>();
                 taskList.Add(RefreshUpdateVillageMaterials(stoppingToken));
                 taskList.Add(RefreshVillageMaterials(stoppingToken));
-                await Task.WhenAll(taskList);
-            }
+                await Task.WhenAll(taskList);           
         }
 
         public async Task RefreshUpdateVillageMaterials(CancellationToken stoppingToken)
         {
-            await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
-                .UpdateVillageMaterials(_localizer["UpdateVillageMaterials"]);
-            await Task.Delay(RefreshDelayOfOneMinute, stoppingToken);
+            while(!stoppingToken.IsCancellationRequested)
+            {
+                await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
+                    .UpdateVillageMaterials(_localizer["UpdateVillageMaterials"]);
+                await Task.Delay(RefreshDelayOfOneMinute, stoppingToken);
+            }
         }
 
         public async Task RefreshVillageMaterials(CancellationToken stoppingToken)
         {
-            await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await _hubContext.Clients.Group(GroupType.VillageMaterials.ToString())
                     .RefreshVillageMaterials(_localizer["RefreshVillageMaterials"]);
-            await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
+                await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
+            }
         }
     }
 }
