@@ -1,9 +1,11 @@
 ﻿using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Resources;
+using ApplicationCore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApi.Hubs
@@ -59,6 +61,16 @@ namespace WebApi.Hubs
             {
                 await Clients.Caller.IdDoesNotExist(_localizer["IdDoesNotExist"]);
             }
+        }
+
+        [Authorize]
+        public async Task<IEnumerable<RecruitmentQueueVM>> GetArmyQueues()
+        {
+            if (Guid.TryParse(Context.UserIdentifier, out Guid userId))
+            {
+                return await _recruitmentQueueService.GetRecruitmentQueues(userId);
+            }
+            return null;
         }
     }
 }

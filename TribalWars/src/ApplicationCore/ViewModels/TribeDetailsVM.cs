@@ -8,6 +8,7 @@ namespace ApplicationCore.ViewModels
 {
     public class TribeDetailsVM
     {
+        public int Id { get; set; }
         public string TribeName { get; set; }
         public int NumberOfMembers { get; set; }
         public string OwnerName { get; set; }

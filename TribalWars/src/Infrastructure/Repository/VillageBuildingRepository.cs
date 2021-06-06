@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,6 +47,14 @@ namespace Infrastructure.Repository
         {
             await Context.VillageBuildings.AddAsync(building);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<VillageBuilding>> GetVillageBuildingsByPlayerId(Guid playerId)
+        {
+            return await Context.VillageBuildings
+                .Include(vb => vb.Building)
+                .Where(vb => vb.Village.PlayerId == playerId)
+                .ToListAsync();
         }
     }
 }

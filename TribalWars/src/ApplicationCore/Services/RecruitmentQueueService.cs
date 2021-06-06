@@ -3,16 +3,21 @@ using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Interfaces.Repository;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using ApplicationCore.ViewModels;
+using AutoMapper;
 
 namespace ApplicationCore.Services
 {
     public class RecruitmentQueueService : IRecruitmentQueueService
     {
         private readonly IRecruitmentQueueRepository _recruitmentQueueRepository;
+        private readonly IMapper _mapper;
 
-        public RecruitmentQueueService(IRecruitmentQueueRepository recruitmentQueueRepository)
+        public RecruitmentQueueService(IRecruitmentQueueRepository recruitmentQueueRepository, IMapper mapper)
         {
             _recruitmentQueueRepository = recruitmentQueueRepository;
+            _mapper = mapper;
         }
 
         public async Task<RecruitmentQueue> GetRecruitmentQueueByUserId(Guid userId)
@@ -44,6 +49,12 @@ namespace ApplicationCore.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<IEnumerable<RecruitmentQueueVM>> GetRecruitmentQueues(Guid userId)
+        {
+            var recruitmentQueues = await _recruitmentQueueRepository.GetRecruitmentQueuesByUserId(userId);
+            return _mapper.Map<List<RecruitmentQueueVM>>(recruitmentQueues);
         }
     }
 }

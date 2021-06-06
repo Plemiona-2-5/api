@@ -221,5 +221,8 @@
   </data>
   <data name="UpdateVillageMaterials" xml:space="preserve">
     <value>Update village materials</value>
+</data>
+  <data name="GetRecruitmentQueue" xml:space="preserve">
+    <value>Succefully get recruitment queue</value>
   </data>
 </root>
