@@ -12,5 +12,6 @@ namespace ApplicationCore.Interfaces.Repository
         Task AddMilitaryUnitsToQueue(RecruitmentQueue recruitmentQueue);
         Task RemoveRecruitmentQueue(RecruitmentQueue recruitmentQueue);
         Task<RecruitmentQueue> GetRecruitmentQueueByUserId(Guid userId);
+        Task<IEnumerable<RecruitmentQueue>> GetRecruitmentQueuesByUserId(Guid userId);
     }
 }

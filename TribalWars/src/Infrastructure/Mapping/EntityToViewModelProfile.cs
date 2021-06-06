@@ -37,7 +37,13 @@ namespace Infrastructure.Mapping
                 .MapFrom(src => src.CoordinateX))
                 .ForMember(dest => dest.CoordinateY, opt => opt
                 .MapFrom(src => src.CoordinateY));
-
+            CreateMap<RecruitmentQueue, RecruitmentQueueVM>()
+                .ForMember(dest => dest.Name, opt => opt
+                .MapFrom(src => src.ArmyUnitType.Name))
+                .ForMember(dest => dest.Duration, opt => opt
+                .MapFrom(src => src.Duration))
+                .ForMember(dest => dest.Quantity, opt => opt
+                .MapFrom(src => src.Quantity));
             CreateMap<VillageBuilding, VillageBuildingVM>()
                 .ForMember(dest => dest.Level, opt => opt
                 .MapFrom(src => src.CurrentLevel))

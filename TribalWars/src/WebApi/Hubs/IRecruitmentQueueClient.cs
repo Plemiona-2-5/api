@@ -12,5 +12,6 @@ namespace WebApi.Hubs
         Task IdDoesNotExist(string message);
         Task EndUnitRecruitment(string message);
         Task RefreshQueueRequest(string message);
+        Task GetRecruitmentQueue(string message);
     }
 }
