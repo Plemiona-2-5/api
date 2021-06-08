@@ -10,9 +10,12 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public Guid PlayerId { get; set; }
+        public int MapId { get; set; }
         public int CoordinateX { get; set; }
         public int CoordinateY { get; set; }
+        
         public virtual Player Player { get; set; }
+        public Map Map { get; set; }
         public VillageStatistic VillageStatistic { get; set; }
         public virtual ICollection<BuildingQueue> BuildingQueues { get; set; }
         public virtual ICollection<RecruitmentQueue> RecruitmentQueues{ get; set; }

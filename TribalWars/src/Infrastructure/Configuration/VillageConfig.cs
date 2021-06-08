@@ -1,11 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
@@ -13,11 +8,18 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Village> builder)
         {
-            builder.HasKey(village => village.Id);
+            builder
+                .HasKey(village => village.Id);
 
-            builder.HasOne<Player>(village => village.Player)
+            builder
+                .HasOne(village => village.Player)
                 .WithOne(player => player.Village)
                 .HasForeignKey<Village>(village => village.PlayerId);
+
+            builder
+                .HasOne(village => village.Map)
+                .WithMany(map => map.Villages)
+                .HasForeignKey(village => village.MapId);
         }
     }
 }
