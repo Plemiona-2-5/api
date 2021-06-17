@@ -6,7 +6,7 @@ namespace ApplicationCore.Interfaces.Repository
 {
     public interface IVillageMaterialRepository
     {
-        Task<IEnumerable<VillageMaterial>> GetVillageMaterials(int villageId);
-        Task UpdateVillageMaterial(VillageMaterial material);
+        Task<IEnumerable<VillageMaterial>> GetVillageMaterials(int villageId);      
+        Task UpdateVillageMaterial(VillageMaterial villageMaterial);
     }
 }

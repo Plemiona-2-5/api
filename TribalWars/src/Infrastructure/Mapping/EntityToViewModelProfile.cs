@@ -18,6 +18,12 @@ namespace Infrastructure.Mapping
                 .ForMember(dest => dest.Nickname, opt => opt
                 .MapFrom(src => src.Player.Nickname));
 
+            CreateMap<VillageMaterial, VillageMaterialVM>()
+                .ForMember(dest => dest.Name, opt => opt
+                .MapFrom(src => src.Material.Name))
+                .ForMember(dest => dest.Quantity, opt => opt
+                .MapFrom(src => src.Quantity));
+
             CreateMap<BuildingQueue, BuildingQueueVM>()
                 .ForMember(dest => dest.Name, opt => opt
                 .MapFrom(src => src.Building.Name))

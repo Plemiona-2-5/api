@@ -1,18 +1,24 @@
 ﻿using ApplicationCore.Interfaces;
+using ApplicationCore.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Threading.Tasks;
 
 namespace WebApi.Hubs
 {
+    [Authorize]
     public class BuildingsQueueHub : Hub<IBuildingsQueueClient>
     {
         private readonly IBuildingsQueueService _buildingsQueueService;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public BuildingsQueueHub(IBuildingsQueueService buildingsQueueService)
+        public BuildingsQueueHub(IBuildingsQueueService buildingsQueueService,
+            IStringLocalizer<MessageResource> localizer)
         {
             _buildingsQueueService = buildingsQueueService;
+            _localizer = localizer;
         }
         public async Task AddToBuildingQueueGroup(string groupName)
         {
@@ -28,13 +34,11 @@ namespace WebApi.Hubs
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         } 
 
-        [Authorize]
         public async Task BuildingQueueGroup()
         {
                 await AddToBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
         }
 
-        [Authorize]
         public async Task BuildingWasConstructed()
         {
             if(Guid.TryParse(Context.UserIdentifier, out Guid userId))
@@ -43,12 +47,12 @@ namespace WebApi.Hubs
                 if (await _buildingsQueueService.ConstructionCompletion(buildingQueue))
                 {
                     await RemoveFromBuildingQueueGroup(GroupType.BuildingsQueue.ToString());
-                    await Clients.Caller.ConstructionCompleted("The construction of the building has been completed");
+                    await Clients.Caller.ConstructionCompleted(_localizer["ConstructionCompleted"]);
                 }
             }
             else
             {
-                await Clients.Caller.IdDoesNotExist("Such an id does not exist");
+                await Clients.Caller.IdDoesNotExist(_localizer["IdDoesNotExist"]);
             }         
         }
     }

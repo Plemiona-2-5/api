@@ -1,20 +1,26 @@
 ﻿using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Resources;
 using ApplicationCore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApi.Hubs
 {
+    [Authorize]
     public class RecruitmentQueueHub : Hub<IRecruitmentQueueClient>
     {
         private readonly IRecruitmentQueueService _recruitmentQueueService;
+        private readonly IStringLocalizer<MessageResource> _localizer;
 
-        public RecruitmentQueueHub(IRecruitmentQueueService recruitmentQueueService)
+        public RecruitmentQueueHub(IRecruitmentQueueService recruitmentQueueService,
+            IStringLocalizer<MessageResource> localizer)
         {
             _recruitmentQueueService = recruitmentQueueService;
+            _localizer = localizer;
         }
 
         public async Task AddToRecruitmentQueueHubGroup(string groupName)
@@ -30,13 +36,12 @@ namespace WebApi.Hubs
 
             await Clients.Group(groupName).RemoveFromGroup($"{Context.ConnectionId} has left the group {groupName}.");
         }
-        [Authorize]
+
         public async Task RecruitmentQueueGroup()
         {
             await AddToRecruitmentQueueHubGroup(GroupType.RecruitmentQueue.ToString());
         }
 
-        [Authorize]
         public async Task BuildingWasConstructed()
         {
             if (Guid.TryParse(Context.UserIdentifier, out Guid userId))
@@ -45,7 +50,7 @@ namespace WebApi.Hubs
                 if (await _recruitmentQueueService.EndUnitRecruitment(recruitmentQueue))
                 {
                     await RemoveFromRecruitmentQueueHubGroup(GroupType.BuildingsQueue.ToString());
-                    await Clients.Caller.RefreshQueueRequest("The construction of the building has been completed");
+                    await Clients.Caller.RefreshQueueRequest(_localizer["RefreshQueueRequest"]);
                 }
                 else
                 {
@@ -54,7 +59,7 @@ namespace WebApi.Hubs
             }
             else
             {
-                await Clients.Caller.IdDoesNotExist("Such an id does not exist");
+                await Clients.Caller.IdDoesNotExist(_localizer["IdDoesNotExist"]);
             }
         }
 

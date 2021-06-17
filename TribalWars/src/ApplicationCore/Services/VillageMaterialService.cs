@@ -1,5 +1,7 @@
-﻿using ApplicationCore.Interfaces.Repository;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repository;
 using ApplicationCore.Interfaces.Services;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +28,20 @@ namespace ApplicationCore.Services
                     .FirstOrDefault(b => b.MaterialId == required.MaterialId);
                 material.Quantity -= required.Quantity;
                 await _villageMaterialRepository.UpdateVillageMaterial(material);
+            }
+        }
+
+        public async Task<IEnumerable<VillageMaterial>> GetActualMaterials(int villageId)
+        {
+            return await _villageMaterialRepository.GetVillageMaterials(villageId);
+        }
+
+        public async Task UpdateVillageMaterials(IEnumerable<VillageMaterial> villageMaterials)
+        {
+            foreach (var villageMaterial in villageMaterials)
+            {
+                villageMaterial.Quantity += (int)villageMaterial.PerMinute;
+                await _villageMaterialRepository.UpdateVillageMaterial(villageMaterial);
             }
         }
     }

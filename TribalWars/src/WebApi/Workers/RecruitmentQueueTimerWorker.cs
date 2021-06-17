@@ -29,8 +29,11 @@ namespace WebApi.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                await _hubContext.Clients.Group(GroupType.RecruitmentQueue.ToString())
+                    .RefreshQueueRequest(_localizer["RefreshQueueRequest"]);
                 await _hubContext.Clients.Group(GroupType.RecruitmentQueue.ToString()).RefreshQueueRequest("Refresh queue");
                 await _hubContext.Clients.All.GetRecruitmentQueue(_localizer["GetRecruitmentQueue"]);
+
                 await Task.Delay(RefreshDelayInMilliseconds, stoppingToken);
             }
         }

@@ -1,7 +1,4 @@
-﻿using ApplicationCore.Enums;
-using System;
-
-namespace ApplicationCore.ViewModels
+﻿namespace ApplicationCore.ViewModels
 {
     public class TribeMemberVM
     {

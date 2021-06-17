@@ -141,6 +141,9 @@
   <data name="AddTribeSuccess" xml:space="preserve">
     <value>A tribe was created!</value>
   </data>
+  <data name="ConstructionCompleted" xml:space="preserve">
+    <value>The construction of the building has been completed</value>
+  </data>
   <data name="DisbandTribeError" xml:space="preserve">
     <value>You are not owner of this tribe</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="EditTribeDescriptionSuccess" xml:space="preserve">
     <value>Tribe description changed successfully</value>
   </data>
+  <data name="IdDoesNotExist" xml:space="preserve">
+    <value>Such an id does not exist</value>
+  </data>
   <data name="GetCooredinatesError" xml:space="preserve">
     <value>Error while getting village coordinates</value>
   </data>
@@ -164,6 +170,12 @@
   </data>
   <data name="LeaveTribeSuccess" xml:space="preserve">
     <value>You left the tribe</value>
+  </data>
+  <data name="RefreshQueueRequest" xml:space="preserve">
+    <value>Refresh queue</value>
+  </data>
+  <data name="RefreshVillageMaterials" xml:space="preserve">
+    <value>Refresh Village Materials</value>
   </data>
   <data name="RemoveTribeMemberSuccess" xml:space="preserve">
     <value>Member successfully removed</value>
@@ -207,6 +219,9 @@
   <data name="SomethingWentWrong" xml:space="preserve">
     <value>Something went wrong</value>
   </data>
+  <data name="UpdateVillageMaterials" xml:space="preserve">
+    <value>Update village materials</value>
+</data>
   <data name="GetRecruitmentQueue" xml:space="preserve">
     <value>Succefully get recruitment queue</value>
   </data>
