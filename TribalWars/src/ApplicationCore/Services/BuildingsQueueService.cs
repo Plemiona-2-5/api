@@ -40,15 +40,17 @@ namespace ApplicationCore.Services
             _mapper = mapper;
         }
 
-        public async Task<BuildingQueue> CreateBuildingQueue(int viilageId, int buildingId)
+        public async Task<BuildingQueue> CreateBuildingQueue(int villageId, int buildingId)
         {
             var building = await _buildingsRepository.GetBuildingById(buildingId);
+            var duration = await GetBuildingReductionTime(villageId, building.ConstructionTime);
+
             BuildingQueue buildingQueue = new()
             {
-                VillageId = viilageId,
+                VillageId = villageId,
                 BuildingId = buildingId,
                 StartDate = DateTime.Now,
-                Duration = building.ConstructionTime
+                Duration = Convert.ToInt32(duration)
             };
             return buildingQueue;
         }
@@ -119,6 +121,13 @@ namespace ApplicationCore.Services
             var buildingQueues = await _buildingsQueueRepository.GetBuildingQueuesByPlayerId(playerId);
 
             return _mapper.Map<List<BuildingQueueVM>>(buildingQueues);
+        }
+
+        public async Task<double> GetBuildingReductionTime(int villageId, int duration)
+        {
+            return duration - (Convert.ToDouble(duration) * (Convert
+                .ToDouble(await _buildingService
+                .ReductionOfConstructionTime(villageId)) / 100.0));
         }
     }
 }

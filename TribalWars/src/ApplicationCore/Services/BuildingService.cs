@@ -9,6 +9,7 @@ namespace ApplicationCore.Services
     {
         private readonly IVillageBuildingRepository _villageBuildingRepository;
         private readonly IBuildingRepository _buildingRepository;
+        private readonly int TimeReductInPercents = 2;
 
         public BuildingService(IVillageBuildingRepository villageBuildingRepository, IBuildingRepository buildingRepository)
         {
@@ -51,6 +52,12 @@ namespace ApplicationCore.Services
                 CurrentLevel = 1
             };
             await _villageBuildingRepository.AddVillageBuilding(villageBuilding);
+        }
+
+        public async Task<int> ReductionOfConstructionTime(int villageId)
+        {
+            var townHall = await _villageBuildingRepository.GetTownHall(villageId);
+            return townHall?.CurrentLevel * TimeReductInPercents ?? 0;
         }
     }
 }

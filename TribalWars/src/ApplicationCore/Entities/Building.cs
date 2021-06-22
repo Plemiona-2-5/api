@@ -1,9 +1,5 @@
 ﻿using ApplicationCore.Enums;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
@@ -13,9 +9,8 @@ namespace ApplicationCore.Entities
         public string Name { get; set; }
         public int ConstructionTime { get; set; }
         public int MaxLevel { get; set; }
-        public string Type { get; set; }
         public int BaseValue { get; set; }
-        public BuildingType buildingType { get; set; }
+        public BuildingType BuildingType { get; set; }
         public virtual ICollection<ArmyUnitType> ArmyUnitTypes { get; set; }
         public virtual ICollection<BuildingQueue> BuildingQueues { get; set; }
         public virtual ICollection<BuildingRequiredBuilding> BuildingRequiredBuildings { get; set; }

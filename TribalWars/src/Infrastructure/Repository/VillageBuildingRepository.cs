@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Repository;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,13 @@ namespace Infrastructure.Repository
                 .Include(vb => vb.Building)
                 .Where(vb => vb.Village.PlayerId == playerId)
                 .ToListAsync();
+        }
+
+        public async Task<VillageBuilding> GetTownHall(int villageId)
+        {
+            return await Context.VillageBuildings
+                .Where(vb => vb.VillageId == villageId)
+                .FirstOrDefaultAsync(vb => vb.Building.BuildingType == BuildingType.BuildingTime);
         }
     }
 }

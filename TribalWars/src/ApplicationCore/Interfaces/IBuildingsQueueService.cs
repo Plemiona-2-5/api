@@ -17,5 +17,6 @@ namespace ApplicationCore.Interfaces
         Task<bool> ConstructionCompletion(BuildingQueue buildingQueue);
         Task<bool> CanAddToQueue(int villageId);
         Task<List<BuildingQueueVM>> BuildingQueues(Guid playerId);
+        Task<double> GetBuildingReductionTime(int villageId, int duration);
     }
 }

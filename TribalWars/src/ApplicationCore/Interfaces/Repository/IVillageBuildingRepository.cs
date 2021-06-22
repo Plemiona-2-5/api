@@ -13,5 +13,6 @@ namespace ApplicationCore.Interfaces.Repository
         Task UpgradeBuilding(VillageBuilding building);
         Task AddVillageBuilding(VillageBuilding building);
         Task<bool> BuildingExist(int villageId, int buildingId);
+        Task<VillageBuilding> GetTownHall(int villageId);
     }
 }
