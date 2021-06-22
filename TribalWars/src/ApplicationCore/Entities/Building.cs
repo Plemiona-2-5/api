@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ApplicationCore.Entities
         public int MaxLevel { get; set; }
         public string Type { get; set; }
         public int BaseValue { get; set; }
+        public BuildingType buildingType { get; set; }
         public virtual ICollection<ArmyUnitType> ArmyUnitTypes { get; set; }
         public virtual ICollection<BuildingQueue> BuildingQueues { get; set; }
         public virtual ICollection<BuildingRequiredBuilding> BuildingRequiredBuildings { get; set; }
